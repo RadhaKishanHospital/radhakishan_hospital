@@ -170,7 +170,7 @@ export function Services() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">
+      <section className="relative bg-gradient-to-br from-[#f0fafa] to-white pb-5 pt-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -200,10 +200,7 @@ export function Services() {
                 </div>
                 <h3 className="text-xl font-semibold tracking-[-0.02em] text-foreground">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
-                <a href="#" className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80">
-                  Learn more
-                  <ChevronRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </a>
+                
               </div>
             ))}
           </div>
@@ -215,7 +212,7 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
-              Why Choose Radha Krishan Hospital
+              Why Choose Radha Kishan Hospital
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               The difference is in every detail.

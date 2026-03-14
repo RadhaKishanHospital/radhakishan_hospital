@@ -52,16 +52,16 @@ const DoctorProfile = () => {
       <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
             <motion.div
               className="flex items-center gap-2"
             >
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <div className="text-white text-xl">+</div>
               </div>
-              <div>
-                <div className="text-xl tracking-tight" style={{ fontWeight: 600 }}>
-                  Radha Krishan Hospital
+              <div className="min-w-0">
+                <div className="text-base sm:text-xl tracking-tight leading-tight" style={{ fontWeight: 600 }}>
+                  Radha Kishan Hospital
                 </div>
                 <div className="text-xs text-muted-foreground">Medical Center</div>
               </div>
@@ -184,7 +184,7 @@ const DoctorProfile = () => {
 
               <div className="flex items-center gap-2 mt-4 justify-center">
                 <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Radha Krishan Hospital, Floor 3</span>
+                <span className="text-xs text-muted-foreground">Radha Kishan Hospital, Floor 3</span>
               </div>
             </div>
           </motion.div>

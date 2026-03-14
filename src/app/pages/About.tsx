@@ -91,7 +91,7 @@ export function About() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-              About <span className="text-primary">Radha Krishan Hospital</span>
+              About <span className="text-primary">Radha Kishan Hospital</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               Dedicated to providing exceptional healthcare services with compassion, 
@@ -286,7 +286,7 @@ export function About() {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  CarePulse Medical Center was founded in 1995 with a simple yet powerful mission: 
+                  Radha Kishan Hospital was founded in 1995 with a simple yet powerful mission: 
                   to provide world-class healthcare services that are accessible, affordable, and compassionate.
                 </p>
                 <p>
@@ -295,7 +295,7 @@ export function About() {
                   the trust and confidence of our patients and the dedication of our medical professionals.
                 </p>
                 <p>
-                  Today, CarePulse stands as a beacon of excellence in healthcare, equipped with 
+                  Today, Radha Kishan Hospital stands as a beacon of excellence in healthcare, equipped with 
                   state-of-the-art technology and staffed by some of the most experienced and 
                   compassionate medical professionals in the field.
                 </p>

@@ -47,7 +47,7 @@ export function Home() {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
-                <span className="text-primary">Welcome to Radha Krishan Hospital</span>
+                <span className="text-primary">Welcome to Radha Kishan Hospital</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6" style={{ fontWeight: 700, lineHeight: 1.2 }}>
                 Your Health is Our{' '}
@@ -59,13 +59,13 @@ export function Home() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/appointments">
-                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">
                     Book Appointment
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
                 <Link to="/services">
-                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5">
+                  <Button size="lg" variant="outline" className="w-fit rounded-full border-primary text-primary hover:bg-primary/5">
                     Our Services
                   </Button>
                 </Link>
@@ -218,30 +218,30 @@ export function Home() {
 
 
 
-      <section className='flex flex-col gap-8 py-20 bg-white'>
-        <div className='flex justify-center'>Services</div>
-        <div><p className='text-6xl text-center text-[#047575] max-w-[800px] mx-auto'>Expert care for your health,
+      <section className='flex flex-col gap-6 md:gap-8 py-14 md:py-20 bg-white px-4'>
+        <div className='flex justify-center text-sm md:text-base'>Services</div>
+        <div><p className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center text-[#047575] max-w-[800px] mx-auto leading-tight'>Expert care for your health,
           <br aria-hidden="true" />
           so you can focus on what matters most.</p></div>
-        <div><p className='flex justify-center'>Providing modern healthcare solutions for patients and families since 1987.</p></div>
+        <div><p className='text-center text-sm sm:text-base'>Providing modern healthcare solutions for patients and families since 1987.</p></div>
         <div className='flex justify-center'>
           <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">Schedule a call</Button>
         </div>
       </section>
 
-      <section className='flex flex-col pb-25 bg-white'>
-        <div className='p-5 flex justify-start'>
-          <div className='bg-[#d8eded] w-[1040px] h-112 p-20 pr-25 flex gap-[70px] rounded-3xl'>
-            <div className='w-1/2'>
-              <img src="doctors.svg" alt="" />
+      <section className='flex flex-col gap-5 lg:gap-8 pb-16 md:pb-24 bg-white px-4'>
+        <div className='flex justify-start'>
+          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
+            <div className='w-full lg:w-1/2'>
+              <img src="doctors.svg" alt="Qualified doctors" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
-            <div className='w-1/2'>
+            <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
-                <div className='flex flex-col gap-10'>
-                  <div className='text-4xl'>Experienced & Qualified Medical Professionals</div>
+                <div className='flex flex-col gap-6 md:gap-8'>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>Experienced & Qualified Medical Professionals</div>
                   <div><p className='leading-tight'>Highly experienced and qualified doctors providing safe, personalized, and compassionate healthcare for patients and families.</p></div>
                 </div>
-                <div className='flex gap-[10px] text-[12px]'>
+                <div className='flex flex-wrap gap-2 text-[12px]'>
                   <div className='bg-white w-fit p-3 rounded-sm'>Expertise</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Experience</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Compassion</div>
@@ -252,41 +252,41 @@ export function Home() {
         </div>
 
 
-        <div className='p-5 flex justify-end'>
-          <div className='bg-[#d8eded] w-[1040px] h-112 p-20 pr-25 flex gap-[70px] rounded-3xl'>
+        <div className='flex justify-end'>
+          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col-reverse lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             
-            <div className='w-1/2'>
+            <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
-                <div className='flex flex-col gap-10'>
-                  <div className='text-4xl'>State-of-the-art medical equipment and facilities</div>
+                <div className='flex flex-col gap-6 md:gap-8'>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>State-of-the-art medical equipment and facilities</div>
                   <div><p className='leading-tight'>Our hospital uses state-of-the-art medical equipment and modern facilities to ensure accurate diagnosis and advanced treatment.</p></div>
                 </div>
-                <div className='flex gap-[10px] text-[12px]'>
+                <div className='flex flex-wrap gap-2 text-[12px]'>
                   <div className='bg-white w-fit p-3 rounded-sm'>Technology</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Precision</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Innovation</div>
                 </div>
               </div>
             </div>
-            <div className='w-1/2'>
-              <img src="tech.svg" alt="" />
+            <div className='w-full lg:w-1/2'>
+              <img src="tech.svg" alt="Modern medical technology" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
           </div>
         </div>
 
 
-        <div className='p-5 flex justify-start'>
-          <div className='bg-[#d8eded] w-[1040px] h-112 p-20 pr-25 flex gap-[70px] rounded-3xl'>
-            <div className='w-1/2'>
-              <img src="emergency.svg" alt="" />
+        <div className='flex justify-start'>
+          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
+            <div className='w-full lg:w-1/2'>
+              <img src="emergency.svg" alt="Emergency services" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
-            <div className='w-1/2'>
+            <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
-                <div className='flex flex-col gap-10'>
-                  <div className='text-4xl'>24/7 emergency services availability</div>
+                <div className='flex flex-col gap-6 md:gap-8'>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>24/7 emergency services availability</div>
                   <div><p className='leading-tight'>Our hospital provides 24/7 emergency services with rapid response, expert doctors, and immediate critical care support.</p></div>
                 </div>
-                <div className='flex gap-[10px] text-[12px]'>
+                <div className='flex flex-wrap gap-2 text-[12px]'>
                   <div className='bg-white w-fit p-3 rounded-sm'>Emergency</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Response</div>
                   <div className='bg-white w-fit p-3 rounded-sm'>Availability</div>
@@ -307,7 +307,7 @@ export function Home() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl text-white mb-6" style={{ fontWeight: 700 }}>
-                Why Choose Radha Krishan Hospital?
+                Why Choose Radha Kishan Hospital?
               </h2>
               <p className="text-white/90 mb-8">
                 We are committed to providing the highest quality healthcare services with a patient-centered approach.

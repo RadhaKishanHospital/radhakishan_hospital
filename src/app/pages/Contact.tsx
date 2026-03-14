@@ -221,12 +221,12 @@ export function Contact() {
               Find Us
             </h2>
             <p className="mb-8 text-muted-foreground">
-              Located in the heart of New York's Medical District.
+              Proudly serving the community from the heart of Kurukshetra.
             </p>
             <div className="flex-1 overflow-hidden rounded-2xl border border-border/60 shadow-sm">
               <iframe
                 title="Hospital Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.2176767408384!2d-73.98784368459253!3d40.74844097932801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.2459097687315!2d76.84059897535357!3d29.97236207496002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e46d0c969312b%3A0xd5093e57fcb9126c!2sRadha%20Kishan%20Hospital%20Multi%20%26%20Super%20Speciality%20Center!5e0!3m2!1sen!2sin!4v1773487267019!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: 400 }}

@@ -14,7 +14,7 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-lg tracking-tight" style={{ fontWeight: 600 }}>
-                  Radha Krishan Hospital
+                  Radha Kishan Hospital
                 </div>
               </div>
             </div>
@@ -95,14 +95,14 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>info@radhakrishanhospital.com</span>
+                <span>info@radhakishanhospital.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Radha Krishan Hospital. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Radha Kishan Hospital. All rights reserved.</p>
         </div>
       </div>
     </footer>

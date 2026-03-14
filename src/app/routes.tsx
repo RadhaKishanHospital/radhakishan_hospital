@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router';
+import { useEffect } from 'react';
+import { createBrowserRouter, useLocation } from 'react-router';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
@@ -23,47 +24,68 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
+
+function WithScroll({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ScrollToTop />
+      {children}
+    </>
+  );
+}
+
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout><Home /></Layout>,
+    element: <WithScroll><Layout><Home /></Layout></WithScroll>,
   },
   {
     path: '/about',
-    element: <Layout><About /></Layout>,
+    element: <WithScroll><Layout><About /></Layout></WithScroll>,
   },
   {
     path: '/services',
-    element: <Layout><Services /></Layout>,
+    element: <WithScroll><Layout><Services /></Layout></WithScroll>,
   },
   {
     path: '/doctors',
-    element: <Layout><Doctors /></Layout>,
+    element: <WithScroll><Layout><Doctors /></Layout></WithScroll>,
   },
   {
     path: '/appointments',
-    element: <Layout><Appointments /></Layout>,
+    element: <WithScroll><Layout><Appointments /></Layout></WithScroll>,
   },
   {
     path: '/doctor/:id',
-    element: <DoctorProfile />,
+    element: <WithScroll><DoctorProfile /></WithScroll>,
   },
   {
     path: '/contact',
-    element: <Layout><Contact /></Layout>,
+    element: <WithScroll><Layout><Contact /></Layout></WithScroll>,
   },
   {
     path: '*',
     element: (
-      <Layout>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl mb-4" style={{ fontWeight: 700 }}>404</h1>
-            <p className="text-muted-foreground mb-6">Page not found</p>
-            <a href="/" className="text-primary hover:underline">Go back home</a>
+      <WithScroll>
+        <Layout>
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <h1 className="text-4xl mb-4" style={{ fontWeight: 700 }}>404</h1>
+              <p className="text-muted-foreground mb-6">Page not found</p>
+              <a href="/" className="text-primary hover:underline">Go back home</a>
+            </div>
           </div>
-        </div>
       </Layout>
+      </WithScroll>
     ),
   },
 ]);

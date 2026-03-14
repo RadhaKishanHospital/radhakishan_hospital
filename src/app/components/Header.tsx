@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router';
 import { motion } from 'motion/react';
-import { Phone, Mail, Clock, Menu, X } from 'lucide-react';
+import { Phone, Mail, Clock, Menu, X, Plus } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 
@@ -31,11 +31,11 @@ export function Header() {
               className="flex items-center gap-2"
             >
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <div className="text-white text-xl">+</div>
+                <div className="text-white text-xl"><Plus /></div>
               </div>
               <div>
                 <div className="text-xl tracking-tight" style={{ fontWeight: 600 }}>
-                  Radha Krishan Hospital
+                  Radha Kishan Hospital
                 </div>
                 <div className="text-xs text-muted-foreground">Medical Center</div>
               </div>
