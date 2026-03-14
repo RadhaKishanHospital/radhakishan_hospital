@@ -224,7 +224,7 @@ export function Appointments() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Calendar className="w-7 h-7 text-primary" />
                 </div>
@@ -241,7 +241,7 @@ export function Appointments() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Clock className="w-7 h-7 text-primary" />
                 </div>
@@ -258,7 +258,7 @@ export function Appointments() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+              <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <User className="w-7 h-7 text-primary" />
                 </div>

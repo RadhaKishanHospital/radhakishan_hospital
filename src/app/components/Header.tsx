@@ -66,7 +66,7 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <Link to="/appointments" className="hidden md:block">
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button className="bg-[#058080] rounded-full px-6 font-medium transition-all duration-200 hover:bg-[#079f9f]">
                 Book Appointment
               </Button>
             </Link>

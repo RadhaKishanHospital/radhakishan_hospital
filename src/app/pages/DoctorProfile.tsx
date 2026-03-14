@@ -49,16 +49,25 @@ const DoctorProfile = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
+      <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-                <Stethoscope className="w-5 h-5 text-primary-foreground" />
+            <motion.div
+              className="flex items-center gap-2"
+            >
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <div className="text-white text-xl">+</div>
               </div>
-              <span className="text-xl font-bold font-display text-foreground tracking-tight">MedElite</span>
-            </Link>
-            <Link to="/">
+              <div>
+                <div className="text-xl tracking-tight" style={{ fontWeight: 600 }}>
+                  Radha Krishan Hospital
+                </div>
+                <div className="text-xs text-muted-foreground">Medical Center</div>
+              </div>
+            </motion.div>
+          </Link>
+            <Link to="/doctors">
               <Button variant="ghost" className="rounded-full text-sm">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back
               </Button>
@@ -129,7 +138,7 @@ const DoctorProfile = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="bg-card rounded-3xl shadow-elegant-lg p-6 sticky top-28">
+            <div className="bg-card rounded-3xl  p-6 sticky top-28 shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300">
               <h3 className="text-lg font-bold font-display text-foreground mb-1">Book Appointment</h3>
               <p className="text-sm text-muted-foreground mb-6">Select an available time slot</p>
 
@@ -175,7 +184,7 @@ const DoctorProfile = () => {
 
               <div className="flex items-center gap-2 mt-4 justify-center">
                 <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">MedElite Hospital, Floor 3</span>
+                <span className="text-xs text-muted-foreground">Radha Krishan Hospital, Floor 3</span>
               </div>
             </div>
           </motion.div>

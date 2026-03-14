@@ -49,8 +49,13 @@ const doctors = [
 ];
 
 const filteredDoctors = useMemo(() => {
-  if (activeSpecialty === "All") return doctors;
-  return doctors.filter((doc) => doc.specialty === activeSpecialty);
+  const normalizedSpecialty = activeSpecialty.trim().toLowerCase();
+
+  if (normalizedSpecialty === "all") {
+    return doctors;
+  }
+
+  return doctors.filter((doc) => doc.specialty.toLowerCase() === normalizedSpecialty);
 }, [activeSpecialty]);
 
   return (
@@ -155,22 +160,21 @@ const filteredDoctors = useMemo(() => {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            key={activeSpecialty}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
           >
-            {filteredDoctors.map((doc, i) => (
+            {filteredDoctors.map((doc) => (
               <motion.div
                 key={doc.id}
-                variants={fadeUp}
-                custom={i}
                 whileHover={{ y: -6 }}
                 className="group"
               >
                 <Link to={`/doctor/${doc.id}`}>
-                  <div className="bg-card rounded-2xl p-5 shadow-elegant hover:shadow-card-hover transition-all duration-400 cursor-pointer">
-                    <div className="flex items-start gap-4 mb-4">
+                  <div className="bg-card rounded-2xl p-5  shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300 cursor-pointer">
+                      <div className="flex items-start gap-4 mb-4">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center shrink-0">
                         <span className="text-lg font-bold text-primary">{doc.initials}</span>
                       </div>
@@ -200,6 +204,11 @@ const filteredDoctors = useMemo(() => {
                 </Link>
               </motion.div>
             ))}
+            {filteredDoctors.length === 0 && (
+              <div className="sm:col-span-2 lg:col-span-4 rounded-2xl border border-dashed border-border bg-card/40 py-10 text-center text-muted-foreground">
+                No doctors found for this specialty.
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
@@ -277,15 +286,11 @@ const filteredDoctors = useMemo(() => {
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Link to="/appointments">
-                    <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                    <Button size="lg" className="bg-white text-[#058080] rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:bg-[#e6f2f2] hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">
                       Book Appointment
                     </Button>
                   </Link>
-                  <Link to="/contact">
-                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                      Contact Us
-                    </Button>
-                  </Link>
+                  
                 </div>
               </div>
             </Card>

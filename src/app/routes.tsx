@@ -3,6 +3,7 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
 import { Doctors } from './pages/Doctors';
+import DoctorProfile from './pages/DoctorProfile';
 import { Appointments } from './pages/Appointments';
 import { Contact } from './pages/Contact';
 import { Header } from './components/Header';
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
   {
     path: '/appointments',
     element: <Layout><Appointments /></Layout>,
+  },
+  {
+    path: '/doctor/:id',
+    element: <DoctorProfile />,
   },
   {
     path: '/contact',

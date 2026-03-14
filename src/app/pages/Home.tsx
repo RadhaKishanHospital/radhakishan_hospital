@@ -457,7 +457,7 @@ export function Home() {
               Book an appointment today and experience world-class healthcare
             </p>
             <Link to="/appointments">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200">
                 Book Your Appointment
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
