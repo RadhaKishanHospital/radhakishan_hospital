@@ -26,7 +26,7 @@ export function Header() {
       {/* Main Navigation */}
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
             <motion.div
               className="flex items-center gap-2"
             >
@@ -37,7 +37,7 @@ export function Header() {
                 <div className="text-xl tracking-tight" style={{ fontWeight: 600 }}>
                   Radha Kishan Hospital
                 </div>
-                <div className="text-xs text-muted-foreground">Medical Center</div>
+                <div className="hidden sm:block text-xs text-muted-foreground">Medical Center</div>
               </div>
             </motion.div>
           </Link>
@@ -73,7 +73,7 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className="md:hidden p-2 flex-shrink-0"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
