@@ -31,7 +31,7 @@ const staggerChildren = {
 
 export function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
