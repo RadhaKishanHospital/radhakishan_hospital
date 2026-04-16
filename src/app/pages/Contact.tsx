@@ -77,7 +77,7 @@ export function Contact() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -302,7 +302,7 @@ export function Contact() {
 
       {/* Emergency Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

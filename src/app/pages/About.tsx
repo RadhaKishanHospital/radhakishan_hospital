@@ -84,7 +84,7 @@ export function About() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white pt-20">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ export function About() {
 
 
     <section className="relative overflow-hidden">
-      <div className="container mx-auto px-4 text-center">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         
         
         {/* 3D Graphics Scene */}
@@ -274,7 +274,7 @@ export function About() {
 
       {/* Our Story */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -322,7 +322,7 @@ export function About() {
 
       {/* Mission & Vision */}
       <section className="py-20 bg-[#f8fafa]">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -366,7 +366,7 @@ export function About() {
 
       {/* Core Values */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             {...fadeInUp}
             className="text-center mb-12"
@@ -424,7 +424,7 @@ export function About() {
 
       {/* Stats Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { number: '25+', label: 'Years of Service' },
@@ -452,7 +452,7 @@ export function About() {
 
       {/* Accreditations */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             {...fadeInUp}
             className="text-center mb-12"
