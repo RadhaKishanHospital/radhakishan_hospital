@@ -62,7 +62,7 @@ const filteredDoctors = useMemo(() => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ const filteredDoctors = useMemo(() => {
 
       {/* Specialties */}
       <section id="specialties" className="py-16 sm:py-24 bg-surface-subtle bg-[#f7fafa]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -127,7 +127,7 @@ const filteredDoctors = useMemo(() => {
 
       {/* Doctor Directory */}
       <section id="find-a-doctor" className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -215,7 +215,7 @@ const filteredDoctors = useMemo(() => {
 
       {/* Why Our Doctors */}
       <section className="py-20 bg-[#f8fafa]">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <motion.div
             {...fadeInUp}
             className="text-center mb-12"
@@ -269,7 +269,7 @@ const filteredDoctors = useMemo(() => {
 
       {/* CTA Section */}
       <section className="py-20 bg-white">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

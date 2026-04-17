@@ -39,7 +39,7 @@ export function Home() {
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary rounded-full blur-3xl" />
         </div>
 
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -298,7 +298,7 @@ export function Home() {
       </section>
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}

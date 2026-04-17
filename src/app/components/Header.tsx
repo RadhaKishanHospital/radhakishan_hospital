@@ -24,7 +24,7 @@ export function Header() {
       
 
       {/* Main Navigation */}
-      <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
             <motion.div

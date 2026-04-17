@@ -171,7 +171,7 @@ export function Services() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white pb-5 pt-20">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ export function Services() {
       </section>
 
       {/* Services Grid */}
-      <section id="services" className="px-6 lg:px-8 py-24">
+      <section id="services" className="px-6 lg:px-4 py-24">
         <div className="mx-auto max-w-7xl">
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -208,7 +208,7 @@ export function Services() {
       </section>
 
       {/* Features Section */}
-      <section className="px-6 lg:px-8 pb-24 lg:pb-32">
+      <section className="px-6 lg:px-4 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
@@ -235,7 +235,7 @@ export function Services() {
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

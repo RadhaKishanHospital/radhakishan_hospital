@@ -50,7 +50,7 @@ const DoctorProfile = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
             <motion.div
@@ -76,7 +76,7 @@ const DoctorProfile = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 py-10 lg:py-16">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left: Doctor Info */}
           <motion.div
