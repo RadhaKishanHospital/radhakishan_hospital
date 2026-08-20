@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Star
 } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
@@ -29,192 +30,128 @@ const staggerChildren = {
   }
 };
 
+const HERO_VIDEO =
+  "https://videocdn.cdnpk.net/videos/56dfe87b-3983-4295-8590-f1b030b72f6e/horizontal/previews/clear/large.mp4?token=exp=1787113400~hmac=c73754ed1b99b932b64f3e6abbc48dc0c5612dc16029db78d63f54627472dfb7";
+
+// Inlined design values (previously lived in src/styles.css).
+const OVERLAY_COLOR = "rgba(0, 0, 0, 0.35)";
+const BOTTOM_FADE =
+  "linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 38%)";
+const HERO_SHADOW = "0 20px 50px -24px rgba(0, 0, 0, 0.35)";
+
+
 export function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary rounded-full blur-3xl" />
-        </div>
+      <section className="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-slate-950">
+      {/* Video background */}
+      <div className="absolute inset-0 -z-20 h-full w-full">
+        <video
+          className="h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      </div>
 
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+      {/* Flat dark overlay + bottom fade */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{ backgroundColor: OVERLAY_COLOR }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 -z-10"
+        style={{ backgroundImage: BOTTOM_FADE }}
+        aria-hidden="true"
+      />
+
+      {/* Utility strip */}
+
+
+      {/* Main nav */}
+  
+  
+
+      {/* Hero content */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            JCI Accredited · Top 1% of U.S. Hospitals
+          </div>
+
+          <h1
+            className="mt-7 text-[2.75rem] font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[3.75rem]"
+            
+          >
+            Exceptional care,
+            <span className="block text-white/90">trusted for life.</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+            From preventive wellness to complex surgery, our specialists deliver
+            compassionate, evidence-based medicine — powered by advanced technology,
+            available 24 hours a day.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-5">
+            <a
+              href="#book"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition-transform hover:scale-[1.02]"
+              style={{ boxShadow: HERO_SHADOW }}
             >
-              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
-                <span className="text-primary">Welcome to Radha Kishan Hospital</span>
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6" style={{ fontWeight: 700, lineHeight: 1.2 }}>
-                Your Health is Our{' '}
-                <span className="text-primary">Top Priority</span>
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                Experience world-class healthcare with our team of dedicated professionals.
-                We provide comprehensive medical services with compassion and excellence.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link to="/appointments">
-                  <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">
-                    Book Appointment
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link to="/services">
-                  <Button size="lg" variant="outline" className="w-fit rounded-full border-primary text-primary hover:bg-primary/5">
-                    Our Services
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12">
-                <div>
-                  <div className="text-3xl text-primary mb-1" style={{ fontWeight: 700 }}>25+</div>
-                  <div className="text-sm text-muted-foreground">Years Experience</div>
-                </div>
-                <div>
-                  <div className="text-3xl text-primary mb-1" style={{ fontWeight: 700 }}>50+</div>
-                  <div className="text-sm text-muted-foreground">Expert Doctors</div>
-                </div>
-                <div>
-                  <div className="text-3xl text-primary mb-1" style={{ fontWeight: 700 }}>100K+</div>
-                  <div className="text-sm text-muted-foreground">Happy Patients</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <ImageWithFallback
-                  src="https://images.jdmagicbox.com/comp/kurukshetra/d6/9999p1744.1744.200703024710.z1d6/catalogue/radha-krishan-hospital-kurukshetra-sector-5-kurukshetra-hospitals-TbGIwWgptw.jpg"
-                  alt="Modern hospital building"
-                  className="w-full h-[500px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
-              </div>
-
-              {/* Floating Card */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 }}
-                className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl"
+              Book an appointment
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-4 w-4"
+                stroke="currentColor"
+                strokeWidth={2.2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">Available</div>
-                    <div style={{ fontWeight: 600 }}>24/7 Emergency</div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a
+              href="#tour"
+              className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 transition-colors group-hover:border-white/60">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-white">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+              Take a virtual tour
+            </a>
+          </div>
+
+          {/* Trust row */}
+          <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-7">
+            {[
+              { k: "40+", v: "Specialties" },
+              { k: "1.2M", v: "Patients / year" },
+              { k: "98%", v: "Satisfaction" },
+            ].map((s) => (
+              <div key={s.v} className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-white">
+                  {s.k}
+                </span>
+                <span className="text-xs font-medium uppercase tracking-wider text-white/55">
+                  {s.v}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-
-      {/* Services Section */}
-      {/* <section className="py-20 bg-white">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            {...fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl mb-4" style={{ fontWeight: 700 }}>
-              Our Medical Services
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive healthcare solutions tailored to your needs
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerChildren}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {[
-              {
-                icon: Heart,
-                title: 'Cardiology',
-                description: 'Advanced heart care with state-of-the-art technology and experienced cardiologists.',
-                image: 'https://images.unsplash.com/photo-1762939079730-23708c0dd337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJkaW9sb2d5JTIwaGVhcnQlMjBoZWFsdGh8ZW58MXx8fHwxNzczNDE1MTQ4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-              {
-                icon: Stethoscope,
-                title: 'General Medicine',
-                description: 'Comprehensive primary care services for all your health needs.',
-                image: 'https://images.unsplash.com/photo-1770134223774-13b735e29201?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkb2N0b3IlMjBzbWlsaW5nJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc3MzQxNTkxN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-              {
-                icon: Activity,
-                title: 'Emergency Care',
-                description: '24/7 emergency services with rapid response and expert care.',
-                image: 'https://images.unsplash.com/photo-1579684288361-5c1a2957a700?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdXJnZW9uJTIwb3BlcmF0aW5nJTIwcm9vbXxlbnwxfHx8fDE3NzMzOTA5NTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-              {
-                icon: Users,
-                title: 'Pediatrics',
-                description: 'Specialized care for children with a gentle, caring approach.',
-                image: 'https://images.unsplash.com/photo-1632052999485-d748103abf98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZWRpYXRyaWMlMjBkb2N0b3IlMjBjaGlsZHxlbnwxfHx8fDE3NzM0MTU5MTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-              {
-                icon: Activity,
-                title: 'Orthopedics',
-                description: 'Expert treatment for bone, joint, and muscle conditions.',
-                image: 'https://images.unsplash.com/photo-1720180244339-95e56d52e182?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMHJvb20lMjBtb2Rlcm58ZW58MXx8fHwxNzczNDE1OTE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-              {
-                icon: Stethoscope,
-                title: 'Laboratory Services',
-                description: 'Advanced diagnostic services with accurate and timely results.',
-                image: 'https://images.unsplash.com/photo-1766299892683-d50398e31823?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVjaG5vbG9neSUyMGVxdWlwbWVudHxlbnwxfHx8fDE3NzMzOTM5MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-              },
-            ].map((service, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full hover:shadow-lg transition-all duration-300 group overflow-hidden border-border">
-                  <div className="relative h-48 overflow-hidden">
-                    <ImageWithFallback
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                      <service.icon className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{service.description}</p>
-                    <Link 
-                      to="/services" 
-                      className="text-primary inline-flex items-center gap-2 text-sm hover:gap-3 transition-all"
-                    >
-                      Learn More
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section> */}
+      </div>
+    </section>
 
 
 

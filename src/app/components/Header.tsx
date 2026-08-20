@@ -7,6 +7,7 @@ import { useState } from 'react';
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -19,7 +20,13 @@ export function Header() {
   ];
 
   return (
-    <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <header
+      className={`top-0 z-50 w-full ${
+        isHomePage
+          ? 'absolute left-0 right-0 bg-transparent text-white'
+          : 'bg-white/95 shadow-sm backdrop-blur-sm'
+      }`}
+    >
       {/* Top Bar */}
       
 
@@ -34,10 +41,10 @@ export function Header() {
                 <div className="text-white text-xl"><Plus /></div>
               </div>
               <div>
-                <div className="text-xl tracking-tight" style={{ fontWeight: 600 }}>
+                <div className={`text-xl tracking-tight ${isHomePage ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
                   Radha Kishan Hospital
                 </div>
-                <div className="hidden sm:block text-xs text-muted-foreground">Medical Center</div>
+                <div className={`hidden text-xs sm:block ${isHomePage ? 'text-white/70' : 'text-muted-foreground'}`}>Medical Center</div>
               </div>
             </motion.div>
           </Link>
@@ -49,7 +56,9 @@ export function Header() {
                 key={link.path}
                 to={link.path}
                 className={`relative transition-colors hover:text-primary ${
-                  isActive(link.path) ? 'text-primary' : 'text-foreground'
+                  isActive(link.path)
+                    ? isHomePage ? 'text-white' : 'text-primary'
+                    : isHomePage ? 'text-white/85' : 'text-foreground'
                 }`}
               >
                 {link.label}
@@ -66,14 +75,19 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <Link to="/appointments" className="hidden md:block">
-              <Button className="bg-[#058080] rounded-full px-6 font-medium transition-all duration-200 hover:bg-[#079f9f]">
+              <Button className="bg-white/95 rounded-full text-black px-6 font-medium transition-all duration-200 hover:bg-white/80">
                 Book Appointment
               </Button>
             </Link>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 flex-shrink-0"
+              type="button"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${
+                isHomePage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-muted'
+              }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -91,15 +105,17 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4 border-t pt-4"
+            className="mt-4 overflow-hidden rounded-xl border border-primary/10 bg-white p-3 text-foreground shadow-xl md:hidden"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`py-2 transition-colors hover:text-primary ${
-                    isActive(link.path) ? 'text-primary' : 'text-foreground'
+                  className={`rounded-lg px-4 py-3 font-medium transition-colors hover:bg-secondary hover:text-primary ${
+                    isActive(link.path)
+                      ? 'bg-secondary text-primary'
+                      : 'text-foreground'
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -107,7 +123,7 @@ export function Header() {
                 </Link>
               ))}
               <Link to="/appointments" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-primary hover:bg-primary/90">
+                <Button className="mt-2 w-full bg-primary hover:bg-primary/90">
                   Book Appointment
                 </Button>
               </Link>
