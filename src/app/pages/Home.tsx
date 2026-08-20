@@ -1,16 +1,5 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router';
-import {
-  Heart,
-  Stethoscope,
-  Activity,
-  Users,
-  Award,
-  Clock,
-  ArrowRight,
-  CheckCircle2,
-  Star
-} from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
@@ -31,7 +20,7 @@ const staggerChildren = {
 };
 
 const HERO_VIDEO =
-  "https://videocdn.cdnpk.net/videos/56dfe87b-3983-4295-8590-f1b030b72f6e/horizontal/previews/clear/large.mp4?token=exp=1787113400~hmac=c73754ed1b99b932b64f3e6abbc48dc0c5612dc16029db78d63f54627472dfb7";
+  "https://res.cloudinary.com/m89jw24l/video/upload/v1787195293/large.mp4";
 
 // Inlined design values (previously lived in src/styles.css).
 const OVERLAY_COLOR = "rgba(0, 0, 0, 0.35)";
@@ -70,20 +59,11 @@ export function Home() {
         style={{ backgroundImage: BOTTOM_FADE }}
         aria-hidden="true"
       />
-
-      {/* Utility strip */}
-
-
-      {/* Main nav */}
-  
-  
-
       {/* Hero content */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            JCI Accredited · Top 1% of U.S. Hospitals
+            Welcome to Radha Kishan Hospital
           </div>
 
           <h1
@@ -102,8 +82,8 @@ export function Home() {
 
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <a
-              href="#book"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition-transform hover:scale-[1.02]"
+              href="/appointments"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition-transform hover:bg-white/90"
               style={{ boxShadow: HERO_SHADOW }}
             >
               Book an appointment
@@ -120,15 +100,13 @@ export function Home() {
               </svg>
             </a>
             <a
-              href="#tour"
+              href="/services"
               className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 transition-colors group-hover:border-white/60">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-white">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+              <span className="gap-2 px-7 py-3.5 text-sm font-semibold flex items-center justify-center rounded-full border border-white/30 transition-colors group-hover:border-white/60">
+                Our Services
               </span>
-              Take a virtual tour
+         
             </a>
           </div>
 
@@ -136,7 +114,7 @@ export function Home() {
           <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-7">
             {[
               { k: "40+", v: "Specialties" },
-              { k: "1.2M", v: "Patients / year" },
+              { k: "120K", v: "Patients / year" },
               { k: "98%", v: "Satisfaction" },
             ].map((s) => (
               <div key={s.v} className="flex items-baseline gap-2">
@@ -267,7 +245,10 @@ export function Home() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-3 text-white"
                   >
-                    <CheckCircle2 className="w-6 h-6 flex-shrink-0 mt-0.5" />
+                    <Icon
+  icon="solar:check-circle-bold"
+  className="w-6 h-6 flex-shrink-0 mt-0.5"
+/>
                     <span>{item}</span>
                   </motion.div>
                 ))}
@@ -283,7 +264,7 @@ export function Home() {
             >
               <Card className="bg-white p-6 h-full text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-primary" />
+                  <Icon icon="solar:chat-square-like-linear" className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>98%</div>
                 <div className="text-sm text-muted-foreground">Patient Satisfaction</div>
@@ -291,7 +272,7 @@ export function Home() {
 
               <Card className="bg-white p-6 h-full text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-primary" />
+                  <Icon icon="solar:user-outline" className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>50+</div>
                 <div className="text-sm text-muted-foreground">Expert Doctors</div>
@@ -299,7 +280,7 @@ export function Home() {
 
               <Card className="bg-white p-6 h-full text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-8 h-8 text-primary" />
+                  <Icon icon="solar:heart-linear" className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>100K+</div>
                 <div className="text-sm text-muted-foreground">Patients Treated</div>
@@ -307,7 +288,7 @@ export function Home() {
 
               <Card className="bg-white p-6 h-full text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="w-8 h-8 text-primary" />
+                  <Icon icon="solar:clock-circle-linear" className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>24/7</div>
                 <div className="text-sm text-muted-foreground">Emergency Care</div>
@@ -363,7 +344,11 @@ export function Home() {
                 <Card className="h-full p-6 hover:shadow-lg transition-shadow">
                   <div className="flex gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                      <Icon
+  key={i}
+  icon="solar:star-bold"
+  className="w-5 h-5 text-primary"
+/>
                     ))}
                   </div>
                   <p className="text-muted-foreground mb-6">{testimonial.content}</p>
@@ -396,7 +381,10 @@ export function Home() {
             <Link to="/appointments">
               <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200">
                 Book Your Appointment
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <Icon
+  icon="solar:arrow-right-linear"
+  className="ml-2 w-5 h-5"
+/>
               </Button>
             </Link>
           </motion.div>

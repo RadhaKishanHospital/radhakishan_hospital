@@ -12,10 +12,8 @@ import {
   Microscope,
   Siren,
   Scan,
-  ChevronRight
 } from 'lucide-react';
-import {  Shield, Award, Cpu, UserCheck, Phone, Mail, MapPin, Clock, Menu, X } from "lucide-react";
-import { Card, CardContent } from '../components/ui/card';
+import { Icon } from "@iconify/react";
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
 
@@ -161,10 +159,22 @@ export function Services() {
     }
   ];
 
-  const whyChoose = [
-  { icon: Award, title: "World-Class Expertise", description: "Our physicians are internationally trained leaders in their specialties, bringing unmatched clinical insight to every case." },
-  { icon: Cpu, title: "Advanced Technology", description: "We invest in the latest diagnostic and treatment technologies, ensuring the most accurate and effective care available." },
-  { icon: UserCheck, title: "Personalized Care", description: "Every treatment plan is tailored to the individual — because exceptional medicine starts with understanding the patient." },
+const whyChoose = [
+  {
+    icon: "solar:cup-star-linear",
+    title: "World-Class Expertise",
+    description: "Our physicians are internationally trained leaders in their specialties, bringing unmatched clinical insight to every case.",
+  },
+  {
+    icon: "solar:cpu-linear",
+    title: "Advanced Technology",
+    description: "We invest in the latest diagnostic and treatment technologies, ensuring the most accurate and effective care available.",
+  },
+  {
+    icon: "solar:user-check-linear",
+    title: "Personalized Care",
+    description: "Every treatment plan is tailored to the individual — because exceptional medicine starts with understanding the patient.",
+  },
 ];
 
   return (
@@ -220,10 +230,10 @@ export function Services() {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3">
-            {whyChoose.map(({ icon: Icon, title, description }) => (
+            {whyChoose.map(({ icon, title, description }) => (
               <div key={title} className="text-center">
                 <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-                  <Icon className="h-7 w-7 text-primary" />
+                  <Icon icon={icon} className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>

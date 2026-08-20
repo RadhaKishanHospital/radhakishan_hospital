@@ -75,7 +75,11 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <Link to="/appointments" className="hidden md:block">
-              <Button className="bg-white/95 rounded-full text-black px-6 font-medium transition-all duration-200 hover:bg-white/80">
+              <Button className={`rounded-full px-6 font-medium transition-all duration-200 ${
+                isHomePage
+                  ? 'bg-white/95 text-black hover:bg-white/80'
+                  : 'bg-[#058080] text-white hover:bg-[#047070]'
+              }`}>
                 Book Appointment
               </Button>
             </Link>

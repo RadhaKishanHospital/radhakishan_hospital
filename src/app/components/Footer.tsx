@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 export function Footer() {
   return (
@@ -86,15 +87,15 @@ export function Footer() {
             <h3 className="mb-4 text-foreground">Contact Info</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-muted-foreground">
-                <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <Icon icon="solar:map-point-linear" className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span>123 Medical Center Drive, Healthcare City, HC 12345</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
-                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                <Icon icon="solar:phone-calling-linear" className="w-5 h-5 text-primary flex-shrink-0" />
                 <span>+1 (555) 123-4567</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
-                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                <Icon icon="solar:letter-opened-linear" className="w-5 h-5 text-primary flex-shrink-0" />
                 <span>info@radhakishanhospital.com</span>
               </li>
             </ul>
