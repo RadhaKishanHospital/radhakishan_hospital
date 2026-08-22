@@ -1,13 +1,39 @@
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { motion } from 'motion/react';
-import { Phone, Mail, Clock, Menu, X, Plus } from 'lucide-react';
+import { Menu, X, Plus } from 'lucide-react';
 import { Button } from './ui/button';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import AdminLogin, { ADMIN_SESSION_KEY } from './AdminLogin';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const logoClicks = useRef(0);
+  const logoClickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
+
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    logoClicks.current += 1;
+
+    if (logoClickTimeout.current) clearTimeout(logoClickTimeout.current);
+    logoClickTimeout.current = setTimeout(() => {
+      logoClicks.current = 0;
+    }, 1500);
+
+    if (logoClicks.current === 7) {
+      event.preventDefault();
+      logoClicks.current = 0;
+      setAdminLoginOpen(true);
+    }
+  };
+
+  const handleAdminSuccess = () => {
+    sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+    setAdminLoginOpen(false);
+    navigate('/admin');
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -33,7 +59,7 @@ export function Header() {
       {/* Main Navigation */}
       <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
+          <Link to="/" onClick={handleLogoClick} className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
             <motion.div
               className="flex items-center gap-2"
             >
@@ -135,6 +161,7 @@ export function Header() {
           </motion.div>
         )}
       </nav>
+      <AdminLogin open={adminLoginOpen} onClose={() => setAdminLoginOpen(false)} onSuccess={handleAdminSuccess} />
     </header>
   );
 }

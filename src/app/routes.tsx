@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { createBrowserRouter, useLocation } from 'react-router';
+import { useEffect, useState } from 'react';
+import { createBrowserRouter, useLocation, useNavigate } from 'react-router';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
@@ -10,6 +10,8 @@ import { Contact } from './pages/Contact';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Toaster } from './components/ui/sonner';
+import AdminDashboard from './components/AdminDashboard';
+import { ADMIN_SESSION_KEY } from './components/AdminLogin';
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -43,6 +45,26 @@ function WithScroll({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AdminRoute() {
+  const navigate = useNavigate();
+  const [authenticated] = useState(() => sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true');
+
+  useEffect(() => {
+    if (!authenticated) navigate('/', { replace: true });
+  }, [authenticated, navigate]);
+
+  if (!authenticated) return null;
+
+  return (
+    <AdminDashboard
+      onLogout={() => {
+        sessionStorage.removeItem(ADMIN_SESSION_KEY);
+        navigate('/', { replace: true });
+      }}
+    />
+  );
+}
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -71,6 +93,10 @@ export const router = createBrowserRouter([
   {
     path: '/contact',
     element: <WithScroll><Layout><Contact /></Layout></WithScroll>,
+  },
+  {
+    path: '/admin',
+    element: <AdminRoute />,
   },
   {
     path: '*',
