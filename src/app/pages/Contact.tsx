@@ -102,7 +102,7 @@ export function Contact() {
             {
               icon: MapPin,
               title: "Visit Us",
-              lines: ["1234 Healthcare Boulevard", "Suite 500, Medical District", "New York, NY 10001"],
+              lines: ["Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118"],
             },
             {
               icon: Phone,
