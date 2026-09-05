@@ -1,9 +1,9 @@
 import { motion } from 'motion/react';
-import { 
-  Heart, 
-  Stethoscope, 
-  Activity, 
-  Users, 
+import {
+  Heart,
+  Stethoscope,
+  Activity,
+  Users,
   Baby,
   Bone,
   Eye,
@@ -12,6 +12,7 @@ import {
   Microscope,
   Siren,
   Scan,
+  Check,
 } from 'lucide-react';
 import { Icon } from "@iconify/react";
 import { Button } from '../components/ui/button';
@@ -26,154 +27,79 @@ const fadeInUp = {
 export function Services() {
   const services = [
     {
-      icon: Heart,
-      title: 'Cardiology',
-      description: 'Comprehensive heart care including diagnosis, treatment, and management of cardiovascular conditions.',
-      features: [
-        'Cardiac catheterization',
-        'ECG and stress testing',
-        'Heart disease prevention',
-        'Cardiac rehabilitation'
-      ]
-    },
-    {
-      icon: Siren,
-      title: 'Emergency Care',
-      description: '24/7 emergency services with rapid response teams and advanced life support.',
-      features: [
-        'Trauma care',
-        'Critical care units',
-        'Emergency surgery',
-        'Ambulance services'
-      ]
-    },
-    {
       icon: Baby,
       title: 'Pediatrics',
-      description: 'Specialized care for infants, children, and adolescents with a gentle approach.',
-      features: [
-        'Well-child checkups',
-        'Vaccinations',
-        'Pediatric emergency care',
-        'Growth monitoring'
-      ]
-    },
-    {
-      icon: Bone,
-      title: 'Orthopedics',
-      description: 'Expert treatment for musculoskeletal conditions, injuries, and disorders.',
-      features: [
-        'Joint replacement',
-        'Sports medicine',
-        'Fracture care',
-        'Spine surgery'
-      ]
-    },
-    {
-      icon: Brain,
-      title: 'Neurology',
-      description: 'Advanced care for neurological disorders affecting the brain and nervous system.',
-      features: [
-        'Stroke care',
-        'Epilepsy treatment',
-        'Headache management',
-        'Neurosurgery'
-      ]
-    },
-    {
-      icon: Eye,
-      title: 'Ophthalmology',
-      description: 'Complete eye care services from routine exams to advanced surgical procedures.',
-      features: [
-        'Cataract surgery',
-        'LASIK procedures',
-        'Glaucoma treatment',
-        'Retinal care'
-      ]
-    },
-    {
-      icon: Users,
-      title: 'General Medicine',
-      description: 'Comprehensive primary care services for adults of all ages.',
-      features: [
-        'Annual checkups',
-        'Chronic disease management',
-        'Preventive care',
-        'Health screenings'
-      ]
+      description:
+        'Specialized medical care for infants, children, and adolescents, providing comprehensive treatment for pediatric health needs.',
     },
     {
       icon: Activity,
-      title: 'Radiology',
-      description: 'State-of-the-art diagnostic imaging services with expert radiologists.',
-      features: [
-        'MRI and CT scans',
-        'X-rays and ultrasound',
-        'Mammography',
-        'Interventional radiology'
-      ]
+      title: 'Pediatric Intensive Care Unit',
+      description:
+        'Intensive medical care and continuous monitoring for children who require specialized critical care.',
+    },
+    {
+      icon: Baby,
+      title: 'Neonatal Intensive Care Unit',
+      description:
+        'Specialized intensive care and monitoring for newborn infants who require advanced medical attention.',
+    },
+    {
+      icon: Stethoscope,
+      title: 'Anaesthesiology Unit (On call)',
+      description:
+        'Anaesthesiology services available on call to provide safe and effective anaesthesia support when required.',
     },
     {
       icon: Microscope,
-      title: 'Laboratory Services',
-      description: 'Advanced diagnostic testing with accurate and timely results.',
+      title: 'Clinical Laboratory Services',
+      description:
+        'Comprehensive clinical laboratory services for accurate diagnosis and medical evaluation.',
       features: [
-        'Blood tests',
-        'Pathology services',
-        'Molecular diagnostics',
-        'Clinical chemistry'
-      ]
+        'Bio Chemistry',
+        'Haematology',
+        'Microbiology',
+        'Clinical Pathology',
+      ],
+    },
+    {
+      icon: Activity,
+      title: 'Dietetics & Nutrition',
+      description:
+        'Dietary and nutritional services to support patients’ health, treatment, and recovery.',
     },
     {
       icon: Pill,
       title: 'Pharmacy',
-      description: 'Full-service pharmacy with expert pharmaceutical care and counseling.',
-      features: [
-        'Prescription filling',
-        'Medication therapy management',
-        'Drug information',
-        'Home delivery'
-      ]
-    },
-    {
-      icon: Stethoscope,
-      title: 'Internal Medicine',
-      description: 'Expert care for complex adult medical conditions and chronic diseases.',
-      features: [
-        'Diabetes management',
-        'Hypertension care',
-        'Respiratory diseases',
-        'Preventive medicine'
-      ]
+      description:
+        'Pharmacy services providing prescribed medicines and essential pharmaceutical support for patients.',
     },
     {
       icon: Scan,
-      title: 'Surgery',
-      description: 'Advanced surgical procedures with minimally invasive techniques.',
-      features: [
-        'General surgery',
-        'Laparoscopic surgery',
-        'Day surgery',
-        'Post-operative care'
-      ]
-    }
+      title: 'Ultrasound & X-Ray',
+      description:
+        'Point-of-care diagnostic imaging services including ultrasound and X-ray for medical evaluation.',
+    },
   ];
 
-const whyChoose = [
+  const whyChoose = [
   {
-    icon: "solar:cup-star-linear",
-    title: "World-Class Expertise",
-    description: "Our physicians are internationally trained leaders in their specialties, bringing unmatched clinical insight to every case.",
+    icon: "solar:heart-pulse-linear",
+    title: "Patient-Centered Care",
+    description:
+      "We focus on providing attentive and compassionate care tailored to the needs of every patient.",
   },
   {
-    icon: "solar:cpu-linear",
-    title: "Advanced Technology",
-    description: "We invest in the latest diagnostic and treatment technologies, ensuring the most accurate and effective care available.",
+    icon: "solar:stethoscope-linear",
+    title: "Specialized Services",
+    description:
+      "Our hospital provides dedicated pediatric, neonatal, laboratory, pharmacy, and diagnostic services.",
   },
   {
-    icon: "solar:user-check-linear",
-    title: "Personalized Care",
-    description: "Every treatment plan is tailored to the individual — because exceptional medicine starts with understanding the patient.",
+    icon: "solar:shield-check-linear",
+    title: "Comprehensive Support",
+    description:
+      "From diagnosis and treatment to nutrition and pharmacy services, we support patients throughout their care.",
   },
 ];
 
@@ -191,32 +117,124 @@ const whyChoose = [
               Our Medical <span className="text-primary">Services</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Comprehensive healthcare solutions delivered by expert medical professionals 
-              using state-of-the-art technology and compassionate care.
+              Quality healthcare services for children, newborns, diagnostic needs,
+              nutrition, pharmacy, and other essential medical requirements.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section id="services" className="px-6 lg:px-4 py-24">
+      {/* Services Grid */}
+<section id="services" className="px-6 lg:px-4 py-24">
+  <div className="mx-auto max-w-7xl">
+
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-fr">
+      {services.map(({ icon: Icon, title, description, features }) => (
+        <div
+          key={title}
+          className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${
+            title === 'Clinical Laboratory Services'
+              ? 'lg:row-span-2'
+              : ''
+          }`}
+        >
+          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
+            <Icon className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary-foreground" />
+          </div>
+
+          <h3 className="text-xl font-semibold tracking-[-0.02em] text-foreground">
+            {title}
+          </h3>
+
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+
+          {features && (
+            <div className="mt-6 border-t border-border/60 pt-6">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+                Available Tests
+              </p>
+
+              <ul className="flex flex-col divide-y divide-border/50">
+                {features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 py-3 text-sm text-foreground first:pt-0 last:pb-0"
+                  >
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
+                    </span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+      {/* Services Not Available Section */}
+      <section className="px-6 lg:px-4 pb-24">
         <div className="mx-auto max-w-7xl">
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)]">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
-                  <Icon className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold tracking-[-0.02em] text-foreground">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
-                
-              </div>
-            ))}
+          <div className="mb-14 text-center">
+            <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
+              Services <span className="text-primary">Not Available</span>
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              The following services are currently not available at our hospital.
+            </p>
           </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {[
+    {
+      icon: "lucide:activity",
+      title: 'Adult Intensive Care Unit',
+      description:
+        'Adult intensive care services are currently not available at Radha Kishan Hospital.',
+    },
+    {
+      icon: "lucide:siren",
+      title: 'Adult Trauma Care',
+      description:
+        'Adult trauma care services are currently not available at Radha Kishan Hospital.',
+    },
+    {
+      icon: "solar:user-outline",
+      title: 'Mortuary',
+      description:
+        'Mortuary services are currently not available at Radha Kishan Hospital.',
+    },
+  ].map(({ icon, title, description }) => (
+    <div
+      key={title}
+      className="group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)]"
+    >
+      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
+        <Icon
+          icon={icon}
+          className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary-foreground"
+        />
+      </div>
+
+      <h3 className="text-xl font-semibold tracking-[-0.02em] text-foreground">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+    </div>
+  ))}
+</div>
         </div>
       </section>
-
       {/* Features Section */}
       <section className="px-6 lg:px-4 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl">
@@ -256,7 +274,7 @@ const whyChoose = [
               Need Medical Assistance?
             </h2>
             <p className="text-white/90 text-lg mb-8">
-              Our team is ready to provide you with the best healthcare services. 
+              Our team is ready to provide you with the best healthcare services.
               Book an appointment or contact us for more information.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
@@ -265,7 +283,7 @@ const whyChoose = [
                   Book Appointment
                 </Button>
               </Link>
-              
+
             </div>
           </motion.div>
         </div>
