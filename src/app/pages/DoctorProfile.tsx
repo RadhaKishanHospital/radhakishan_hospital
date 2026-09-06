@@ -1,23 +1,97 @@
 import { Link, useParams } from "react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, Star, Clock, Award, MapPin, Phone, Calendar, CheckCircle, Stethoscope } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  Award,
+  MapPin,
+  Phone,
+  Calendar,
+  CheckCircle,
+  Stethoscope,
+  GraduationCap,
+} from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { useState } from "react";
 
-const doctors: Record<number, {
-  id: number; name: string; specialty: string; rating: number; reviews: number;
-  experience: string; initials: string; bio: string; education: string;
-  languages: string[]; insurance: string[]; available: boolean;
-}> = {
-  1: { id: 1, name: "Dr. Sarah Mitchell", specialty: "Cardiology", rating: 4.9, reviews: 234, experience: "15 years", initials: "SM", bio: "Board-certified cardiologist specializing in interventional cardiology and heart failure management. Pioneer in minimally invasive cardiac procedures.", education: "Harvard Medical School", languages: ["English", "Spanish"], insurance: ["BlueCross", "Aetna", "United"], available: true },
-  2: { id: 2, name: "Dr. James Chen", specialty: "Neurology", rating: 4.8, reviews: 189, experience: "12 years", initials: "JC", bio: "Expert neurologist with focus on movement disorders and neurodegenerative diseases. Published researcher in Parkinson's disease therapeutics.", education: "Johns Hopkins University", languages: ["English", "Mandarin"], insurance: ["BlueCross", "Cigna", "Medicare"], available: true },
-  3: { id: 3, name: "Dr. Amara Okafor", specialty: "Orthopedics", rating: 4.9, reviews: 312, experience: "20 years", initials: "AO", bio: "Leading orthopedic surgeon specializing in joint replacement and sports medicine. Team physician for professional athletes.", education: "Stanford University", languages: ["English", "Yoruba"], insurance: ["Aetna", "United", "Humana"], available: false },
-  4: { id: 4, name: "Dr. Elena Rodriguez", specialty: "Pediatrics", rating: 4.7, reviews: 156, experience: "10 years", initials: "ER", bio: "Compassionate pediatrician dedicated to child wellness and developmental health. Expert in childhood immunology.", education: "Columbia University", languages: ["English", "Spanish", "Portuguese"], insurance: ["BlueCross", "Medicaid", "Cigna"], available: true },
-  5: { id: 5, name: "Dr. Michael Park", specialty: "General Medicine", rating: 4.8, reviews: 278, experience: "18 years", initials: "MP", bio: "Experienced internist providing comprehensive primary care with a focus on preventive medicine and chronic disease management.", education: "Yale School of Medicine", languages: ["English", "Korean"], insurance: ["United", "Aetna", "BlueCross"], available: true },
-  6: { id: 6, name: "Dr. Priya Sharma", specialty: "Oncology", rating: 4.9, reviews: 201, experience: "22 years", initials: "PS", bio: "Renowned oncologist specializing in targeted cancer therapies and immunotherapy. Leader in clinical research trials.", education: "University of Pennsylvania", languages: ["English", "Hindi", "Gujarati"], insurance: ["BlueCross", "Aetna", "Medicare"], available: true },
-  7: { id: 7, name: "Dr. Robert Williams", specialty: "Cardiology", rating: 4.6, reviews: 143, experience: "8 years", initials: "RW", bio: "Cardiologist with expertise in cardiac imaging and electrophysiology. Focused on arrhythmia management.", education: "Duke University", languages: ["English"], insurance: ["Cigna", "United", "Humana"], available: false },
-  8: { id: 8, name: "Dr. Aisha Khan", specialty: "Neurology", rating: 4.8, reviews: 167, experience: "14 years", initials: "AK", bio: "Neurologist specializing in headache medicine and multiple sclerosis. Advocate for patient-centered neurological care.", education: "UCLA Medical School", languages: ["English", "Urdu", "Arabic"], insurance: ["BlueCross", "Aetna", "United"], available: true },
+const doctors: Record<
+  number,
+  {
+    id: number;
+    name: string;
+    specialty: string;
+    qualification: string;
+    experience: string;
+    initials: string;
+    bio: string;
+    education: string[];
+    registrationAuthority: string;
+    registrationNo: string;
+    available: boolean;
+  }
+> = {
+  1: {
+    id: 1,
+    name: "Dr. Akanksha Tyagi",
+    specialty: "General Medicine",
+    qualification: "MBBS, MD (General Medicine)",
+    initials: "AT",
+    bio: "Specialist in General Medicine.",
+    education: [
+      "Rajasthan University of Health Sciences",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-23419",
+    available: true,
+  },
+
+  2: {
+    id: 2,
+    name: "Dr. Shashank Singhal",
+    specialty: "Surgery",
+    qualification: "MBBS, MS (General Surgery)",
+    initials: "SS",
+    bio: "Specialist in General Surgery.",
+    education: [
+      "Pt. B.D. Sharma University of Health Sciences, Rohtak",
+      "NIMS University, Jaipur",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-10817",
+    available: true,
+  },
+
+  3: {
+    id: 3,
+    name: "Dr. Monika Dixit",
+    specialty: "Pathology",
+    qualification: "MBBS, MD (Pathology)",
+    initials: "MD",
+    bio: "Specialist in Pathology.",
+    education: [
+      "Institute of Medical Sciences, BHU, Varansi",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-013272",
+    available: true,
+  },
+
+  4: {
+    id: 4,
+    name: "Dr. Lokender Goyal",
+    specialty: "Pediatrics & Neonatal Care",
+    qualification: "MBBS, MD (Pediatrics)",
+    initials: "LG",
+    bio: "Specialist in Pediatrics and Neonatal Care.",
+    education: [
+      "Himachal Pradesh University",
+      "Panjab University",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-21452",
+    available: true,
+  },
 };
 
 const timeSlots = [
@@ -53,20 +127,20 @@ const DoctorProfile = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
-            <motion.div
-              className="flex items-center gap-2"
-            >
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <div className="text-white text-xl">+</div>
-              </div>
-              <div className="min-w-0">
-                <div className="text-base sm:text-xl tracking-tight leading-tight" style={{ fontWeight: 600 }}>
-                  Radha Kishan Hospital
+              <motion.div
+                className="flex items-center gap-2"
+              >
+                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                  <div className="text-white text-xl">+</div>
                 </div>
-                <div className="text-xs text-muted-foreground">Medical Center</div>
-              </div>
-            </motion.div>
-          </Link>
+                <div className="min-w-0">
+                  <div className="text-base sm:text-xl tracking-tight leading-tight" style={{ fontWeight: 600 }}>
+                    Radha Kishan Hospital
+                  </div>
+                  <div className="text-xs text-muted-foreground">Medical Center</div>
+                </div>
+              </motion.div>
+            </Link>
             <Link to="/doctors">
               <Button variant="ghost" className="rounded-full text-sm">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back
@@ -94,14 +168,17 @@ const DoctorProfile = () => {
                 <p className="text-lg text-primary font-medium mb-3">{doctor.specialty}</p>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1.5">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" /> {doctor.rating} ({doctor.reviews} reviews)
+                    <Stethoscope className="w-4 h-4 text-primary" />
+                    {doctor.qualification}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-primary" /> {doctor.experience}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-primary" /> {doctor.education}
-                  </span>
+                  <div className="flex items-start gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-1">
+                      {doctor.education.map((university) => (
+                        <span key={university}>{university}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -113,20 +190,47 @@ const DoctorProfile = () => {
               </div>
 
               <div>
-                <h2 className="text-xl font-bold font-display text-foreground mb-3">Languages</h2>
-                <div className="flex flex-wrap gap-2">
-                  {doctor.languages.map((l) => (
-                    <Badge key={l} variant="secondary" className="rounded-full px-4 py-1">{l}</Badge>
-                  ))}
+                <h2 className="text-xl font-bold font-display text-foreground mb-3">
+                  Qualification
+                </h2>
+
+                <div className="flex items-center gap-3">
+                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <span className="text-muted-foreground">
+                    {doctor.qualification}
+                  </span>
                 </div>
               </div>
 
               <div>
-                <h2 className="text-xl font-bold font-display text-foreground mb-3">Insurance Accepted</h2>
-                <div className="flex flex-wrap gap-2">
-                  {doctor.insurance.map((ins) => (
-                    <Badge key={ins} variant="outline" className="rounded-full px-4 py-1">{ins}</Badge>
-                  ))}
+                <h2 className="text-xl font-bold font-display text-foreground mb-3">
+                  Registration
+                </h2>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">
+                        Registration Authority
+                      </p>
+                      <p className="text-sm font-medium text-foreground">
+                        {doctor.registrationAuthority}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Award className="w-5 h-5 text-primary" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">
+                        Registration No.
+                      </p>
+                      <p className="text-sm font-medium text-foreground">
+                        {doctor.registrationNo}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,13 +259,12 @@ const DoctorProfile = () => {
                       key={slot}
                       onClick={() => !isUnavailable && setSelectedSlot(slot)}
                       disabled={isUnavailable}
-                      className={`py-2.5 px-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
-                        selectedSlot === slot
-                          ? "bg-primary text-primary-foreground shadow-elegant"
-                          : isUnavailable
+                      className={`py-2.5 px-2 rounded-xl text-xs font-semibold transition-all duration-200 ${selectedSlot === slot
+                        ? "bg-primary text-primary-foreground shadow-elegant"
+                        : isUnavailable
                           ? "bg-muted text-muted-foreground/40 cursor-not-allowed"
                           : "bg-secondary text-secondary-foreground hover:bg-accent"
-                      }`}
+                        }`}
                     >
                       {slot}
                     </button>

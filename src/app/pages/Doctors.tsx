@@ -5,7 +5,28 @@ import { Link } from 'react-router';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Award, GraduationCap, Mail, Phone } from 'lucide-react';
 import { useState, useMemo } from "react";
-import { Search, Heart, Brain, Bone, Stethoscope, Baby, Shield, Clock, Users, CheckCircle, ArrowRight, MapPin, ChevronDown, Star, Calendar, Menu, X } from "lucide-react";
+import {
+  Search,
+  Heart,
+  Brain,
+  Bone,
+  Stethoscope,
+  Baby,
+  Shield,
+  Scissors,
+  Microscope,
+  Clock,
+  Users,
+  CheckCircle,
+  ArrowRight,
+  MapPin,
+  ChevronDown,
+  Star,
+  Calendar,
+  Menu,
+  X,
+} from "lucide-react";
+import { Icon } from '@iconify/react';
 import { Input } from "../components/ui/input";
 import { Badge } from "../components/ui/badge";
 
@@ -20,43 +41,93 @@ export function Doctors() {
 
 
   const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+    }),
+  };
 
-const specialties = [
-  { name: "Cardiology", icon: Heart, count: 24, color: "from-red-50 to-rose-50" },
-  { name: "Neurology", icon: Brain, count: 18, color: "from-purple-50 to-violet-50" },
-  { name: "Orthopedics", icon: Bone, count: 21, color: "from-amber-50 to-orange-50" },
-  { name: "General Medicine", icon: Stethoscope, count: 35, color: "from-blue-50 to-cyan-50" },
-  { name: "Pediatrics", icon: Baby, count: 16, color: "from-green-50 to-emerald-50" },
-  { name: "Oncology", icon: Shield, count: 12, color: "from-pink-50 to-fuchsia-50" },
-];
+  const specialties = [
+    {
+      name: "General Medicine",
+      icon: Stethoscope,
+      count: 1,
+      color: "from-blue-50 to-cyan-50",
+    },
+    {
+      name: "Surgery",
+      icon: Scissors,
+      count: 1,
+      color: "from-red-50 to-rose-50",
+    },
+    {
+      name: "Pathology",
+      icon: Microscope,
+      count: 1,
+      color: "from-purple-50 to-violet-50",
+    },
+    {
+      name: "Pediatrics & Neonatal Care",
+      icon: Baby,
+      count: 1,
+      color: "from-green-50 to-emerald-50",
+    },
+  ];
 
-const doctors = [
-  { id: 1, name: "Dr. Sarah Mitchell", specialty: "Cardiology", rating: 4.9, reviews: 234, available: true, nextSlot: "Today, 2:45 PM", experience: "15 years", initials: "SM" },
-  { id: 2, name: "Dr. James Chen", specialty: "Neurology", rating: 4.8, reviews: 189, available: true, nextSlot: "Today, 4:00 PM", experience: "12 years", initials: "JC" },
-  { id: 3, name: "Dr. Amara Okafor", specialty: "Orthopedics", rating: 4.9, reviews: 312, available: false, nextSlot: "Tomorrow, 9:00 AM", experience: "20 years", initials: "AO" },
-  { id: 4, name: "Dr. Elena Rodriguez", specialty: "Pediatrics", rating: 4.7, reviews: 156, available: true, nextSlot: "Today, 3:30 PM", experience: "10 years", initials: "ER" },
-  { id: 5, name: "Dr. Michael Park", specialty: "General Medicine", rating: 4.8, reviews: 278, available: true, nextSlot: "Today, 5:15 PM", experience: "18 years", initials: "MP" },
-  { id: 6, name: "Dr. Priya Sharma", specialty: "Oncology", rating: 4.9, reviews: 201, available: true, nextSlot: "Tomorrow, 10:00 AM", experience: "22 years", initials: "PS" },
-  { id: 7, name: "Dr. Robert Williams", specialty: "Cardiology", rating: 4.6, reviews: 143, available: false, nextSlot: "Mon, 11:00 AM", experience: "8 years", initials: "RW" },
-  { id: 8, name: "Dr. Aisha Khan", specialty: "Neurology", rating: 4.8, reviews: 167, available: true, nextSlot: "Today, 6:00 PM", experience: "14 years", initials: "AK" },
-];
+  const doctors = [
+    {
+      id: 1,
+      name: "Dr. Akanksha Tyagi",
+      specialty: "General Medicine",
+      qualification: "MD (General Medicine)",
+      available: true,
+      nextSlot: "Appointments Available",
+      experience: "Experienced",
+      initials: "AT",
+    },
+    {
+      id: 2,
+      name: "Dr. Shashank Singhal",
+      specialty: "Surgery",
+      qualification: "MD (General Surgery)",
+      available: true,
+      nextSlot: "Appointments Available",
+      experience: "Experienced",
+      initials: "SS",
+    },
+    {
+      id: 3,
+      name: "Dr. Monika Dixit",
+      specialty: "Pathology",
+      qualification: "MD (Pathology)",
+      available: true,
+      nextSlot: "Appointments Available",
+      experience: "Experienced",
+      initials: "MD",
+    },
+    {
+      id: 4,
+      name: "Dr. Lokender Goyal",
+      specialty: "Pediatrics & Neonatal Care",
+      qualification: "MD (Pediatrics)",
+      available: true,
+      nextSlot: "Appointments Available",
+      experience: "Experienced",
+      initials: "LG",
+    },
+  ];
 
-const filteredDoctors = useMemo(() => {
-  const normalizedSpecialty = activeSpecialty.trim().toLowerCase();
+  const filteredDoctors = useMemo(() => {
+    const normalizedSpecialty = activeSpecialty.trim().toLowerCase();
 
-  if (normalizedSpecialty === "all") {
-    return doctors;
-  }
+    if (normalizedSpecialty === "all") {
+      return doctors;
+    }
 
-  return doctors.filter((doc) => doc.specialty.toLowerCase() === normalizedSpecialty);
-}, [activeSpecialty]);
+    return doctors.filter((doc) => doc.specialty.toLowerCase() === normalizedSpecialty);
+  }, [activeSpecialty]);
 
   return (
     <div className="min-h-screen">
@@ -72,7 +143,7 @@ const filteredDoctors = useMemo(() => {
               Meet Our <span className="text-primary">Expert Doctors</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Our team of highly qualified and experienced medical professionals is 
+              Our team of highly qualified and experienced medical professionals is
               dedicated to providing you with the best healthcare possible.
             </p>
           </motion.div>
@@ -100,7 +171,7 @@ const filteredDoctors = useMemo(() => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4"
           >
             {specialties.map((spec, i) => (
               <motion.button
@@ -110,15 +181,14 @@ const filteredDoctors = useMemo(() => {
                 onClick={() => setActiveSpecialty(activeSpecialty === spec.name ? "All" : spec.name)}
                 whileHover={{ y: -4, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative p-6 rounded-2xl bg-card shadow-elegant hover:shadow-elegant-lg transition-all duration-300 text-center cursor-pointer ${
-                  activeSpecialty === spec.name ? "ring-2 ring-primary shadow-elegant-lg" : ""
-                }`}
+                className={`group relative p-6 rounded-2xl bg-card shadow-elegant hover:shadow-elegant-lg transition-all duration-300 text-center cursor-pointer ${activeSpecialty === spec.name ? "ring-2 ring-primary shadow-elegant-lg" : ""
+                  }`}
               >
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${spec.color} flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
                   <spec.icon className="w-6 h-6 text-primary" />
                 </div>
                 <p className="font-semibold text-sm text-foreground">{spec.name}</p>
-                <p className="text-xs text-muted-foreground mt-1">{spec.count} Doctors</p>
+                <p className="text-xs text-muted-foreground mt-1">{spec.count} Doctor</p>
               </motion.button>
             ))}
           </motion.div>
@@ -147,11 +217,10 @@ const filteredDoctors = useMemo(() => {
                 <button
                   key={s}
                   onClick={() => setActiveSpecialty(s)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
-                    activeSpecialty === s
-                      ? "bg-primary text-primary-foreground shadow-elegant"
-                      : "bg-secondary text-secondary-foreground hover:bg-accent"
-                  }`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${activeSpecialty === s
+                    ? "bg-primary text-primary-foreground shadow-elegant"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent"
+                    }`}
                 >
                   {s}
                 </button>
@@ -174,7 +243,7 @@ const filteredDoctors = useMemo(() => {
               >
                 <Link to={`/doctor/${doc.id}`}>
                   <div className="bg-card rounded-2xl p-5  shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300 cursor-pointer">
-                      <div className="flex items-start gap-4 mb-4">
+                    <div className="flex items-start gap-4 mb-4">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center shrink-0">
                         <span className="text-lg font-bold text-primary">{doc.initials}</span>
                       </div>
@@ -185,12 +254,11 @@ const filteredDoctors = useMemo(() => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span className="text-sm font-semibold text-foreground">{doc.rating}</span>
-                      </div>
-                      <span className="text-xs text-muted-foreground">({doc.reviews} reviews)</span>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Icon icon="solar:square-academic-cap-linear" className="w-4 h-4 text-primary" />
+                      <span className="text-xs text-muted-foreground">
+                        {doc.qualification}
+                      </span>
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -290,7 +358,7 @@ const filteredDoctors = useMemo(() => {
                       Book Appointment
                     </Button>
                   </Link>
-                  
+
                 </div>
               </div>
             </Card>
