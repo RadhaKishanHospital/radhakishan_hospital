@@ -5,6 +5,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { MapPin, Phone, Mail, Clock, Send, ChevronRight } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -100,12 +101,12 @@ export function Contact() {
         <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-3">
           {[
             {
-              icon: MapPin,
+              icon: "solar:map-point-linear",
               title: "Visit Us",
               lines: ["Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118"],
             },
             {
-              icon: Phone,
+              icon: "solar:phone-calling-linear",
               title: "Call Us",
               lines: [
                 "Emergency: +1 (555) 911-0000",
@@ -114,7 +115,7 @@ export function Contact() {
               ],
             },
             {
-              icon: Clock,
+              icon: "solar:clock-circle-linear",
               title: "Working Hours",
               lines: [
                 "Mon – Fri: 7:00 AM – 9:00 PM",
@@ -129,7 +130,7 @@ export function Contact() {
             >
               <CardContent className="p-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <card.icon className="h-5 w-5" />
+                  <Icon icon={card.icon} className="h-5 w-5" />
                 </div>
                 <h3 className="mb-3 text-lg font-semibold text-foreground">{card.title}</h3>
                 {card.lines.map((line) => (
@@ -208,7 +209,7 @@ export function Contact() {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                    <Send className="w-4 h-4 mr-2" />
+                    <Icon icon="solar:plane-linear" className="w-4 h-4 mr-2" />
                     Send Message
                   </Button>
                 </form>
@@ -317,7 +318,7 @@ export function Contact() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">
-                <Phone className="w-5 h-5 mr-2" />
+                <Icon icon="solar:phone-calling-linear" className="w-5 h-5 mr-2" />
                 Call Emergency: +1 (555) 911-0000
               </Button>
             </div>

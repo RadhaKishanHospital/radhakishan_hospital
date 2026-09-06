@@ -6,6 +6,7 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Calendar, Clock, User, Mail, Phone, FileText } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -76,12 +77,12 @@ export function Appointments() {
                     {/* Name */}
                     <div className="space-y-2">
                       <Label htmlFor="name" className="flex items-center gap-2">
-                        <User className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:user-outline" className="w-4 h-4 text-primary" />
                         Full Name *
                       </Label>
                       <Input
                         id="name"
-                        placeholder="John Doe"
+                        placeholder="Your name"
                         value={formData.name}
                         onChange={(e) => handleChange('name', e.target.value)}
                         required
@@ -92,13 +93,13 @@ export function Appointments() {
                     {/* Email */}
                     <div className="space-y-2">
                       <Label htmlFor="email" className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:letter-linear" className="w-4 h-4 text-primary" />
                         Email Address *
                       </Label>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="john@example.com"
+                        placeholder="Your email"
                         value={formData.email}
                         onChange={(e) => handleChange('email', e.target.value)}
                         required
@@ -109,13 +110,13 @@ export function Appointments() {
                     {/* Phone */}
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:phone-linear" className="w-4 h-4 text-primary" />
                         Phone Number *
                       </Label>
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="Your 10-digit mobile number"
                         value={formData.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
                         required
@@ -126,7 +127,7 @@ export function Appointments() {
                     {/* Department */}
                     <div className="space-y-2">
                       <Label htmlFor="department" className="flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:file-text-linear" className="w-4 h-4 text-primary" />
                         Department *
                       </Label>
                       <Select value={formData.department} onValueChange={(value) => handleChange('department', value)} required>
@@ -147,7 +148,7 @@ export function Appointments() {
                     {/* Date */}
                     <div className="space-y-2">
                       <Label htmlFor="date" className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
                         Preferred Date *
                       </Label>
                       <Input
@@ -164,7 +165,7 @@ export function Appointments() {
                     {/* Time */}
                     <div className="space-y-2">
                       <Label htmlFor="time" className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-primary" />
+                        <Icon icon="solar:clock-circle-linear" className="w-4 h-4 text-primary" />
                         Preferred Time *
                       </Label>
                       <Select value={formData.time} onValueChange={(value) => handleChange('time', value)} required>
@@ -188,7 +189,7 @@ export function Appointments() {
                   {/* Message */}
                   <div className="space-y-2">
                     <Label htmlFor="message" className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-primary" />
+                      <Icon icon="solar:file-text-linear" className="w-4 h-4 text-primary" />
                       Additional Notes
                     </Label>
                     <Textarea
@@ -226,7 +227,7 @@ export function Appointments() {
             >
               <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Calendar className="w-7 h-7 text-primary" />
+                  <Icon icon="solar:calendar-linear" className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="mb-2">Flexible Scheduling</h3>
                 <p className="text-muted-foreground text-sm">
@@ -243,7 +244,7 @@ export function Appointments() {
             >
               <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="w-7 h-7 text-primary" />
+                  <Icon icon="solar:clock-circle-linear" className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="mb-2">Quick Confirmation</h3>
                 <p className="text-muted-foreground text-sm">
@@ -260,7 +261,7 @@ export function Appointments() {
             >
               <Card className="p-6 text-center hover:shadow-lg transition-shadow h-full">
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="w-7 h-7 text-primary" />
+                  <Icon icon="solar:user-outline" className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="mb-2">Expert Care</h3>
                 <p className="text-muted-foreground text-sm">
