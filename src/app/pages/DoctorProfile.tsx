@@ -2,15 +2,9 @@ import { Link, useParams } from "react-router";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Clock,
-  Award,
-  MapPin,
-  Phone,
-  Calendar,
   CheckCircle,
-  Stethoscope,
-  GraduationCap,
 } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { useState } from "react";
@@ -70,7 +64,7 @@ const doctors: Record<
     initials: "MD",
     bio: "Specialist in Pathology.",
     education: [
-      "Institute of Medical Sciences, BHU, Varansi",
+      "Institute of Medical Sciences, BHU, Varanasi",
     ],
     registrationAuthority: "Haryana Medical Council",
     registrationNo: "HN-013272",
@@ -168,11 +162,11 @@ const DoctorProfile = () => {
                 <p className="text-lg text-primary font-medium mb-3">{doctor.specialty}</p>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1.5">
-                    <Stethoscope className="w-4 h-4 text-primary" />
+                    <Icon icon="solar:stethoscope-linear" className="w-4 h-4 text-primary" />
                     {doctor.qualification}
                   </span>
                   <div className="flex items-start gap-1.5">
-                    <GraduationCap className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <Icon icon="solar:square-academic-cap-linear" className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                     <div className="flex flex-col gap-1">
                       {doctor.education.map((university) => (
                         <span key={university}>{university}</span>
@@ -195,7 +189,7 @@ const DoctorProfile = () => {
                 </h2>
 
                 <div className="flex items-center gap-3">
-                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <Icon icon="solar:square-academic-cap-linear" className="w-5 h-5 text-primary" />
                   <span className="text-muted-foreground">
                     {doctor.qualification}
                   </span>
@@ -209,7 +203,7 @@ const DoctorProfile = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary" />
+                    <Icon icon="solar:diploma-verified-linear" className="w-5 h-5 text-primary" />
                     <div>
                       <p className="text-xs text-muted-foreground">
                         Registration Authority
@@ -221,7 +215,7 @@ const DoctorProfile = () => {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Award className="w-5 h-5 text-primary" />
+                    <Icon icon="solar:clipboard-linear" className="w-5 h-5 text-primary" />
                     <div>
                       <p className="text-xs text-muted-foreground">
                         Registration No.
@@ -247,7 +241,7 @@ const DoctorProfile = () => {
               <p className="text-sm text-muted-foreground mb-6">Select an available time slot</p>
 
               <div className="flex items-center gap-2 mb-4">
-                <Calendar className="w-4 h-4 text-primary" />
+                <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold text-foreground">Today, March 14</span>
               </div>
 
@@ -286,7 +280,7 @@ const DoctorProfile = () => {
               </Button>
 
               <div className="flex items-center gap-2 mt-4 justify-center">
-                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+                <Icon icon="solar:map-point-linear" className="w-3.5 h-3.5 text-muted-foreground" />
                 <span className="text-xs text-muted-foreground">Radha Kishan Hospital, Floor 3</span>
               </div>
             </div>
