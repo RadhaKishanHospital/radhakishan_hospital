@@ -11,6 +11,7 @@ import { useState } from "react";
 import AppointmentModal, {
   type AppointmentDraft,
 } from "../components/AppointmentModal";
+import { toast } from "sonner";
 
 const doctors: Record<
   number,
@@ -295,15 +296,34 @@ const DoctorProfile = () => {
         </div>
       </div>
       <AppointmentModal
-  open={appointmentModalOpen}
-  slot={selectedSlot ?? ""}
-  doctorName={doctor.name}
-  onClose={() => setAppointmentModalOpen(false)}
-  onSubmit={(data) => {
-    console.log(data);
-    setAppointmentModalOpen(false);
-  }}
-/>
+        open={appointmentModalOpen}
+        slot={selectedSlot ?? ""}
+        doctorName={doctor.name}
+        onClose={() => setAppointmentModalOpen(false)}
+        onSubmit={async (data) => {
+          try {
+            await fetch('/api/doctor-appointments', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                patientName: data.name,
+                patientEmail: data.email,
+                patientPhone: data.mobile,
+                doctorId: String(doctor.id),
+                doctorName: doctor.name,
+                specialty: doctor.specialty,
+                date: data.date,
+                time: selectedSlot ?? "",
+                status: "pending"
+              })
+            });
+            toast.success("Doctor appointment booked successfully!");
+          } catch (err) {
+            console.error("Error saving doctor appointment to MongoDB:", err);
+          }
+          setAppointmentModalOpen(false);
+        }}
+      />
     </div>
   );
 };

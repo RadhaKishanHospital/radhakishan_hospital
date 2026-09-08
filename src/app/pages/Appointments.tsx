@@ -22,8 +22,27 @@ export function Appointments() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('/api/general-appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          department: formData.department,
+          date: formData.date,
+          time: formData.time,
+          notes: formData.message,
+          status: 'pending'
+        })
+      });
+    } catch (err) {
+      console.error('Error saving general appointment to MongoDB:', err);
+    }
+
     toast.success('Appointment request submitted successfully! We will contact you soon.');
     setFormData({
       name: '',

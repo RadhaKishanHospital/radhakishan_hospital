@@ -32,7 +32,7 @@ export type DoctorAppointment = {
 export type Message = {
   id: string
   name: string
-  email: string
+  phone_no: number
   subject: string
   body: string
   read: boolean
@@ -179,7 +179,7 @@ const seed: DB = {
     {
       id: "m1",
       name: "Suresh Kumar",
-      email: "suresh@example.com",
+      phone_no: 987653456,
       subject: "Insurance query",
       body: "Do you accept Star Health insurance for cardiac procedures? Please advise.",
       read: false,
@@ -188,7 +188,7 @@ const seed: DB = {
     {
       id: "m2",
       name: "Kavita Rao",
-      email: "kavita.rao@example.com",
+      phone_no: 9234504567,
       subject: "Feedback on my visit",
       body: "Thank you to Dr. Verma and the pediatric team — wonderful experience with my daughter.",
       read: true,

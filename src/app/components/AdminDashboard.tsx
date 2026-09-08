@@ -5,24 +5,32 @@ import {
   CalendarDays,
   Stethoscope,
   MessageSquare,
-  UsersRound,
   LogOut,
   Search,
   Trash2,
-  Pencil,
   Plus,
   X,
   Mail,
   MailOpen,
   Menu,
-  Star,
   ArrowUpRight,
   Clock,
   Bell,
 } from "lucide-react"
-import { db, useDB, type Status } from "../../../lib/store"
+import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
+import {
+  useGeneralAppointments,
+  useDoctorAppointments,
+  useMessages,
+  useUpdateGeneralAppointmentStatus,
+  useDeleteGeneralAppointment,
+  useUpdateDoctorApptStatus,
+  useDeleteDoctorAppointment,
+  useToggleMessageRead,
+  useDeleteMessage,
+} from "../../../lib/queries"
 
 type Tab = "overview" | "general" | "doctorAppts" | "messages" | "doctors"
 
@@ -118,17 +126,20 @@ const cardCls = "rounded-2xl border border-slate-200 bg-white p-4 transition hov
 /* ---------------- Overview ---------------- */
 
 function Overview({ go }: { go: (t: Tab) => void }) {
-  const data = useDB()
+  const { data: generalAppointments = [] } = useGeneralAppointments()
+  const { data: doctorAppointments = [] } = useDoctorAppointments()
+  const { data: messages = [] } = useMessages()
+
   const stats = [
-    { label: "General Appointments", value: data.generalAppointments.length, sub: `${data.generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
-    { label: "Doctor Appointments", value: data.doctorAppointments.length, sub: `${data.doctorAppointments.filter((a) => a.status === "pending").length} pending`, icon: Stethoscope, tab: "doctorAppts" as Tab },
-    { label: "Messages", value: data.messages.length, sub: `${data.messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
+    { label: "General Appointments", value: generalAppointments.length, sub: `${generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
+    { label: "Doctor Appointments", value: doctorAppointments.length, sub: `${doctorAppointments.filter((a) => a.status === "pending").length} pending`, icon: Stethoscope, tab: "doctorAppts" as Tab },
+    { label: "Messages", value: messages.length, sub: `${messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
   ]
 
   const recent = [
-    ...data.generalAppointments.map((a) => ({ id: a.id, who: a.name, what: `booked ${a.department}`, at: a.createdAt })),
-    ...data.doctorAppointments.map((a) => ({ id: a.id, who: a.patientName, what: `requested ${a.doctorName}`, at: a.createdAt })),
-    ...data.messages.map((m) => ({ id: m.id, who: m.name, what: `sent “${m.subject}”`, at: m.createdAt })),
+    ...generalAppointments.map((a) => ({ id: a.id, who: a.name, what: `booked ${a.department}`, at: a.createdAt })),
+    ...doctorAppointments.map((a) => ({ id: a.id, who: a.patientName, what: `requested ${a.doctorName}`, at: a.createdAt })),
+    ...messages.map((m) => ({ id: m.id, who: m.name, what: `sent “${m.subject}”`, at: m.createdAt })),
   ]
     .sort((a, b) => b.at - a.at)
     .slice(0, 7)
@@ -184,7 +195,9 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 /* ---------------- General appointments ---------------- */
 
 function GeneralAppointments() {
-  const { generalAppointments } = useDB()
+  const { data: generalAppointments = [] } = useGeneralAppointments()
+  const updateStatusMutation = useUpdateGeneralAppointmentStatus()
+  const deleteMutation = useDeleteGeneralAppointment()
   const { push } = useToast()
   const [q, setQ] = useState("")
   const [del, setDel] = useState<string | null>(null)
@@ -222,7 +235,7 @@ function GeneralAppointments() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <StatusSelect value={a.status} onChange={(s) => db.updateAppointmentStatus(a.id, s)} />
+                    <StatusSelect value={a.status} onChange={(s) => updateStatusMutation.mutate({ id: a.id, status: s })} />
                     <button onClick={() => setDel(a.id)} aria-label="Delete appointment" className="grid size-9 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
                       <Trash2 size={16} />
                     </button>
@@ -239,7 +252,7 @@ function GeneralAppointments() {
         message="This will permanently remove the appointment record. This action cannot be undone."
         onCancel={() => setDel(null)}
         onConfirm={() => {
-          if (del) db.deleteGeneralAppointment(del)
+          if (del) deleteMutation.mutate(del)
           setDel(null)
           push("Appointment deleted.", "info")
         }}
@@ -251,7 +264,9 @@ function GeneralAppointments() {
 /* ---------------- Doctor appointments ---------------- */
 
 function DoctorAppointments() {
-  const { doctorAppointments } = useDB()
+  const { data: doctorAppointments = [] } = useDoctorAppointments()
+  const updateStatusMutation = useUpdateDoctorApptStatus()
+  const deleteMutation = useDeleteDoctorAppointment()
   const { push } = useToast()
   const [q, setQ] = useState("")
   const [del, setDel] = useState<string | null>(null)
@@ -289,7 +304,7 @@ function DoctorAppointments() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <StatusSelect value={a.status} onChange={(s) => db.updateDoctorApptStatus(a.id, s)} />
+                    <StatusSelect value={a.status} onChange={(s) => updateStatusMutation.mutate({ id: a.id, status: s })} />
                     <button onClick={() => setDel(a.id)} aria-label="Delete appointment" className="grid size-9 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
                       <Trash2 size={16} />
                     </button>
@@ -306,7 +321,7 @@ function DoctorAppointments() {
         message="This will permanently remove the doctor appointment record."
         onCancel={() => setDel(null)}
         onConfirm={() => {
-          if (del) db.deleteDoctorAppointment(del)
+          if (del) deleteMutation.mutate(del)
           setDel(null)
           push("Appointment deleted.", "info")
         }}
@@ -318,13 +333,15 @@ function DoctorAppointments() {
 /* ---------------- Messages ---------------- */
 
 function Messages() {
-  const { messages } = useDB()
+  const { data: messages = [] } = useMessages()
+  const toggleReadMutation = useToggleMessageRead()
+  const deleteMutation = useDeleteMessage()
   const { push } = useToast()
   const [q, setQ] = useState("")
   const [del, setDel] = useState<string | null>(null)
 
   const rows = useMemo(
-    () => messages.filter((m) => [m.name, m.email, m.subject, m.body].join(" ").toLowerCase().includes(q.toLowerCase())),
+    () => messages.filter((m) => [m.name, m.phone_no, m.subject, m.body].join(" ").toLowerCase().includes(q.toLowerCase())),
     [messages, q],
   )
 
@@ -350,7 +367,7 @@ function Messages() {
                   <Avatar name={m.name} className="size-11 text-sm" />
                   <div className="min-w-0">
                     <h3 className="truncate font-bold text-ink">{m.name}</h3>
-                    <p className="truncate text-xs text-muted-foreground">{m.email}</p>
+                    <p className="truncate text-xs text-muted-foreground">{m.phone_no}</p>
                   </div>
                 </div>
                 <p className="mt-3 text-sm font-semibold text-ink">{m.subject}</p>
@@ -358,7 +375,7 @@ function Messages() {
                 <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
                   <span className="text-xs font-medium text-slate-400">{timeAgo(m.createdAt)}</span>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => db.toggleMessageRead(m.id)} className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100">
+                    <button onClick={() => toggleReadMutation.mutate({ id: m.id, read: m.read })} className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100">
                       {m.read ? <Mail size={14} /> : <MailOpen size={14} />}
                       {m.read ? "Mark unread" : "Mark read"}
                     </button>
@@ -378,7 +395,7 @@ function Messages() {
         message="This will permanently remove the message from your inbox."
         onCancel={() => setDel(null)}
         onConfirm={() => {
-          if (del) db.deleteMessage(del)
+          if (del) deleteMutation.mutate(del)
           setDel(null)
           push("Message deleted.", "info")
         }}
@@ -390,27 +407,30 @@ function Messages() {
 /* ---------------- Shell ---------------- */
 
 export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
-  const data = useDB()
+  const { data: generalAppointments = [] } = useGeneralAppointments()
+  const { data: doctorAppointments = [] } = useDoctorAppointments()
+  const { data: messages = [] } = useMessages()
+
   const [tab, setTab] = useState<Tab>("overview")
   const [drawer, setDrawer] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
 
-  const unread = data.messages.filter((m) => !m.read).length
+  const unread = messages.filter((m) => !m.read).length
 
   const notifications = [
-    ...data.messages
+    ...messages
       .filter((m) => !m.read)
       .map((m) => ({ id: "msg" + m.id, who: m.name, text: `New message: ${m.subject}`, at: m.createdAt, tab: "messages" as Tab, icon: MessageSquare })),
-    ...data.generalAppointments
+    ...generalAppointments
       .filter((a) => a.status === "pending")
       .map((a) => ({ id: "gen" + a.id, who: a.name, text: `General appointment · ${a.department}`, at: a.createdAt, tab: "general" as Tab, icon: CalendarDays })),
-    ...data.doctorAppointments
+    ...doctorAppointments
       .filter((a) => a.status === "pending")
       .map((a) => ({ id: "doc" + a.id, who: a.patientName, text: `Doctor appointment · ${a.doctorName}`, at: a.createdAt, tab: "doctorAppts" as Tab, icon: Stethoscope })),
   ].sort((a, b) => b.at - a.at)
   const badges: Partial<Record<Tab, number>> = {
-    general: data.generalAppointments.filter((a) => a.status === "pending").length,
-    doctorAppts: data.doctorAppointments.filter((a) => a.status === "pending").length,
+    general: generalAppointments.filter((a) => a.status === "pending").length,
+    doctorAppts: doctorAppointments.filter((a) => a.status === "pending").length,
     messages: unread,
   }
 

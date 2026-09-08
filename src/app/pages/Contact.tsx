@@ -59,8 +59,24 @@ export function Contact() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone_no: Number(formData.email || (formData as any).number || 0) || 0,
+          subject: formData.subject,
+          body: formData.message,
+          read: false
+        })
+      });
+    } catch (err) {
+      console.error('Error saving message to MongoDB:', err);
+    }
+
     toast.success('Message sent successfully! We will get back to you soon.');
     setFormData({
       name: '',
@@ -171,12 +187,12 @@ export function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="number">Mobile number *</Label>
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={formData.email}
+                      id="number"
+                      type="number"
+                      placeholder="Enter your mobile number"
+                      value={formData.number}
                       onChange={(e) => handleChange('email', e.target.value)}
                       required
                       className="border-border"
