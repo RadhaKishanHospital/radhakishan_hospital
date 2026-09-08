@@ -153,3 +153,46 @@ export function useDeleteMessage() {
     },
   })
 }
+
+// --- Reviews ---
+export interface Review {
+  id: string
+  name: string
+  description: string
+  rating: number
+  createdAt: number
+}
+
+export async function fetchReviews(): Promise<Review[]> {
+  const res = await fetch("/api/reviews")
+  if (!res.ok) throw new Error("Failed to fetch reviews")
+  return res.json()
+}
+
+export function useReviews() {
+  return useQuery({
+    queryKey: ["reviews"],
+    queryFn: fetchReviews,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
+  })
+}
+
+export function useAddReview() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (review: { name: string; description: string; rating: number }) => {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(review),
+      })
+      if (!res.ok) throw new Error("Failed to submit review")
+      return res.json()
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reviews"] })
+    },
+  })
+}

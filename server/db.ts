@@ -111,6 +111,27 @@ const MessageSchema = new Schema<IMessage>(
 export const MessageModel =
   mongoose.models.Message || mongoose.model<IMessage>("Message", MessageSchema)
 
+// 4. Reviews Schema & Model
+export interface IReview {
+  name: string
+  description: string
+  rating: number
+  createdAt: number
+}
+
+const ReviewSchema = new Schema<IReview>(
+  {
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    rating: { type: Number, required: true },
+    createdAt: { type: Number, default: () => Date.now() },
+  },
+  { collection: "reviews" }
+)
+
+export const ReviewModel =
+  mongoose.models.Review || mongoose.model<IReview>("Review", ReviewSchema)
+
 export function formatDoc(doc: any) {
   const obj = doc.toObject ? doc.toObject() : { ...doc }
   obj.id = obj._id.toString()

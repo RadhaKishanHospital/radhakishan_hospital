@@ -7,6 +7,8 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import ReviewModal, { ReviewDraft } from '../components/ReviewModal';
+import { useReviews, useAddReview } from '../../../lib/queries';
+import { toast } from 'sonner';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -34,6 +36,19 @@ const HERO_SHADOW = "0 20px 50px -24px rgba(0, 0, 0, 0.35)";
 
 export function Home() {
   const [open, setOpen] = useState(false);
+  const { data: reviews = [] } = useReviews();
+  const addReviewMutation = useAddReview();
+
+  const handleReviewSubmit = async (review: ReviewDraft) => {
+    try {
+      await addReviewMutation.mutateAsync(review);
+      toast.success("Thank you for sharing your experience!");
+    } catch (err) {
+      console.error("Failed to submit review to MongoDB:", err);
+    }
+    setOpen(false);
+  };
+
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* Hero Section */}
@@ -318,51 +333,40 @@ export function Home() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: 'Sarah Johnson',
-                role: 'Patient',
-                content: 'The care I received at CarePulse was exceptional. The staff was professional, compassionate, and attentive to all my needs.',
-                rating: 5
-              },
-              {
-                name: 'Michael Chen',
-                role: 'Patient',
-                content: 'From the moment I walked in, I felt welcomed and cared for. The medical team is outstanding and truly dedicated to patient wellness.',
-                rating: 5
-              },
-              {
-                name: 'Emily Davis',
-                role: 'Patient',
-                content: 'CarePulse has been my trusted healthcare provider for years. Their commitment to excellence and patient care is unmatched.',
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Icon
-                        key={i}
-                        icon="solar:star-bold"
-                        className="w-5 h-5 text-primary"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-6">{testimonial.content}</p>
-                  <div>
-                    <div style={{ fontWeight: 600 }}>{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+            {reviews.length === 0 ? (
+              <div className="col-span-full text-center py-8 text-muted-foreground">
+                No reviews yet. Be the first to share your experience!
+              </div>
+            ) : (
+              reviews.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.id || index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="h-full p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Icon
+                          key={i}
+                          icon="solar:star-bold"
+                          className="w-5 h-5 text-primary"
+                        />
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+  {testimonial.description}
+</p>
+                    <div>
+                      <div style={{ fontWeight: 600 }}>{testimonial.name}</div>
+                      <div className="text-sm text-muted-foreground">Patient</div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))
+            )}
           </div>
           <div className="mt-10 flex justify-center">
             <Button
@@ -404,7 +408,7 @@ export function Home() {
           </motion.div>
         </div>
       </section>
-      <ReviewModal open={open} onClose={() => setOpen(false)} onSubmit={()=> setOpen(false)} />
+      <ReviewModal open={open} onClose={() => setOpen(false)} onSubmit={handleReviewSubmit} />
     </div>
   );
 }

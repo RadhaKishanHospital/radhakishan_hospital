@@ -5,6 +5,7 @@ import {
   GeneralAppointmentModel,
   DoctorAppointmentModel,
   MessageModel,
+  ReviewModel,
   formatDoc,
 } from "./db"
 
@@ -158,6 +159,32 @@ export function expressApiPlugin(): Plugin {
 
             if (method === "DELETE" && id) {
               await MessageModel.findByIdAndDelete(id)
+              return sendJson(res, 200, { success: true })
+            }
+          }
+
+          // --- 4. REVIEWS ---
+          if (pathname === "/api/reviews" || pathname.startsWith("/api/reviews/")) {
+            const id = pathname.replace("/api/reviews", "").replace("/", "")
+
+            if (method === "GET") {
+              const list = await ReviewModel.find().sort({ createdAt: -1 })
+              return sendJson(res, 200, list.map(formatDoc))
+            }
+
+            if (method === "POST") {
+              const body = await parseJsonBody(req)
+              const doc = await ReviewModel.create({
+                name: body.name,
+                description: body.description,
+                rating: Number(body.rating) || 5,
+                createdAt: Date.now(),
+              })
+              return sendJson(res, 201, formatDoc(doc))
+            }
+
+            if (method === "DELETE" && id) {
+              await ReviewModel.findByIdAndDelete(id)
               return sendJson(res, 200, { success: true })
             }
           }
