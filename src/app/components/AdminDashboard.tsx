@@ -20,10 +20,9 @@ import {
   Clock,
   Bell,
 } from "lucide-react"
-import { db, useDB, type Doctor, type Status } from "../../../lib/store"
+import { db, useDB, type Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
-import DoctorForm from "./DoctorForm"
 
 type Tab = "overview" | "general" | "doctorAppts" | "messages" | "doctors"
 
@@ -32,7 +31,6 @@ const nav: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "general", label: "General Appointments", icon: CalendarDays },
   { id: "doctorAppts", label: "Doctor Appointments", icon: Stethoscope },
   { id: "messages", label: "Messages", icon: MessageSquare },
-  { id: "doctors", label: "Manage Doctors", icon: UsersRound },
 ]
 
 const statusOptions: Status[] = ["pending", "confirmed", "completed", "cancelled"]
@@ -125,7 +123,6 @@ function Overview({ go }: { go: (t: Tab) => void }) {
     { label: "General Appointments", value: data.generalAppointments.length, sub: `${data.generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
     { label: "Doctor Appointments", value: data.doctorAppointments.length, sub: `${data.doctorAppointments.filter((a) => a.status === "pending").length} pending`, icon: Stethoscope, tab: "doctorAppts" as Tab },
     { label: "Messages", value: data.messages.length, sub: `${data.messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
-    { label: "Active Doctors", value: data.doctors.length, sub: "profiles live", icon: UsersRound, tab: "doctors" as Tab },
   ]
 
   const recent = [
@@ -138,7 +135,7 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {stats.map((s, i) => (
           <motion.button
             key={s.label}
@@ -390,108 +387,6 @@ function Messages() {
   )
 }
 
-/* ---------------- Doctors ---------------- */
-
-function ManageDoctors() {
-  const { doctors } = useDB()
-  const { push } = useToast()
-  const [q, setQ] = useState("")
-  const [formOpen, setFormOpen] = useState(false)
-  const [editing, setEditing] = useState<Doctor | null>(null)
-  const [del, setDel] = useState<Doctor | null>(null)
-
-  const rows = useMemo(
-    () => doctors.filter((d) => [d.name, d.specialty, d.education].join(" ").toLowerCase().includes(q.toLowerCase())),
-    [doctors, q],
-  )
-
-  return (
-    <>
-      <Toolbar
-        search={q}
-        onSearch={setQ}
-        action={
-          <button
-            onClick={() => {
-              setEditing(null)
-              setFormOpen(true)
-            }}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-700"
-          >
-            <Plus size={16} /> <span className="hidden sm:inline">Add Doctor</span>
-          </button>
-        }
-      />
-      {rows.length === 0 ? (
-        <EmptyState label="No doctors found." />
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          <AnimatePresence initial={false}>
-            {rows.map((d) => (
-              <motion.div key={d.id} layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className={cn(cardCls, "flex flex-col p-5")}>
-                <div className="flex items-center gap-3.5">
-                  <div className="size-16 shrink-0 overflow-hidden rounded-2xl bg-brand-50 ring-1 ring-brand-100">
-                    {d.photo ? (
-                      <img src={d.photo} alt={d.name} className="size-full object-cover" />
-                    ) : (
-                      <div className="grid size-full place-items-center text-lg font-bold text-brand-600">{initials(d.name)}</div>
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="truncate font-bold text-ink">{d.name}</h3>
-                    <p className="text-sm font-semibold text-brand-600">{d.specialty}</p>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-0.5"><Star size={12} className="fill-amber-400 text-amber-400" /> {d.rating}</span>
-                      <span>· {d.reviews} reviews</span>
-                      <span>· {d.experience} yrs</span>
-                    </div>
-                  </div>
-                </div>
-                {d.about && <p className="mt-3.5 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-600">{d.about}</p>}
-                {d.languages.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {d.languages.map((l) => (
-                      <span key={l} className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-100">{l}</span>
-                    ))}
-                  </div>
-                )}
-                <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3.5">
-                  <button
-                    onClick={() => {
-                      setEditing(d)
-                      setFormOpen(true)
-                    }}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-3 py-2 text-xs font-bold text-ink transition hover:bg-slate-200"
-                  >
-                    <Pencil size={14} /> Edit
-                  </button>
-                  <button onClick={() => setDel(d)} className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-rose-50 px-3 py-2 text-xs font-bold text-rose-600 transition hover:bg-rose-100">
-                    <Trash2 size={14} /> Remove
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      )}
-
-      <DoctorForm open={formOpen} onClose={() => setFormOpen(false)} editing={editing} />
-      <ConfirmDialog
-        open={del !== null}
-        title={`Remove ${del?.name ?? "doctor"}?`}
-        message="This will permanently remove the doctor's profile from the directory."
-        confirmLabel="Remove"
-        onCancel={() => setDel(null)}
-        onConfirm={() => {
-          if (del) db.deleteDoctor(del.id)
-          setDel(null)
-          push("Doctor removed.", "info")
-        }}
-      />
-    </>
-  )
-}
-
 /* ---------------- Shell ---------------- */
 
 export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
@@ -692,7 +587,6 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
               {tab === "general" && <GeneralAppointments />}
               {tab === "doctorAppts" && <DoctorAppointments />}
               {tab === "messages" && <Messages />}
-              {tab === "doctors" && <ManageDoctors />}
             </motion.div>
           </AnimatePresence>
         </main>
