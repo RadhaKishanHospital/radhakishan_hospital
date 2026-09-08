@@ -8,6 +8,9 @@ import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { useState } from "react";
+import AppointmentModal, {
+  type AppointmentDraft,
+} from "../components/AppointmentModal";
 
 const doctors: Record<
   number,
@@ -98,6 +101,7 @@ const DoctorProfile = () => {
   const { id } = useParams<{ id: string }>();
   const doctor = doctors[Number(id)];
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
 
   if (!doctor) {
     return (
@@ -241,9 +245,11 @@ const DoctorProfile = () => {
               <p className="text-sm text-muted-foreground mb-6">Select an available time slot</p>
 
               <div className="flex items-center gap-2 mb-4">
-                <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold text-foreground">Today, March 14</span>
-              </div>
+  <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
+  <span className="text-sm font-semibold text-foreground">
+    Choose your preferred date & time
+  </span>
+</div>
 
               <div className="grid grid-cols-3 gap-2 mb-6">
                 {timeSlots.map((slot) => {
@@ -267,9 +273,10 @@ const DoctorProfile = () => {
               </div>
 
               <Button
-                className="w-full rounded-xl h-12 text-sm font-semibold shadow-elegant hover:shadow-elegant-lg transition-all duration-300"
-                disabled={!selectedSlot}
-              >
+  className="w-full rounded-xl h-12 text-sm font-semibold shadow-elegant hover:shadow-elegant-lg transition-all duration-300"
+  disabled={!selectedSlot}
+  onClick={() => setAppointmentModalOpen(true)}
+>
                 {selectedSlot ? (
                   <span className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4" /> Confirm {selectedSlot}
@@ -287,6 +294,16 @@ const DoctorProfile = () => {
           </motion.div>
         </div>
       </div>
+      <AppointmentModal
+  open={appointmentModalOpen}
+  slot={selectedSlot ?? ""}
+  doctorName={doctor.name}
+  onClose={() => setAppointmentModalOpen(false)}
+  onSubmit={(data) => {
+    console.log(data);
+    setAppointmentModalOpen(false);
+  }}
+/>
     </div>
   );
 };
