@@ -6,19 +6,51 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.local") })
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://devdomain15_db_user:yVkYpPQVmEOtFpNH@devdomain02.vnqb2be.mongodb.net/hospital_db?retryWrites=true&w=majority"
 
-let isConnected = false
+/*
+ * Serverless‑friendly MongoDB connection helper.
+ * Vercel (and other serverless platforms) may spin up separate instances
+ * for each request, so a simple in‑memory flag (`isConnected`) does not work.
+ * Instead we cache the connection (or the pending promise) on the global
+ * object. This ensures that within the same container the connection is
+ * reused, while each new container creates its own connection as needed.
+ */
+
+type CachedMongoose = {
+  conn: typeof mongoose | null
+  promise: Promise<typeof mongoose> | null
+}
+
+// Use a property on the global object to share the cache across imports.
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var mongooseCache: CachedMongoose | undefined
+}
+
+if (!global.mongooseCache) {
+  global.mongooseCache = { conn: null, promise: null }
+}
 
 export async function connectDB() {
-  if (isConnected) return
-  try {
+  const cache = global.mongooseCache!
+  if (cache.conn) {
+    // Connection already established – reuse it
+    return cache.conn
+  }
+  if (!cache.promise) {
     const dbName = MONGODB_URI.includes("/?") || MONGODB_URI.endsWith("/") ? "hospital_db" : undefined
-    await mongoose.connect(MONGODB_URI, dbName ? { dbName: "hospital_db" } : {})
-    isConnected = true
-    console.log("Connected to MongoDB via Mongoose successfully")
+    const options = dbName ? { dbName: "hospital_db" } : {}
+    cache.promise = mongoose.connect(MONGODB_URI, options)
+  }
+  try {
+    cache.conn = await cache.promise
+    console.log("✅ Connected to MongoDB via Mongoose (serverless cache)")
+    return cache.conn
   } catch (err) {
-    console.error("Failed to connect to MongoDB:", err)
+    console.error("❌ Failed to connect to MongoDB:", err)
+    throw err
   }
 }
+
 
 // 1. General Appointment Schema & Model
 export interface IGeneralAppointment {
