@@ -62,7 +62,7 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/messages', {
+      const response = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -73,17 +73,14 @@ export function Contact() {
           read: false
         })
       });
+      if (!response.ok) throw new Error('Unable to send message.');
+
+      toast.success('Message sent successfully! We will get back to you soon.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
       console.error('Error saving message to MongoDB:', err);
+      toast.error('We could not send your message. Please try again.');
     }
-
-    toast.success('Message sent successfully! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
   };
 
   const handleChange = (field: string, value: string) => {

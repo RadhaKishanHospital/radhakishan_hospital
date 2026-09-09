@@ -2,9 +2,17 @@ import mongoose, { Schema } from "mongoose"
 import dotenv from "dotenv"
 import path from "path"
 
+// Vite does not load server-only environment variables. Loading this file is
+// useful for local development; Vercel injects MONGODB_URI directly.
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") })
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://devdomain15_db_user:yVkYpPQVmEOtFpNH@devdomain02.vnqb2be.mongodb.net/hospital_db?retryWrites=true&w=majority"
+function getMongoUri() {
+  const uri = process.env.MONGODB_URI
+  if (!uri) {
+    throw new Error("MONGODB_URI is not configured. Add it to your Vercel project environment variables.")
+  }
+  return uri
+}
 
 /*
  * Serverless‑friendly MongoDB connection helper.
@@ -37,8 +45,13 @@ export async function connectDB() {
     return cache.conn
   }
   if (!cache.promise) {
+    const MONGODB_URI = getMongoUri()
     const dbName = MONGODB_URI.includes("/?") || MONGODB_URI.endsWith("/") ? "hospital_db" : undefined
-    const options = dbName ? { dbName: "hospital_db" } : {}
+    const options = {
+      ...(dbName ? { dbName } : {}),
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 10_000,
+    }
     cache.promise = mongoose.connect(MONGODB_URI, options)
   }
   try {
@@ -46,6 +59,9 @@ export async function connectDB() {
     console.log("✅ Connected to MongoDB via Mongoose (serverless cache)")
     return cache.conn
   } catch (err) {
+    // A rejected promise must not be cached: a later serverless invocation may
+    // succeed after a transient network failure.
+    cache.promise = null
     console.error("❌ Failed to connect to MongoDB:", err)
     throw err
   }

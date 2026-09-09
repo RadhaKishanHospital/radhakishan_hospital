@@ -45,6 +45,8 @@ export function Home() {
       toast.success("Thank you for sharing your experience!");
     } catch (err) {
       console.error("Failed to submit review to MongoDB:", err);
+      toast.error("We could not submit your review. Please try again.");
+      return;
     }
     setOpen(false);
   };

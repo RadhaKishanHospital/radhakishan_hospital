@@ -302,7 +302,7 @@ const DoctorProfile = () => {
         onClose={() => setAppointmentModalOpen(false)}
         onSubmit={async (data) => {
           try {
-            await fetch('/api/doctor-appointments', {
+            const response = await fetch('/api/doctor-appointments', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -317,9 +317,12 @@ const DoctorProfile = () => {
                 status: "pending"
               })
             });
+            if (!response.ok) throw new Error("Unable to book doctor appointment.");
             toast.success("Doctor appointment booked successfully!");
           } catch (err) {
             console.error("Error saving doctor appointment to MongoDB:", err);
+            toast.error("We could not book your appointment. Please try again.");
+            return;
           }
           setAppointmentModalOpen(false);
         }}
