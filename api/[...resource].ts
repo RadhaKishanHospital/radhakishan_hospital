@@ -8,10 +8,8 @@ import {
 
 type Request = {
   method?: string
-  url?: string
-  query?: { resource?: string | string[] }
-  body?: unknown
-  on?(event: "data" | "end" | "error", listener: (value?: unknown) => void): void
+  query: { resource?: string | string[] }
+  body?: Record<string, unknown>
 }
 type Response = {
   statusCode: number
@@ -32,46 +30,12 @@ function send(res: Response, status: number, payload: unknown) {
   res.end(JSON.stringify(payload))
 }
 
-function resourcePath(resource?: string | string[]) {
+function resourcePath(resource: Request["query"]["resource"]) {
   return Array.isArray(resource) ? resource : resource?.split("/").filter(Boolean) ?? []
 }
 
-function pathFromRequest(req: Request) {
-  const fromQuery = resourcePath(req.query?.resource)
-  if (fromQuery.length) return fromQuery
-
-  // Vercel supplies `query` for dynamic functions. Parsing the URL as a
-  // fallback also makes this handler work with Node-compatible local runners.
-  return (req.url ?? "").split("?")[0].split("/").filter(Boolean).slice(1)
-}
-
-async function requestBody(req: Request): Promise<Record<string, unknown>> {
-  if (req.body && typeof req.body === "object" && !Array.isArray(req.body)) {
-    return req.body as Record<string, unknown>
-  }
-
-  if (typeof req.body === "string") {
-    return JSON.parse(req.body) as Record<string, unknown>
-  }
-
-  if (!req.on) return {}
-
-  return new Promise((resolve, reject) => {
-    let raw = ""
-    req.on?.("data", (chunk) => { raw += String(chunk) })
-    req.on?.("end", () => {
-      try {
-        resolve(raw ? JSON.parse(raw) as Record<string, unknown> : {})
-      } catch {
-        reject(new Error("Request body must be valid JSON"))
-      }
-    })
-    req.on?.("error", reject)
-  })
-}
-
 export default async function handler(req: Request, res: Response) {
-  const [resource, id] = pathFromRequest(req)
+  const [resource, id] = resourcePath(req.query.resource)
   const model = models[resource]
   if (!model) return send(res, 404, { error: "Not found" })
 
@@ -84,12 +48,12 @@ export default async function handler(req: Request, res: Response) {
     }
 
     if (req.method === "POST" && !id) {
-      const document = await model.create(await requestBody(req))
+      const document = await model.create(req.body)
       return send(res, 201, formatDoc(document))
     }
 
     if (req.method === "PATCH" && id) {
-      const document = await model.findByIdAndUpdate(id, await requestBody(req), { new: true, runValidators: true })
+      const document = await model.findByIdAndUpdate(id, req.body, { new: true, runValidators: true })
       return document ? send(res, 200, formatDoc(document)) : send(res, 404, { error: "Not found" })
     }
 
