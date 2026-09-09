@@ -32,7 +32,7 @@ export type DoctorAppointment = {
 export type Message = {
   id: string
   name: string
-  phone_no: number
+  phone_no: string
   subject: string
   body: string
   read: boolean
