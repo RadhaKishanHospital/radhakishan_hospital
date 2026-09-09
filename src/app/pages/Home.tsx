@@ -53,6 +53,81 @@ export function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <style>{`
+  @keyframes reviews-slide {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .reviews-track {
+    display: flex;
+    width: max-content;
+    animation: reviews-slide 32s linear infinite;
+    will-change: transform;
+  }
+
+  .reviews-group {
+    display: flex;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+    align-items: stretch;
+  }
+
+  .reviews-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Soft fade at both ends */
+  .reviews-viewport::before,
+  .reviews-viewport::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .reviews-viewport::before {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      white 0%,
+      rgba(255, 255, 255, 0.85) 30%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .reviews-viewport::after {
+    right: 0;
+    background: linear-gradient(
+      to left,
+      white 0%,
+      rgba(255, 255, 255, 0.85) 30%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .reviews-viewport::before,
+    .reviews-viewport::after {
+      width: 45px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviews-track {
+      animation: none;
+      transform: none;
+    }
+  }
+`}</style>
       {/* Hero Section */}
       <section className="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-slate-950">
         {/* Video background */}
@@ -334,42 +409,94 @@ export function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.length === 0 ? (
-              <div className="col-span-full text-center py-8 text-muted-foreground">
-                No reviews yet. Be the first to share your experience!
+<div className="reviews-viewport relative w-full overflow-hidden">
+  {reviews.length === 0 ? (
+    <div className="text-center py-8 text-muted-foreground">
+      No reviews yet. Be the first to share your experience!
+    </div>
+  ) : (
+    <div className="reviews-track">
+      
+      {/* First row */}
+      <div className="reviews-group flex items-stretch gap-6 shrink-0">
+        {reviews.map((testimonial, index) => (
+          <motion.div
+            key={`first-${testimonial.id || index}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className="w-[320px] shrink-0"
+          >
+            <Card className="h-full p-6 hover:shadow-lg transition-shadow">
+              <div className="flex gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Icon
+                    key={i}
+                    icon="solar:star-bold"
+                    className="w-5 h-5 text-primary"
+                  />
+                ))}
               </div>
-            ) : (
-              reviews.map((testimonial, index) => (
-                <motion.div
-                  key={testimonial.id || index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Icon
-                          key={i}
-                          icon="solar:star-bold"
-                          className="w-5 h-5 text-primary"
-                        />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
-  {testimonial.description}
-</p>
-                    <div>
-                      <div style={{ fontWeight: 600 }}>{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">Patient</div>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))
-            )}
+
+              <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+                {testimonial.description}
+              </p>
+
+              <div>
+                <div style={{ fontWeight: 600 }}>
+                  {testimonial.name}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Patient
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Duplicate row for seamless loop */}
+      <div
+        className="reviews-group flex items-stretch gap-6 shrink-0"
+        aria-hidden="true"
+      >
+        {reviews.map((testimonial, index) => (
+          <div
+            key={`second-${testimonial.id || index}`}
+            className="w-[320px] shrink-0"
+          >
+            <Card className="h-full p-6 hover:shadow-lg transition-shadow">
+              <div className="flex gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Icon
+                    key={i}
+                    icon="solar:star-bold"
+                    className="w-5 h-5 text-primary"
+                  />
+                ))}
+              </div>
+
+              <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+                {testimonial.description}
+              </p>
+
+              <div>
+                <div style={{ fontWeight: 600 }}>
+                  {testimonial.name}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Patient
+                </div>
+              </div>
+            </Card>
           </div>
+        ))}
+      </div>
+
+    </div>
+  )}
+</div>
           <div className="mt-10 flex justify-center">
             <Button
               type='button'
