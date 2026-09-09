@@ -54,7 +54,7 @@ const faqs = [
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    number: '',
     subject: '',
     message: ''
   });
@@ -62,28 +62,30 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/messages', {
+      const response = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
-          phone_no: Number(formData.email || (formData as any).number || 0) || 0,
+          phone_no: formData.number,
           subject: formData.subject,
           body: formData.message,
           read: false
         })
       });
+      if (!response.ok) throw new Error('Unable to save message');
+
+      toast.success('Message sent successfully! We will get back to you soon.');
+      setFormData({
+        name: '',
+        number: '',
+        subject: '',
+        message: ''
+      });
     } catch (err) {
       console.error('Error saving message to MongoDB:', err);
+      toast.error('Unable to send your message. Please try again.');
     }
-
-    toast.success('Message sent successfully! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
   };
 
   const handleChange = (field: string, value: string) => {
@@ -193,7 +195,7 @@ export function Contact() {
                       type="number"
                       placeholder="Enter your mobile number"
                       value={formData.number}
-                      onChange={(e) => handleChange('email', e.target.value)}
+                      onChange={(e) => handleChange('number', e.target.value)}
                       required
                       className="border-border"
                     />

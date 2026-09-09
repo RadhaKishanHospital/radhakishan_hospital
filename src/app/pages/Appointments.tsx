@@ -25,7 +25,7 @@ export function Appointments() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/general-appointments', {
+      const response = await fetch('/api/general-appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -39,21 +39,23 @@ export function Appointments() {
           status: 'pending'
         })
       });
+      if (!response.ok) throw new Error('Unable to save appointment');
+
+      toast.success('Appointment request submitted successfully! We will contact you soon.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        department: '',
+        doctor: '',
+        message: ''
+      });
     } catch (err) {
       console.error('Error saving general appointment to MongoDB:', err);
+      toast.error('Unable to submit your appointment. Please try again.');
     }
-
-    toast.success('Appointment request submitted successfully! We will contact you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      department: '',
-      doctor: '',
-      message: ''
-    });
   };
 
   const handleChange = (field: string, value: string) => {
