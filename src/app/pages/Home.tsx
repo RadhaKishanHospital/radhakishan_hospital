@@ -1,4 +1,5 @@
 "use client"
+
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Link } from 'react-router';
@@ -25,7 +26,7 @@ const staggerChildren = {
 };
 
 const HERO_VIDEO =
-  "https://res.cloudinary.com/m89jw24l/video/upload/v1787195293/large.mp4";
+  "https://res.cloudinary.com/m89jw24l/video/upload/v1788940880/herosectionrkh.mp4";
 
 // Inlined design values (previously lived in src/styles.css).
 const OVERLAY_COLOR = "rgba(0, 0, 0, 0.35)";
@@ -38,6 +39,7 @@ export function Home() {
   const [open, setOpen] = useState(false);
   const { data: reviews = [] } = useReviews();
   const addReviewMutation = useAddReview();
+  const [isRatingsPaused, setIsRatingsPaused] = useState(false);
 
   const handleReviewSubmit = async (review: ReviewDraft) => {
     try {
