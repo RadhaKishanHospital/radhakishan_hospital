@@ -18,7 +18,7 @@ async function saveAppointment(payload: Record<string, string>, requestId: strin
 
   // Retrying with the same key means a request that reached MongoDB is saved
   // exactly once even when Vercel/the network drops the first response.
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
     let response: Response;
     try {
       response = await fetch('/api/general-appointments', {
@@ -27,11 +27,13 @@ async function saveAppointment(payload: Record<string, string>, requestId: strin
           'Content-Type': 'application/json',
           'X-Idempotency-Key': requestId,
         },
-        body: JSON.stringify(payload),
+        // Keep the key in the body too. This protects submissions when an
+        // intermediary strips the custom HTTP header before it reaches Vercel.
+        body: JSON.stringify({ ...payload, requestId }),
       });
     } catch (error) {
       lastError = error instanceof Error ? error : new Error('We could not save your appointment request.');
-      if (attempt < 2) await new Promise((resolve) => window.setTimeout(resolve, 400 * (attempt + 1)));
+      if (attempt < 3) await new Promise((resolve) => window.setTimeout(resolve, 500 * 2 ** attempt));
       continue;
     }
 
@@ -40,7 +42,7 @@ async function saveAppointment(payload: Record<string, string>, requestId: strin
 
     lastError = new Error(result?.error || 'We could not save your appointment request.');
     if (!retryableStatusCodes.has(response.status)) throw lastError;
-    if (attempt < 2) await new Promise((resolve) => window.setTimeout(resolve, 400 * (attempt + 1)));
+    if (attempt < 3) await new Promise((resolve) => window.setTimeout(resolve, 500 * 2 ** attempt));
   }
 
   throw lastError ?? new Error('We could not save your appointment request.');
