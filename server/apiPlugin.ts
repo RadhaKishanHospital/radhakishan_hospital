@@ -69,11 +69,10 @@ export function expressApiPlugin(): Plugin {
                 name: body.name,
                 email: body.email,
                 phone: body.phone,
-                department: body.department,
                 date: body.date,
                 time: body.time,
                 notes: body.notes || "",
-                status: body.status || "pending",
+                status: "pending",
                 createdAt: Date.now(),
               })
               return sendJson(res, 201, formatDoc(doc))
