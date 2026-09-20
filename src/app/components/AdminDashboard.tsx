@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "motion/react"
 import {
   LayoutDashboard,
   CalendarDays,
-  Stethoscope,
   MessageSquare,
   LogOut,
   Search,
@@ -22,22 +21,18 @@ import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
 import {
   useGeneralAppointments,
-  useDoctorAppointments,
   useMessages,
   useUpdateGeneralAppointmentStatus,
   useDeleteGeneralAppointment,
-  useUpdateDoctorApptStatus,
-  useDeleteDoctorAppointment,
   useToggleMessageRead,
   useDeleteMessage,
 } from "../../../lib/queries"
 
-type Tab = "overview" | "general" | "doctorAppts" | "messages" | "doctors"
+type Tab = "overview" | "general" | "messages"
 
 const nav: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "general", label: "General Appointments", icon: CalendarDays },
-  { id: "doctorAppts", label: "Doctor Appointments", icon: Stethoscope },
   { id: "messages", label: "Messages", icon: MessageSquare },
 ]
 
@@ -127,18 +122,15 @@ const cardCls = "rounded-2xl border border-slate-200 bg-white p-4 transition hov
 
 function Overview({ go }: { go: (t: Tab) => void }) {
   const { data: generalAppointments = [] } = useGeneralAppointments()
-  const { data: doctorAppointments = [] } = useDoctorAppointments()
   const { data: messages = [] } = useMessages()
 
   const stats = [
     { label: "General Appointments", value: generalAppointments.length, sub: `${generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
-    { label: "Doctor Appointments", value: doctorAppointments.length, sub: `${doctorAppointments.filter((a) => a.status === "pending").length} pending`, icon: Stethoscope, tab: "doctorAppts" as Tab },
     { label: "Messages", value: messages.length, sub: `${messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
   ]
 
   const recent = [
     ...generalAppointments.map((a) => ({ id: a.id, who: a.name, what: "booked a general appointment", at: a.createdAt })),
-    ...doctorAppointments.map((a) => ({ id: a.id, who: a.patientName, what: `requested ${a.doctorName}`, at: a.createdAt })),
     ...messages.map((m) => ({ id: m.id, who: m.name, what: `sent “${m.subject}”`, at: m.createdAt })),
   ]
     .sort((a, b) => b.at - a.at)
@@ -260,75 +252,6 @@ function GeneralAppointments() {
   )
 }
 
-/* ---------------- Doctor appointments ---------------- */
-
-function DoctorAppointments() {
-  const { data: doctorAppointments = [] } = useDoctorAppointments()
-  const updateStatusMutation = useUpdateDoctorApptStatus()
-  const deleteMutation = useDeleteDoctorAppointment()
-  const { push } = useToast()
-  const [q, setQ] = useState("")
-  const [del, setDel] = useState<string | null>(null)
-
-  const rows = useMemo(
-    () => doctorAppointments.filter((a) => [a.patientName, a.doctorName, a.specialty, a.patientEmail].join(" ").toLowerCase().includes(q.toLowerCase())),
-    [doctorAppointments, q],
-  )
-
-  return (
-    <>
-      <Toolbar search={q} onSearch={setQ} />
-      {rows.length === 0 ? (
-        <EmptyState label="No doctor appointments found." />
-      ) : (
-        <div className="space-y-3">
-          <AnimatePresence initial={false}>
-            {rows.map((a) => (
-              <motion.div key={a.id} layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }} className={cardCls}>
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="flex min-w-0 gap-3.5">
-                    <Avatar name={a.patientName} className="size-11 text-sm" />
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-bold text-ink">{a.patientName}</h3>
-                        <StatusBadge status={a.status} />
-                      </div>
-                      <p className="text-sm text-muted-foreground">{a.patientEmail} · {a.patientPhone}</p>
-                      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-600">
-                        <span className="inline-flex items-center gap-1 font-semibold text-brand-700"><Stethoscope size={13} /> {a.doctorName}</span>
-                        <span>{a.specialty}</span>
-                        <span className="inline-flex items-center gap-1"><CalendarDays size={13} /> {formatDate(a.date)}</span>
-                        <span className="inline-flex items-center gap-1"><Clock size={13} /> {a.time}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StatusSelect value={a.status} onChange={(s) => updateStatusMutation.mutate({ id: a.id, status: s })} />
-                    <button onClick={() => setDel(a.id)} aria-label="Delete appointment" className="grid size-9 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      )}
-      <ConfirmDialog
-        open={del !== null}
-        title="Delete appointment?"
-        message="This will permanently remove the doctor appointment record."
-        onCancel={() => setDel(null)}
-        onConfirm={() => {
-          if (del) deleteMutation.mutate(del)
-          setDel(null)
-          push("Appointment deleted.", "info")
-        }}
-      />
-    </>
-  )
-}
-
 /* ---------------- Messages ---------------- */
 
 function Messages() {
@@ -407,7 +330,6 @@ function Messages() {
 
 export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const { data: generalAppointments = [] } = useGeneralAppointments()
-  const { data: doctorAppointments = [] } = useDoctorAppointments()
   const { data: messages = [] } = useMessages()
 
   const [tab, setTab] = useState<Tab>("overview")
@@ -423,13 +345,9 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     ...generalAppointments
       .filter((a) => a.status === "pending")
       .map((a) => ({ id: "gen" + a.id, who: a.name, text: "New general appointment", at: a.createdAt, tab: "general" as Tab, icon: CalendarDays })),
-    ...doctorAppointments
-      .filter((a) => a.status === "pending")
-      .map((a) => ({ id: "doc" + a.id, who: a.patientName, text: `Doctor appointment · ${a.doctorName}`, at: a.createdAt, tab: "doctorAppts" as Tab, icon: Stethoscope })),
   ].sort((a, b) => b.at - a.at)
   const badges: Partial<Record<Tab, number>> = {
     general: generalAppointments.filter((a) => a.status === "pending").length,
-    doctorAppts: doctorAppointments.filter((a) => a.status === "pending").length,
     messages: unread,
   }
 
@@ -604,7 +522,6 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             <motion.div key={tab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }}>
               {tab === "overview" && <Overview go={go} />}
               {tab === "general" && <GeneralAppointments />}
-              {tab === "doctorAppts" && <DoctorAppointments />}
               {tab === "messages" && <Messages />}
             </motion.div>
           </AnimatePresence>

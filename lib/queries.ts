@@ -1,16 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import type { GeneralAppointment, DoctorAppointment, Message, Status } from "./store"
+import type { GeneralAppointment, Message, Status } from "./store"
 
 // --- Fetch Functions ---
 export async function fetchGeneralAppointments(): Promise<GeneralAppointment[]> {
   const res = await fetch("/api/general-appointments")
   if (!res.ok) throw new Error("Failed to fetch general appointments")
-  return res.json()
-}
-
-export async function fetchDoctorAppointments(): Promise<DoctorAppointment[]> {
-  const res = await fetch("/api/doctor-appointments")
-  if (!res.ok) throw new Error("Failed to fetch doctor appointments")
   return res.json()
 }
 
@@ -26,16 +20,6 @@ export function useGeneralAppointments() {
     queryKey: ["generalAppointments"],
     queryFn: fetchGeneralAppointments,
     staleTime: 1000 * 60 * 5, // Keep cached for 5 mins
-    gcTime: 1000 * 60 * 30,
-    refetchOnWindowFocus: false,
-  })
-}
-
-export function useDoctorAppointments() {
-  return useQuery({
-    queryKey: ["doctorAppointments"],
-    queryFn: fetchDoctorAppointments,
-    staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 30,
     refetchOnWindowFocus: false,
   })
@@ -82,40 +66,6 @@ export function useDeleteGeneralAppointment() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["generalAppointments"] })
-    },
-  })
-}
-
-export function useUpdateDoctorApptStatus() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: Status }) => {
-      const res = await fetch(`/api/doctor-appointments/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-      })
-      if (!res.ok) throw new Error("Failed to update status")
-      return res.json()
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["doctorAppointments"] })
-    },
-  })
-}
-
-export function useDeleteDoctorAppointment() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: async (id: string) => {
-      const res = await fetch(`/api/doctor-appointments/${id}`, {
-        method: "DELETE",
-      })
-      if (!res.ok) throw new Error("Failed to delete doctor appointment")
-      return res.json()
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["doctorAppointments"] })
     },
   })
 }
