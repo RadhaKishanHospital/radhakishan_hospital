@@ -44,7 +44,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: "A valid appointment request key is required" })
       }
 
-      const doc = await saveGeneralAppointment({ requestId: key, ...result.input })
+      // `upsert` makes a retry return the original appointment instead of
+      // inserting a duplicate when a network/serverless timeout occurs after
+      // the database write has completed.
+      let doc
+      try {
+        doc = await GeneralAppointmentModel.findOneAndUpdate(
+          { requestId: key },
+          {
+            $setOnInsert: {
+              requestId: key,
+              ...result.input,
+              status: "pending",
+              createdAt: Date.now(),
+            },
+          },
+          { new: true, upsert: true, setDefaultsOnInsert: true },
+        )
+      } catch (error: any) {
+        // Concurrent retries may race to insert the same key. MongoDB's
+        // unique index correctly rejects one insert; return the successful
+        // record instead of reporting that retry as a failed appointment.
+        if (error?.code !== 11000) throw error
+        doc = await GeneralAppointmentModel.findOne({ requestId: key })
+      }
+
+      if (!doc) throw new Error("Appointment request could not be saved")
       return res.status(201).json(formatDoc(doc))
     }
     return res.status(405).json({ error: "Method not allowed" })

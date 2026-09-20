@@ -68,14 +68,6 @@ GeneralAppointmentSchema.index(
   { requestId: 1 },
   { unique: true, partialFilterExpression: { requestId: { $type: "string" } } },
 )
-
-// Vite keeps Mongoose models alive while the server plugin is hot-reloaded.
-// Recreate the model if it came from an older schema that predates requestId;
-// otherwise Mongoose rejects the idempotent upsert with strict-mode errors.
-const existingGeneralAppointmentModel = mongoose.models.GeneralAppointmentRecord
-if (existingGeneralAppointmentModel && !existingGeneralAppointmentModel.schema.path("requestId")) {
-  mongoose.deleteModel("GeneralAppointmentRecord")
-}
 export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointmentRecord ||
   mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)
