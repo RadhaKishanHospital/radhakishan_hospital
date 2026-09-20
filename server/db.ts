@@ -30,6 +30,7 @@ export interface IGeneralAppointment {
   name: string
   email: string
   phone: string
+  department?: string
   date: string
   time: string
   notes?: string
@@ -42,6 +43,9 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
+    // Kept optional so existing records remain readable after the field was
+    // removed from the public appointment form.
+    department: { type: String },
     date: { type: String, required: true },
     time: { type: String, required: true },
     notes: { type: String, default: "" },
