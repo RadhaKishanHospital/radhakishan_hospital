@@ -11,6 +11,42 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 
+const retryableStatusCodes = new Set([408, 429, 500, 502, 503, 504]);
+
+async function saveAppointment(payload: Record<string, string>, requestId: string) {
+  let lastError: Error | undefined;
+
+  // Retrying with the same key means a request that reached MongoDB is saved
+  // exactly once even when Vercel/the network drops the first response.
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    let response: Response;
+    try {
+      response = await fetch('/api/general-appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Idempotency-Key': requestId,
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error('We could not save your appointment request.');
+      if (attempt < 2) await new Promise((resolve) => window.setTimeout(resolve, 400 * (attempt + 1)));
+      continue;
+    }
+
+    const result = await response.json().catch(() => null);
+    if (response.ok) return;
+
+    lastError = new Error(result?.error || 'We could not save your appointment request.');
+    if (!retryableStatusCodes.has(response.status)) throw lastError;
+    if (attempt < 2) await new Promise((resolve) => window.setTimeout(resolve, 400 * (attempt + 1)));
+  }
+
+  throw lastError ?? new Error('We could not save your appointment request.');
+}
+
+
 export function Appointments() {
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,23 +66,14 @@ export function Appointments() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/general-appointments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          date: formData.date,
-          time: formData.time,
-          notes: formData.message,
-        })
-      });
-
-      const payload = await response.json().catch(() => null);
-      if (!response.ok) {
-        throw new Error(payload?.error || 'We could not save your appointment request.');
-      }
+       await saveAppointment({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        date: formData.date,
+        time: formData.time,
+        notes: formData.message,
+      }, crypto.randomUUID());
 
       await queryClient.invalidateQueries({ queryKey: ['generalAppointments'] });
       toast.success('Appointment request submitted successfully! We will contact you soon.');

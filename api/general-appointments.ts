@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node"
 import { connectDB, formatDoc, GeneralAppointmentModel } from "../server/db"
 
 const requiredFields = ["name", "email", "phone", "date", "time"] as const
+const idempotencyKeyPattern = /^[a-zA-Z0-9_-]{16,128}$/
 
 function appointmentInput(body: unknown) {
   const value = typeof body === "object" && body !== null ? body as Record<string, unknown> : {}
@@ -32,11 +33,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const result = appointmentInput(req.body)
       if ("error" in result) return res.status(400).json({ error: result.error })
 
-      const doc = await GeneralAppointmentModel.create({
-        ...result.input,
-        status: "pending",
-        createdAt: Date.now(),
-      })
+      const requestId = req.headers["x-idempotency-key"]
+      const key = Array.isArray(requestId) ? requestId[0] : requestId
+      if (!key || !idempotencyKeyPattern.test(key)) {
+        return res.status(400).json({ error: "A valid appointment request key is required" })
+      }
+
+      // `upsert` makes a retry return the original appointment instead of
+      // inserting a duplicate when a network/serverless timeout occurs after
+      // the database write has completed.
+      const doc = await GeneralAppointmentModel.findOneAndUpdate(
+        { requestId: key },
+        {
+          $setOnInsert: {
+            requestId: key,
+            ...result.input,
+            status: "pending",
+            createdAt: Date.now(),
+          },
+        },
+        { new: true, upsert: true, setDefaultsOnInsert: true },
+      )
       return res.status(201).json(formatDoc(doc))
     }
     return res.status(405).json({ error: "Method not allowed" })

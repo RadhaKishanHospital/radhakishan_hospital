@@ -14,7 +14,10 @@ export async function connectDB() {
 
   connectionState.__hospitalMongoConnection ??= mongoose.connect(MONGODB_URI, {
     dbName: "hospital_db",
+    maxPoolSize: 1,
+    minPoolSize: 0,
     serverSelectionTimeoutMS: 8_000,
+    connectTimeoutMS: 8_000,
   })
 
   try {
@@ -27,6 +30,7 @@ export async function connectDB() {
 
 // 1. General Appointment Schema & Model
 export interface IGeneralAppointment {
+  requestId: string
   name: string
   email: string
   phone: string
@@ -40,6 +44,7 @@ export interface IGeneralAppointment {
 
 const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
   {
+    requestId: { type: String, required: true, immutable: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
@@ -55,6 +60,7 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
   { collection: "general_appointments" }
 )
 
+GeneralAppointmentSchema.index({ requestId: 1 }, { unique: true })
 export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointmentRecord ||
   mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)
