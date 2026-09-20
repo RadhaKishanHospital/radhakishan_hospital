@@ -60,10 +60,66 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
   { collection: "general_appointments" }
 )
 
-GeneralAppointmentSchema.index({ requestId: 1 }, { unique: true })
+// The partial filter keeps the index compatible with appointment records
+// created before idempotency keys were introduced. A normal unique index
+// treats all missing requestIds as the same value and can fail to build when
+// older appointment records exist.
+GeneralAppointmentSchema.index(
+  { requestId: 1 },
+  { unique: true, partialFilterExpression: { requestId: { $type: "string" } } },
+)
+
+// Vite keeps Mongoose models alive while the server plugin is hot-reloaded.
+// Recreate the model if it came from an older schema that predates requestId;
+// otherwise Mongoose rejects the idempotent upsert with strict-mode errors.
+const existingGeneralAppointmentModel = mongoose.models.GeneralAppointmentRecord
+if (existingGeneralAppointmentModel && !existingGeneralAppointmentModel.schema.path("requestId")) {
+  mongoose.deleteModel("GeneralAppointmentRecord")
+}
 export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointmentRecord ||
   mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)
+
+type GeneralAppointmentInsert = Pick<
+  IGeneralAppointment,
+  "requestId" | "name" | "email" | "phone" | "date" | "time" | "notes"
+>
+
+/**
+ * Persist a request through MongoDB's native collection API.
+ *
+ * This deliberately does not use Mongoose's `findOneAndUpdate`. Vite hot
+ * reloads can retain an older Mongoose schema in memory, which caused the
+ * strict-mode `requestId` error. Native collection operations are also a
+ * better fit for short-lived Vercel serverless functions: they use the cached
+ * connection and perform one atomic upsert directly in MongoDB.
+ */
+export async function saveGeneralAppointment(input: GeneralAppointmentInsert) {
+  const collection = mongoose.connection.collection<IGeneralAppointment>("general_appointments")
+  const now = Date.now()
+
+  try {
+    await collection.updateOne(
+      { requestId: input.requestId },
+      {
+        $setOnInsert: {
+          ...input,
+          status: "pending",
+          createdAt: now,
+        },
+      },
+      { upsert: true },
+    )
+  } catch (error: any) {
+    // A simultaneous retry can lose the insert race. The other request has
+    // saved the exact same key, so returning that record is a success.
+    if (error?.code !== 11000) throw error
+  }
+
+  const saved = await collection.findOne({ requestId: input.requestId })
+  if (!saved) throw new Error("Appointment request could not be saved")
+  return saved
+}
 
 // 2. Doctor Appointment Schema & Model
 export interface IDoctorAppointment {

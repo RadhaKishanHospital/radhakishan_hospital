@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import { connectDB, formatDoc, GeneralAppointmentModel } from "../server/db"
+import { connectDB, formatDoc, GeneralAppointmentModel, saveGeneralAppointment } from "../server/db"
 
 const requiredFields = ["name", "email", "phone", "date", "time"] as const
 const idempotencyKeyPattern = /^[a-zA-Z0-9_-]{16,128}$/
@@ -33,27 +33,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const result = appointmentInput(req.body)
       if ("error" in result) return res.status(400).json({ error: result.error })
 
+      // Some proxies and browser privacy extensions remove non-standard
+      // request headers. Accept the same key in the JSON payload as a safe
+      // fallback, while preferring the header when it is available.
       const requestId = req.headers["x-idempotency-key"]
-      const key = Array.isArray(requestId) ? requestId[0] : requestId
+      const headerKey = Array.isArray(requestId) ? requestId[0] : requestId
+      const bodyKey = typeof req.body?.requestId === "string" ? req.body.requestId : undefined
+      const key = headerKey || bodyKey
       if (!key || !idempotencyKeyPattern.test(key)) {
         return res.status(400).json({ error: "A valid appointment request key is required" })
       }
 
-      // `upsert` makes a retry return the original appointment instead of
-      // inserting a duplicate when a network/serverless timeout occurs after
-      // the database write has completed.
-      const doc = await GeneralAppointmentModel.findOneAndUpdate(
-        { requestId: key },
-        {
-          $setOnInsert: {
-            requestId: key,
-            ...result.input,
-            status: "pending",
-            createdAt: Date.now(),
-          },
-        },
-        { new: true, upsert: true, setDefaultsOnInsert: true },
-      )
+      const doc = await saveGeneralAppointment({ requestId: key, ...result.input })
       return res.status(201).json(formatDoc(doc))
     }
     return res.status(405).json({ error: "Method not allowed" })
