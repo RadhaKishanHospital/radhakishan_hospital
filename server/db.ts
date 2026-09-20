@@ -56,8 +56,8 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
 )
 
 export const GeneralAppointmentModel =
-  mongoose.models.GeneralAppointment ||
-  mongoose.model<IGeneralAppointment>("GeneralAppointment", GeneralAppointmentSchema)
+  mongoose.models.GeneralAppointmentRecord ||
+  mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)
 
 // 2. Doctor Appointment Schema & Model
 export interface IDoctorAppointment {
