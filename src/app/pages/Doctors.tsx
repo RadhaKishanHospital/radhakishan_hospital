@@ -53,25 +53,21 @@ export function Doctors() {
     {
       name: "General Medicine",
       icon: Stethoscope,
-      count: 1,
       color: "from-blue-50 to-cyan-50",
     },
     {
       name: "Surgery",
       icon: Scissors,
-      count: 1,
       color: "from-red-50 to-rose-50",
     },
     {
       name: "Pathology",
       icon: Microscope,
-      count: 1,
       color: "from-purple-50 to-violet-50",
     },
     {
       name: "Pediatrics & Neonatal Care",
       icon: Baby,
-      count: 1,
       color: "from-green-50 to-emerald-50",
     },
   ];
@@ -188,7 +184,6 @@ export function Doctors() {
                   <spec.icon className="w-6 h-6 text-primary" />
                 </div>
                 <p className="font-semibold text-sm text-foreground">{spec.name}</p>
-                <p className="text-xs text-muted-foreground mt-1">{spec.count} Doctor</p>
               </motion.button>
             ))}
           </motion.div>

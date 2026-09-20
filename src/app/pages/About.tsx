@@ -463,8 +463,8 @@ export function About() {
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { number: '25+', label: 'Years of Service' },
-                { number: '50+', label: 'Expert Doctors' },
+                { number: '100%', label: 'Patient-Centered Care' },
+                { number: '24/7', label: 'Emergency Care' },
                 { number: '100K+', label: 'Happy Patients' },
                 { number: '98%', label: 'Success Rate' }
               ].map((stat, index) => (
@@ -494,7 +494,7 @@ export function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl mb-4" style={{ fontWeight: 700 }}>
-                Accreditations & Awards
+                Our Healthcare Highlights
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Recognized for excellence in healthcare
@@ -503,24 +503,23 @@ export function About() {
 
             <div className="size-full flex items-center justify-center bg-gray-50">
               <LogoCarousel speed={60}>
-                {/* Replace these placeholders with your 6 components */}
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Joint Commission Accreditation</div>
+                  <div className="text-2xl font-bold text-gray-800">Patient Care Excellence</div>
                 </LogoItem>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Best Hospital Award 2025</div>
+                  <div className="text-2xl font-bold text-gray-800">Quality Healthcare Services</div>
                 </LogoItem>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Patient Safety Excellence Award</div>
+                  <div className="text-2xl font-bold text-gray-800">Experienced Medical Team</div>
                 </LogoItem>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Healthcare Innovation Award</div>
+                  <div className="text-2xl font-bold text-gray-800">Advanced Medical Facilities</div>
                 </LogoItem>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Top 100 Hospitals Nationwide</div>
+                  <div className="text-2xl font-bold text-gray-800">24/7 Emergency Care</div>
                 </LogoItem>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Quality Care Certification</div>
+                  <div className="text-2xl font-bold text-gray-800">Patient Safety & Satisfaction</div>
                 </LogoItem>
               </LogoCarousel>
             </div>
