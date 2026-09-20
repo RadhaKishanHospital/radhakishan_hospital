@@ -69,7 +69,6 @@ export function expressApiPlugin(): Plugin {
                 name: body.name,
                 email: body.email,
                 phone: body.phone,
-                department: body.department,
                 date: body.date,
                 time: body.time,
                 notes: body.notes || "",
