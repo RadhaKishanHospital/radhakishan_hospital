@@ -116,7 +116,8 @@ function EmptyState({ label }: { label: string }) {
   )
 }
 
-const cardCls = "rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-slate-300"
+const cardCls =
+  "min-w-0 max-w-full rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-slate-300"
 
 /* ---------------- Overview ---------------- */
 
@@ -208,26 +209,78 @@ function GeneralAppointments() {
         <div className="space-y-3">
           <AnimatePresence initial={false}>
             {rows.map((a) => (
-              <motion.div key={a.id} layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }} className={cardCls}>
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="flex min-w-0 gap-3.5">
-                    <Avatar name={a.name} className="size-11 text-sm" />
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-bold text-ink">{a.name}</h3>
+              <motion.div
+                key={a.id}
+                layout
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className={cn(
+                  cardCls,
+                  "min-w-0 max-w-full overflow-hidden"
+                )}
+              >
+                <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+
+                  {/* Appointment information */}
+                  <div className="flex min-w-0 flex-1 gap-3.5">
+                    <Avatar
+                      name={a.name}
+                      className="size-11 shrink-0 text-sm"
+                    />
+
+                    <div className="min-w-0 flex-1 overflow-hidden">
+                      <div className="flex min-w-0 flex-wrap items-center gap-2">
+                        <h3 className="min-w-0 break-words font-bold text-ink [overflow-wrap:anywhere]">
+                          {a.name}
+                        </h3>
+
                         <StatusBadge status={a.status} />
                       </div>
-                      <p className="text-sm text-muted-foreground">{a.email} · {a.phone}</p>
+
+                      <p className="break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                        {a.email}
+                        <span className="mx-1">·</span>
+                        {a.phone}
+                      </p>
+
                       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
-                        <span className="inline-flex items-center gap-1"><CalendarDays size={13} /> {formatDate(a.date)}</span>
-                        <span className="inline-flex items-center gap-1"><Clock size={13} /> {a.time}</span>
+                        <span className="inline-flex shrink-0 items-center gap-1">
+                          <CalendarDays size={13} />
+                          {formatDate(a.date)}
+                        </span>
+
+                        <span className="inline-flex shrink-0 items-center gap-1">
+                          <Clock size={13} />
+                          {a.time}
+                        </span>
                       </div>
-                      {a.notes && <p className="mt-2 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600">{a.notes}</p>}
+
+                      {a.notes && (
+                        <p className="mt-2 max-w-full whitespace-pre-wrap break-words rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600 [overflow-wrap:anywhere]">
+                          {a.notes}
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <StatusSelect value={a.status} onChange={(s) => updateStatusMutation.mutate({ id: a.id, status: s })} />
-                    <button onClick={() => setDel(a.id)} aria-label="Delete appointment" className="grid size-9 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
+
+                  {/* Actions */}
+                  <div className="flex shrink-0 flex-wrap items-center gap-2">
+                    <StatusSelect
+                      value={a.status}
+                      onChange={(s) =>
+                        updateStatusMutation.mutate({
+                          id: a.id,
+                          status: s,
+                        })
+                      }
+                    />
+
+                    <button
+                      onClick={() => setDel(a.id)}
+                      aria-label="Delete appointment"
+                      className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+                    >
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -273,7 +326,7 @@ function Messages() {
       {rows.length === 0 ? (
         <EmptyState label="No messages found." />
       ) : (
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid min-w-0 gap-3 md:grid-cols-2">
           <AnimatePresence initial={false}>
             {rows.map((m) => (
               <motion.div
@@ -282,26 +335,62 @@ function Messages() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                className={cn(cardCls, "relative flex flex-col", !m.read && "border-brand-200 bg-brand-50/30")}
+                className={cn(
+                  cardCls,
+                  "relative flex min-w-0 max-w-full flex-col overflow-hidden",
+                  !m.read && "border-brand-200 bg-brand-50/30"
+                )}
               >
-                {!m.read && <span className="absolute right-4 top-4 size-2.5 rounded-full bg-brand-500 ring-4 ring-brand-100" />}
-                <div className="flex items-center gap-3">
-                  <Avatar name={m.name} className="size-11 text-sm" />
-                  <div className="min-w-0">
-                    <h3 className="truncate font-bold text-ink">{m.name}</h3>
-                    <p className="truncate text-xs text-muted-foreground">{m.phone_no}</p>
+                {!m.read && (
+                  <span className="absolute right-4 top-4 size-2.5 rounded-full bg-brand-500 ring-4 ring-brand-100" />
+                )}
+
+                <div className="flex min-w-0 items-center gap-3">
+                  <Avatar name={m.name} className="size-11 shrink-0 text-sm" />
+
+                  <div className="min-w-0 flex-1 overflow-hidden">
+                    <h3 className="break-words font-bold text-ink [overflow-wrap:anywhere]">
+                      {m.name}
+                    </h3>
+
+                    <p className="break-words text-xs text-muted-foreground [overflow-wrap:anywhere]">
+                      {m.phone_no}
+                    </p>
                   </div>
                 </div>
-                <p className="mt-3 text-sm font-semibold text-ink">{m.subject}</p>
-                <p className="mt-1 flex-1 text-sm leading-relaxed text-slate-600">{m.body}</p>
-                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
-                  <span className="text-xs font-medium text-slate-400">{timeAgo(m.createdAt)}</span>
-                  <div className="flex items-center gap-1">
-                    <button onClick={() => toggleReadMutation.mutate({ id: m.id, read: m.read })} className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100">
+
+                <p className="mt-3 break-words text-sm font-semibold text-ink [overflow-wrap:anywhere]">
+                  {m.subject}
+                </p>
+
+                <p className="mt-1 min-w-0 flex-1 whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-600 [overflow-wrap:anywhere]">
+                  {m.body}
+                </p>
+
+                <div className="mt-4 flex min-w-0 flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-3">
+                  <span className="shrink-0 text-xs font-medium text-slate-400">
+                    {timeAgo(m.createdAt)}
+                  </span>
+
+                  <div className="flex min-w-0 flex-wrap items-center gap-1">
+                    <button
+                      onClick={() =>
+                        toggleReadMutation.mutate({
+                          id: m.id,
+                          read: m.read,
+                        })
+                      }
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
+                    >
                       {m.read ? <Mail size={14} /> : <MailOpen size={14} />}
                       {m.read ? "Mark unread" : "Mark read"}
                     </button>
-                    <button onClick={() => setDel(m.id)} aria-label="Delete message" className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
+
+                    <button
+                      onClick={() => setDel(m.id)}
+                      aria-label="Delete message"
+                      className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+                    >
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -335,6 +424,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [tab, setTab] = useState<Tab>("overview")
   const [drawer, setDrawer] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false)
 
   const unread = messages.filter((m) => !m.read).length
 
@@ -361,9 +451,14 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const SidebarContent = (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-3 px-5 py-5">
-        <span className="grid size-10 place-items-center rounded-xl bg-brand-600 text-white">
-          <Plus size={20} strokeWidth={2.5} />
-        </span>
+        <div className="flex size-10 shrink-0 items-center justify-center">
+          <img
+            src="/logo.png"
+            alt="RadhaKishan Hospital"
+            className="h-full w-full object-contain"
+          />
+        </div>
+
         <div className="leading-tight">
           <div className="text-sm font-bold text-ink">RadhaKishan</div>
           <div className="text-xs text-muted-foreground">Admin Console</div>
@@ -405,9 +500,13 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           <div className="truncate text-sm font-semibold text-ink">Administrator</div>
           <div className="truncate text-xs text-muted-foreground">admin@co.in</div>
         </div>
-        <button onClick={onLogout} aria-label="Sign out" className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600">
-          <LogOut size={16} />
-        </button>
+        <button
+  onClick={() => setLogoutConfirmOpen(true)}
+  aria-label="Sign out"
+  className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+>
+  <LogOut size={16} />
+</button>
       </div>
     </div>
   )
@@ -527,6 +626,66 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           </AnimatePresence>
         </main>
       </div>
+      <AnimatePresence>
+  {logoutConfirmOpen && (
+    <div className="fixed inset-0 z-[100] grid place-items-center px-4">
+      {/* Overlay */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onClick={() => setLogoutConfirmOpen(false)}
+      />
+
+      {/* Modal */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.18 }}
+        className="relative z-10 w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl"
+      >
+        <div className="flex items-start gap-4">
+          <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600">
+            <LogOut size={20} />
+          </div>
+
+          <div className="min-w-0">
+            <h2 className="text-lg font-bold text-ink">
+              Sign out?
+            </h2>
+
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+              Are you sure you want to sign out of the admin dashboard?
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => setLogoutConfirmOpen(false)}
+            className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setLogoutConfirmOpen(false)
+              onLogout()
+            }}
+            className="rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700"
+          >
+            Sign Out
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  )}
+</AnimatePresence>
     </div>
   )
 }

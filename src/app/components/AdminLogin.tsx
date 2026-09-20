@@ -54,9 +54,15 @@ export default function AdminLogin({
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 18 }}
-          className="mx-auto grid size-14 place-items-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/30"
+          className="mx-auto flex items-center justify-center"
         >
-          <ShieldCheck size={26} />
+          <div className="flex h-16 w-16 items-center justify-center">
+            <img
+              src="/logo.png"
+              alt="RadhaKishan Hospital"
+              className="h-full w-full object-contain"
+            />
+          </div>
         </motion.div>
         <h2 id="admin-login-title" className="mt-4 text-center text-xl font-bold text-ink">
           Admin Access

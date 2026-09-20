@@ -114,12 +114,13 @@ export function About() {
                 >
                   {/* Central Hub */}
                   <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-primary to-primary/70 rounded-3xl shadow-2xl flex items-center justify-center z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" id="hospital" viewBox="0 0 32 32" width="36" height="36">
-                        <path d="M28,11h-7v-7c0-1.1-.9-2-2-2h-6c-1.1,0-2,.9-2,2v7h-7c-1.1,0-2,.9-2,2v6c0,1.1.9,2,2,2h7v7c0,1.1.9,2,2,2h6c1.1,0,2-.9,2-2v-7h7c1.1,0,2-.9,2-2v-6c0-1.1-.9-2-2-2Z" style={{ fill: "#daeded" }}></path>
-                        <path d="M28,11h-7v-7c0-1.1-.9-2-2-2h-6c-1.1,0-2,.9-2,2v7h-7c-1.1,0-2,.9-2,2v6c0,1.1.9,2,2,2h7v7c0,1.1.9,2,2,2h6c1.1,0,2-.9,2-2v-7h7c1.1,0,2-.9,2-2v-6c0-1.1-.9-2-2-2ZM28,19h-8c-.55,0-1,.45-1,1v8h-6v-8c0-.55-.45-1-1-1H4v-6h8c.55,0,1-.45,1-1V4h6v8c0,.55.45,1,1,1h8v6Z" style={{ fill: "#269191" }}></path>
-                      </svg>
-                    </div>
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2">
+  <img
+    src="/logo.png"
+    alt="RadhaKishan Hospital"
+    className="w-full h-full object-contain"
+  />
+</div>
                   </div>
 
                   {/* Floating Design System Components */}

@@ -48,8 +48,8 @@ export function Header() {
   return (
     <header
       className={`top-0 z-50 w-full ${isHomePage
-          ? 'absolute left-0 right-0 bg-transparent text-white'
-          : 'bg-white/95 shadow-sm backdrop-blur-sm'
+        ? 'absolute left-0 right-0 bg-transparent text-white'
+        : 'bg-white/95 shadow-sm backdrop-blur-sm'
         }`}
     >
       {/* Top Bar */}
@@ -62,8 +62,15 @@ export function Header() {
             <motion.div
               className="flex items-center gap-2"
             >
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <div className="text-white text-xl"><Plus /></div>
+              <div
+                className={`flex h-12 w-12 shrink-0 items-center justify-center ${isHomePage ? "rounded-lg bg-white p-1" : "p-1"
+                  }`}
+              >
+                <img
+                  src="/logo.png"
+                  alt="RadhaKishan Hospital"
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div>
                 <div className={`text-xl tracking-tight ${isHomePage ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
@@ -81,8 +88,8 @@ export function Header() {
                 key={link.path}
                 to={link.path}
                 className={`relative transition-colors hover:text-primary ${isActive(link.path)
-                    ? isHomePage ? 'text-white' : 'text-primary'
-                    : isHomePage ? 'text-white/85' : 'text-foreground'
+                  ? isHomePage ? 'text-white' : 'text-primary'
+                  : isHomePage ? 'text-white/85' : 'text-foreground'
                   }`}
               >
                 {link.label}
@@ -100,8 +107,8 @@ export function Header() {
           <div className="flex items-center gap-4">
             <Link to="/appointments" className="hidden md:block">
               <Button className={`rounded-full px-6 font-medium transition-all duration-200 ${isHomePage
-                  ? 'bg-white/95 text-black hover:bg-white/80'
-                  : 'bg-[#058080] text-white hover:bg-[#047070]'
+                ? 'bg-white/95 text-black hover:bg-white/80'
+                : 'bg-[#058080] text-white hover:bg-[#047070]'
                 }`}>
                 Book Appointment
               </Button>
@@ -139,8 +146,8 @@ export function Header() {
                   key={link.path}
                   to={link.path}
                   className={`rounded-lg px-4 py-3 font-medium transition-colors hover:bg-secondary hover:text-primary ${isActive(link.path)
-                      ? 'bg-secondary text-primary'
-                      : 'text-foreground'
+                    ? 'bg-secondary text-primary'
+                    : 'text-foreground'
                     }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >

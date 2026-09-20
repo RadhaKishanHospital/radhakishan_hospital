@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { Facebook, Youtube, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 import { Icon } from '@iconify/react';
 
 export function Footer() {
@@ -10,8 +10,12 @@ export function Footer() {
           {/* About Section */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <div className="text-white text-xl">+</div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="RadhaKishan Hospital"
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div>
                 <div className="text-lg tracking-tight" style={{ fontWeight: 600 }}>
@@ -20,22 +24,55 @@ export function Footer() {
               </div>
             </div>
             <p className="text-muted-foreground mb-4">
-              Providing exceptional healthcare services with compassion and excellence since 1995.
+              Providing exceptional healthcare services with compassion and excellence since 1983.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+               <a href="https://www.instagram.com/radhakishan.hospital?stkn=MWsxNjB6dzJkdm1idQ%3D%3D&utm_source=qr" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
-                <Linkedin className="w-4 h-4" />
+              <a href="https://www.youtube.com/watch?v=ZI8iEtAULdw" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                <Youtube className="w-4 h-4" />
               </a>
+              <a
+                href="mailto:radhakishanhospital@gmail.com"
+                aria-label="Email RadhaKishan Hospital"
+                className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+              </a>      
             </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="mb-4 text-foreground">Our Services</h3>
+
+            <ul className="space-y-2 text-muted-foreground">
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Pediatrics
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Pediatric Intensive Care Unit
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Neonatal Intensive Care Unit
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Anaesthesiology Unit (On call)
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Clinical Laboratory Services
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Dietetics & Nutrition
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Pharmacy
+              </li>
+              <li className="hover:text-primary transition-colors cursor-pointer">
+                Ultrasound & X-Ray
+              </li>
+            </ul>
           </div>
 
           {/* Quick Links */}
@@ -70,33 +107,52 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="mb-4 text-foreground">Our Services</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="hover:text-primary transition-colors cursor-pointer">Emergency Care</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Cardiology</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Pediatrics</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Orthopedics</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Laboratory</li>
-            </ul>
-          </div>
+
 
           {/* Contact Info */}
           <div>
             <h3 className="mb-4 text-foreground">Contact Info</h3>
+
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-muted-foreground">
-                <Icon icon="solar:map-point-linear" className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>123 Medical Center Drive, Healthcare City, HC 12345</span>
+              <li>
+                <a
+                  href="https://maps.app.goo.gl/i88UBqcifNZ4Cow8A"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <Icon
+                    icon="solar:map-point-linear"
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
+                  />
+                  <span>Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118</span>
+                </a>
               </li>
-              <li className="flex items-center gap-3 text-muted-foreground">
-                <Icon icon="solar:phone-calling-linear" className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+
+              <li>
+                <a
+                  href="tel:+917206029516"
+                  className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <Icon
+                    icon="solar:phone-calling-linear"
+                    className="h-5 w-5 flex-shrink-0 text-primary"
+                  />
+                  <span>+91 72060 29516</span>
+                </a>
               </li>
-              <li className="flex items-center gap-3 text-muted-foreground">
-                <Icon icon="solar:letter-opened-linear" className="w-5 h-5 text-primary flex-shrink-0" />
-                <span>info@radhakishanhospital.com</span>
+
+              <li>
+                <a
+                  href="mailto:radhakishanhospital@gmail.com"
+                  className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <Icon
+                    icon="solar:letter-opened-linear"
+                    className="h-5 w-5 flex-shrink-0 text-primary"
+                  />
+                  <span>radhakishanhospital@gmail.com</span>
+                </a>
               </li>
             </ul>
           </div>
