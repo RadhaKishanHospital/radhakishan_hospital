@@ -1,4 +1,3 @@
 Appointment
-doctor appointment
 messages
 ratings

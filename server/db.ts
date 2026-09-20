@@ -50,41 +50,7 @@ export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointment ||
   mongoose.model<IGeneralAppointment>("GeneralAppointment", GeneralAppointmentSchema)
 
-// 2. Doctor Appointment Schema & Model
-export interface IDoctorAppointment {
-  patientName: string
-  patientEmail: string
-  patientPhone: string
-  doctorId: string
-  doctorName: string
-  specialty: string
-  date: string
-  time: string
-  status: "pending" | "confirmed" | "cancelled" | "completed"
-  createdAt: number
-}
-
-const DoctorAppointmentSchema = new Schema<IDoctorAppointment>(
-  {
-    patientName: { type: String, required: true },
-    patientEmail: { type: String, required: true },
-    patientPhone: { type: String, required: true },
-    doctorId: { type: String, default: "d1" },
-    doctorName: { type: String, required: true },
-    specialty: { type: String, default: "" },
-    date: { type: String, required: true },
-    time: { type: String, required: true },
-    status: { type: String, enum: ["pending", "confirmed", "cancelled", "completed"], default: "pending" },
-    createdAt: { type: Number, default: () => Date.now() },
-  },
-  { collection: "doctor_appointments" }
-)
-
-export const DoctorAppointmentModel =
-  mongoose.models.DoctorAppointment ||
-  mongoose.model<IDoctorAppointment>("DoctorAppointment", DoctorAppointmentSchema)
-
-// 3. Messages Schema & Model
+// 2. Messages Schema & Model
 export interface IMessage {
   name: string
   phone_no: number
@@ -109,7 +75,7 @@ const MessageSchema = new Schema<IMessage>(
 export const MessageModel =
   mongoose.models.Message || mongoose.model<IMessage>("Message", MessageSchema)
 
-// 4. Reviews Schema & Model
+// 3. Reviews Schema & Model
 export interface IReview {
   name: string
   description: string

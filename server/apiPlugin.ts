@@ -3,7 +3,6 @@ import type { IncomingMessage, ServerResponse } from "http"
 import {
   connectDB,
   GeneralAppointmentModel,
-  DoctorAppointmentModel,
   MessageModel,
   ReviewModel,
   formatDoc,
@@ -90,45 +89,7 @@ export function expressApiPlugin(): Plugin {
             }
           }
 
-          // --- 2. DOCTOR APPOINTMENTS ---
-          if (pathname === "/api/doctor-appointments" || pathname.startsWith("/api/doctor-appointments/")) {
-            const id = pathname.replace("/api/doctor-appointments", "").replace("/", "")
-
-            if (method === "GET") {
-              const list = await DoctorAppointmentModel.find().sort({ createdAt: -1 })
-              return sendJson(res, 200, list.map(formatDoc))
-            }
-
-            if (method === "POST") {
-              const body = await parseJsonBody(req)
-              const doc = await DoctorAppointmentModel.create({
-                patientName: body.patientName || body.name,
-                patientEmail: body.patientEmail || body.email,
-                patientPhone: body.patientPhone || body.mobile || body.phone,
-                doctorId: body.doctorId || "d1",
-                doctorName: body.doctorName,
-                specialty: body.specialty || "General Medicine",
-                date: body.date,
-                time: body.time || body.slot || "10:00 AM",
-                status: body.status || "pending",
-                createdAt: Date.now(),
-              })
-              return sendJson(res, 201, formatDoc(doc))
-            }
-
-            if (method === "PATCH" && id) {
-              const body = await parseJsonBody(req)
-              const updated = await DoctorAppointmentModel.findByIdAndUpdate(id, body, { new: true })
-              return sendJson(res, 200, updated ? formatDoc(updated) : { error: "Not found" })
-            }
-
-            if (method === "DELETE" && id) {
-              await DoctorAppointmentModel.findByIdAndDelete(id)
-              return sendJson(res, 200, { success: true })
-            }
-          }
-
-          // --- 3. MESSAGES ---
+          // --- 2. MESSAGES ---
           if (pathname === "/api/messages" || pathname.startsWith("/api/messages/")) {
             const id = pathname.replace("/api/messages", "").replace("/", "")
 
@@ -162,7 +123,7 @@ export function expressApiPlugin(): Plugin {
             }
           }
 
-          // --- 4. REVIEWS ---
+          // --- 3. REVIEWS ---
           if (pathname === "/api/reviews" || pathname.startsWith("/api/reviews/")) {
             const id = pathname.replace("/api/reviews", "").replace("/", "")
 

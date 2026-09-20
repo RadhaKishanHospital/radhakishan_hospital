@@ -14,20 +14,6 @@ export type GeneralAppointment = {
   createdAt: number
 }
 
-export type DoctorAppointment = {
-  id: string
-  patientName: string
-  patientEmail: string
-  patientPhone: string
-  doctorId: string
-  doctorName: string
-  specialty: string
-  date: string
-  time: string
-  status: Status
-  createdAt: number
-}
-
 export type Message = {
   id: string
   name: string
@@ -54,7 +40,6 @@ export type Doctor = {
 
 export type DB = {
   generalAppointments: GeneralAppointment[]
-  doctorAppointments: DoctorAppointment[]
   messages: Message[]
   doctors: Doctor[]
 }
@@ -110,7 +95,6 @@ const seed: DB = {
     },
   ],
   generalAppointments: [],
-  doctorAppointments: [],
   messages: [],
 }
 
@@ -155,14 +139,6 @@ export const db = {
     })),
   deleteGeneralAppointment: (id: string) =>
     setState((s) => ({ ...s, generalAppointments: s.generalAppointments.filter((a) => a.id !== id) })),
-
-  updateDoctorApptStatus: (id: string, status: Status) =>
-    setState((s) => ({
-      ...s,
-      doctorAppointments: s.doctorAppointments.map((a) => (a.id === id ? { ...a, status } : a)),
-    })),
-  deleteDoctorAppointment: (id: string) =>
-    setState((s) => ({ ...s, doctorAppointments: s.doctorAppointments.filter((a) => a.id !== id) })),
 
   toggleMessageRead: (id: string) =>
     setState((s) => ({
