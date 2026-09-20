@@ -448,7 +448,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           <Plus size={20} strokeWidth={2.5} />
         </span>
         <div className="leading-tight">
-          <div className="text-sm font-bold text-ink">Radha Kishan</div>
+          <div className="text-sm font-bold text-ink">RadhaKishan</div>
           <div className="text-xs text-muted-foreground">Admin Console</div>
         </div>
       </div>

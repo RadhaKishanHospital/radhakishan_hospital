@@ -15,7 +15,7 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-lg tracking-tight" style={{ fontWeight: 600 }}>
-                  Radha Kishan Hospital
+                  RadhaKishan Hospital
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Radha Kishan Hospital. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} RadhaKishan Hospital. All rights reserved.</p>
         </div>
       </div>
     </footer>

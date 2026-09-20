@@ -74,7 +74,7 @@ export function Appointments() {
               Book an <span className="text-primary">Appointment</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Schedule your visit with our expert medical team. We're here to provide 
+              Schedule your visit with our expert medical team. We're here to provide
               you with the best healthcare experience.
             </p>
           </motion.div>

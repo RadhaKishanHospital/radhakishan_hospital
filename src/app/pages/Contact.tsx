@@ -34,20 +34,28 @@ const departments = [
 
 const faqs = [
   {
-    q: "How do I book an appointment?",
-    a: "You can book an appointment by calling our appointments line at +1 (555) 911-2000, using our online portal, or visiting the reception desk in person. We recommend booking at least 48 hours in advance for non-urgent consultations.",
+    q: "How do I book an OPD appointment?",
+    a: "OPD appointments start at 9:00 AM in the morning. You can book an appointment by calling our OPD number at +91 72060 29516.",
   },
   {
-    q: "What insurance plans do you accept?",
-    a: "We accept most major insurance plans including Blue Cross Blue Shield, Aetna, UnitedHealthcare, Cigna, and Medicare/Medicaid. Please contact our billing department for specific coverage inquiries.",
+    q: "What are your OPD timings?",
+    a: "OPD timings are from 10:00 AM to 2:00 PM and from 5:00 PM to 7:00 PM. OPD remains closed on Sunday. OPD appointments start at 9:00 AM in the morning.",
   },
   {
-    q: "What are your visiting hours?",
-    a: "General visiting hours are from 10:00 AM to 8:00 PM daily. ICU visiting is limited to 15-minute intervals every two hours. Pediatric wards allow one parent/guardian to stay overnight.",
+    q: "Is emergency care available 24/7?",
+    a: "Yes. Our Emergency Department is available 24/7. For emergency assistance, call +91 1744 270516.",
   },
   {
-    q: "Do you offer telemedicine consultations?",
-    a: "Yes, we offer telemedicine consultations for follow-up appointments and non-emergency cases. You can schedule a virtual visit through our patient portal or by calling our appointments line.",
+    q: "Do you provide cashless insurance facilities?",
+    a: "Yes. Cashless facility is available for the following insurance/healthcare schemes and providers: Genins India Insurance TPA Limited, Star Health Insurance, Reliance Health Insurance, Niva Bupa Health Insurance, Tata AIG, Care Health Insurance, HDFC ERGO Health Insurance Plans, Aditya Birla Capital, Ayushman Bharat, Cigna Health Life Insurance, Heritage Health, Medi Assist Insurance TPA Pvt. Ltd., Paramount Health Insurance, IFFCO Tokio General Insurance, Chola MS General Insurance, Universal Sompo, FHPL Insurance (Beyond Insurance), and ECHS.",
+  },
+  {
+    q: "How can I contact the hospital?",
+    a: "For OPD-related queries and appointments, call +91 72060 29516. For emergency assistance, call +91 1744 270516.",
+  },
+  {
+    q: "Where is Radhakishan Hospital located?",
+    a: "Radhakishan Hospital is located at Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118.",
   },
 ];
 
@@ -104,7 +112,7 @@ export function Contact() {
               Get in <span className="text-primary">Touch</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Have questions or need assistance? We're here to help. Reach out to us 
+              Have questions or need assistance? We're here to help. Reach out to us
               and we'll respond as soon as possible.
             </p>
           </motion.div>
@@ -125,18 +133,18 @@ export function Contact() {
               icon: "solar:phone-calling-linear",
               title: "Call Us",
               lines: [
-                "Emergency: +1 (555) 911-0000",
-                "Appointments: +1 (555) 911-2000",
-                "General: +1 (555) 911-3000",
+                "Emergency: +91 1744 270516",
+                "OPD: +91 72060 29516",
               ],
             },
             {
               icon: "solar:clock-circle-linear",
               title: "Working Hours",
               lines: [
-                "Mon – Fri: 7:00 AM – 9:00 PM",
-                "Saturday: 8:00 AM – 5:00 PM",
+                "OPD: 10:00 AM – 2:00 PM",
+                "OPD: 5:00 PM – 7:00 PM",
                 "Emergency: 24/7",
+                "Sunday: OPD Closed",
               ],
             },
           ].map((card) => (
@@ -165,72 +173,72 @@ export function Contact() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
           {/* Form */}
           <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Card className="p-8">
-                <h2 className="text-2xl mb-6" style={{ fontWeight: 700 }}>
-                  Send us a Message
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      placeholder="Your name"
-                      value={formData.name}
-                      onChange={(e) => handleChange('name', e.target.value)}
-                      required
-                      className="border-border"
-                    />
-                  </div>
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Card className="p-8">
+              <h2 className="text-2xl mb-6" style={{ fontWeight: 700 }}>
+                Send us a Message
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name *</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    required
+                    className="border-border"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="number">Mobile number *</Label>
-                    <Input
-                      id="number"
-                      type="number"
-                      placeholder="Enter your mobile number"
-                      value={formData.number}
-                      onChange={(e) => handleChange('email', e.target.value)}
-                      required
-                      className="border-border"
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="number">Mobile number *</Label>
+                  <Input
+                    id="number"
+                    type="number"
+                    placeholder="Enter your mobile number"
+                    value={formData.number}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    required
+                    className="border-border"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject *</Label>
-                    <Input
-                      id="subject"
-                      placeholder="How can we help you?"
-                      value={formData.subject}
-                      onChange={(e) => handleChange('subject', e.target.value)}
-                      required
-                      className="border-border"
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject *</Label>
+                  <Input
+                    id="subject"
+                    placeholder="How can we help you?"
+                    value={formData.subject}
+                    onChange={(e) => handleChange('subject', e.target.value)}
+                    required
+                    className="border-border"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell us more about your inquiry..."
-                      value={formData.message}
-                      onChange={(e) => handleChange('message', e.target.value)}
-                      required
-                      rows={6}
-                      className="border-border"
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message *</Label>
+                  <Textarea
+                    id="message"
+                    placeholder="Tell us more about your inquiry..."
+                    value={formData.message}
+                    onChange={(e) => handleChange('message', e.target.value)}
+                    required
+                    rows={6}
+                    className="border-border"
+                  />
+                </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                    <Icon icon="solar:plane-linear" className="w-4 h-4 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
-              </Card>
-            </motion.div>
+                <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
+                  <Icon icon="solar:plane-linear" className="w-4 h-4 mr-2" />
+                  Send Message
+                </Button>
+              </form>
+            </Card>
+          </motion.div>
 
           {/* Map */}
           <div className="flex flex-col">
@@ -256,38 +264,10 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Department Directory */}
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-primary" />
-            <h2 className="mb-3 text-2xl font-bold text-foreground md:text-3xl">
-              Department Directory
-            </h2>
-            <p className="text-muted-foreground">
-              Reach the right department directly for faster assistance.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {departments.map((dept) => (
-              <div
-                key={dept.name}
-                className="group flex items-center justify-between rounded-xl border border-border/60 bg-card p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-sm"
-              >
-                <div>
-                  <h4 className="mb-1 font-semibold text-foreground">{dept.name}</h4>
-                  <p className="text-sm text-muted-foreground">{dept.phone}</p>
-                  <p className="text-sm text-primary">{dept.email}</p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* FAQ Section */}
-      <section className="bg-secondary/40 px-6 py-20">
+      <section className=" px-6 py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-primary" />
@@ -333,10 +313,15 @@ export function Contact() {
               Our emergency department is open 24/7 to provide immediate medical attention
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">
-                <Icon icon="solar:phone-calling-linear" className="w-5 h-5 mr-2" />
-                Call Emergency: +1 (555) 911-0000
-              </Button>
+              <a href="tel:+911744270516">
+                <Button
+                  size="lg"
+                  className="bg-white text-primary hover:bg-white/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]"
+                >
+                  <Icon icon="solar:phone-calling-linear" className="w-5 h-5 mr-2" />
+                  Call Emergency: +91 1744 270516
+                </Button>
+              </a>
             </div>
           </motion.div>
         </div>

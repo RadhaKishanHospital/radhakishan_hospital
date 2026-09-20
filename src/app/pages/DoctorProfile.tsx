@@ -1,17 +1,12 @@
 import { Link, useParams } from "react-router";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  CheckCircle,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
-import { useState } from "react";
-import AppointmentModal, {
-  type AppointmentDraft,
-} from "../components/AppointmentModal";
-import { toast } from "sonner";
+
+const DEFAULT_DOCTOR_IMAGE =
+  "https://res.cloudinary.com/hizkabhg/image/upload/v1789883056/close-up-doctor-with-stethoscope.jpg";
 
 const doctors: Record<
   number,
@@ -27,6 +22,7 @@ const doctors: Record<
     registrationAuthority: string;
     registrationNo: string;
     available: boolean;
+    image?: string;
   }
 > = {
   1: {
@@ -42,6 +38,7 @@ const doctors: Record<
     registrationAuthority: "Haryana Medical Council",
     registrationNo: "HN-23419",
     available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
   },
 
   2: {
@@ -58,6 +55,7 @@ const doctors: Record<
     registrationAuthority: "Haryana Medical Council",
     registrationNo: "HN-10817",
     available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
   },
 
   3: {
@@ -73,6 +71,7 @@ const doctors: Record<
     registrationAuthority: "Haryana Medical Council",
     registrationNo: "HN-013272",
     available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
   },
 
   4: {
@@ -89,20 +88,13 @@ const doctors: Record<
     registrationAuthority: "Haryana Medical Council",
     registrationNo: "HN-21452",
     available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
   },
 };
-
-const timeSlots = [
-  "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
-  "11:00 AM", "11:30 AM", "2:00 PM", "2:30 PM",
-  "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM",
-];
 
 const DoctorProfile = () => {
   const { id } = useParams<{ id: string }>();
   const doctor = doctors[Number(id)];
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
 
   if (!doctor) {
     return (
@@ -118,6 +110,10 @@ const DoctorProfile = () => {
       </div>
     );
   }
+
+  const [doctorImage, setDoctorImage] = useState(
+    doctor.image || DEFAULT_DOCTOR_IMAGE
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -156,7 +152,7 @@ const DoctorProfile = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2"
+            className="lg:col-span-2 order-2 lg:order-1"
           >
             <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
               <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary/10 to-primary/25 flex items-center justify-center shrink-0">
@@ -235,95 +231,40 @@ const DoctorProfile = () => {
             </div>
           </motion.div>
 
-          {/* Right: Booking */}
+          {/* Right: Doctor Image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="order-1 lg:order-2"
           >
-            <div className="bg-card rounded-3xl  p-6 sticky top-28 shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300">
-              <h3 className="text-lg font-bold font-display text-foreground mb-1">Book Appointment</h3>
-              <p className="text-sm text-muted-foreground mb-6">Select an available time slot</p>
-
-              <div className="flex items-center gap-2 mb-4">
-  <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
-  <span className="text-sm font-semibold text-foreground">
-    Choose your preferred date & time
-  </span>
-</div>
-
-              <div className="grid grid-cols-3 gap-2 mb-6">
-                {timeSlots.map((slot) => {
-                  const isUnavailable = !doctor.available && ["9:00 AM", "9:30 AM", "10:00 AM"].includes(slot);
-                  return (
-                    <button
-                      key={slot}
-                      onClick={() => !isUnavailable && setSelectedSlot(slot)}
-                      disabled={isUnavailable}
-                      className={`py-2.5 px-2 rounded-xl text-xs font-semibold transition-all duration-200 ${selectedSlot === slot
-                        ? "bg-primary text-primary-foreground shadow-elegant"
-                        : isUnavailable
-                          ? "bg-muted text-muted-foreground/40 cursor-not-allowed"
-                          : "bg-secondary text-secondary-foreground hover:bg-accent"
-                        }`}
-                    >
-                      {slot}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <Button
-  className="w-full rounded-xl h-12 text-sm font-semibold shadow-elegant hover:shadow-elegant-lg transition-all duration-300"
-  disabled={!selectedSlot}
-  onClick={() => setAppointmentModalOpen(true)}
->
-                {selectedSlot ? (
-                  <span className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4" /> Confirm {selectedSlot}
-                  </span>
-                ) : (
-                  "Select a time slot"
+            <div className="relative lg:sticky lg:top-28">
+              <div className="relative overflow-hidden rounded-3xl aspect-[4/5] border-1 bg-gradient-to-br from-primary/10 to-primary/25">
+                <img
+                  src={doctorImage}
+                  alt={doctor.name}
+                  loading="eager"
+                  onError={() => {
+                    if (doctorImage !== DEFAULT_DOCTOR_IMAGE) {
+                      setDoctorImage(DEFAULT_DOCTOR_IMAGE);
+                    }
+                  }}
+                  className="h-full w-full object-cover"
+                />
+                {doctor.available && (
+                  <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm">
+                    Available
+                  </div>
                 )}
-              </Button>
-
-              <div className="flex items-center gap-2 mt-4 justify-center">
-                <Icon icon="solar:map-point-linear" className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Radha Kishan Hospital, Floor 3</span>
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-5">
+                  <p className="text-lg font-bold font-display text-white leading-tight">{doctor.name}</p>
+                  <p className="text-sm text-white/85">{doctor.specialty}</p>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
-      <AppointmentModal
-        open={appointmentModalOpen}
-        slot={selectedSlot ?? ""}
-        doctorName={doctor.name}
-        onClose={() => setAppointmentModalOpen(false)}
-        onSubmit={async (data) => {
-          try {
-            await fetch('/api/doctor-appointments', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                patientName: data.name,
-                patientEmail: data.email,
-                patientPhone: data.mobile,
-                doctorId: String(doctor.id),
-                doctorName: doctor.name,
-                specialty: doctor.specialty,
-                date: data.date,
-                time: selectedSlot ?? "",
-                status: "pending"
-              })
-            });
-            toast.success("Doctor appointment booked successfully!");
-          } catch (err) {
-            console.error("Error saving doctor appointment to MongoDB:", err);
-          }
-          setAppointmentModalOpen(false);
-        }}
-      />
     </div>
   );
 };

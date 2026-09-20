@@ -91,12 +91,12 @@ export function About() {
               className="text-center max-w-3xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-                About <span className="text-primary">Radha Kishan Hospital</span>
+                About <span className="text-primary">RadhaKishan Hospital</span>
               </h1>
               <p className="text-lg text-muted-foreground">
                 Committed to delivering high-quality healthcare with compassion,
-  evidence-based medicine, and a strong focus on the well-being of
-  children, families, and our community.
+                evidence-based medicine, and a strong focus on the well-being of
+                children, families, and our community.
               </p>
             </motion.div>
           </div>
@@ -269,55 +269,55 @@ export function About() {
 
         {/* Our Story */}
         {/* Our Story */}
-<section className="py-20 bg-white">
-  <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <section className="py-20 bg-white">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-      >
-        <h2
-          className="text-3xl md:text-4xl mb-6"
-          style={{ fontWeight: 700 }}
-        >
-          Our Journey
-        </h2>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2
+                  className="text-3xl md:text-4xl mb-6"
+                  style={{ fontWeight: 700 }}
+                >
+                  Our Journey
+                </h2>
 
-        <div className="space-y-4 text-muted-foreground">
-  <p>
-    Established in 1987, Radhakishan Hospital has been serving patients and families with honesty, dedication, and hard work for decades. From its foundation in Kurukshetra, Haryana, the hospital has continued to expand its healthcare services for patients across Haryana and beyond. With changing healthcare needs, Radhakishan Hospital continues to embrace new technologies, modern medical practices, new skills, improved systems, and evolving developments in healthcare to enhance the overall patient experience and delivery of care.
-  </p>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Established in 1987, Radhakishan Hospital has been serving patients and families with honesty, dedication, and hard work for decades. From its foundation in Kurukshetra, Haryana, the hospital has continued to expand its healthcare services for patients across Haryana and beyond. With changing healthcare needs, Radhakishan Hospital continues to embrace new technologies, modern medical practices, new skills, improved systems, and evolving developments in healthcare to enhance the overall patient experience and delivery of care.
+                  </p>
 
-  <p>
-    We believe that a hospital is not only about treatment but also about creating a clean, safe, comfortable, and respectful environment. Our team takes care of the hospital surroundings and makes every effort to guide patients and attendants properly, communicate with them courteously, and support them throughout their healthcare journey.
-  </p>
+                  <p>
+                    We believe that a hospital is not only about treatment but also about creating a clean, safe, comfortable, and respectful environment. Our team takes care of the hospital surroundings and makes every effort to guide patients and attendants properly, communicate with them courteously, and support them throughout their healthcare journey.
+                  </p>
 
-  <p>
-    Our commitment remains simple — to serve with integrity, evolve with healthcare, and care for every patient with respect.
-  </p>
-</div>
-      </motion.div>
+                  <p>
+                    Our commitment remains simple — to serve with integrity, evolve with healthcare, and care for every patient with respect.
+                  </p>
+                </div>
+              </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        className="relative"
-      >
-        <div className="rounded-2xl overflow-hidden shadow-xl">
-          <ImageWithFallback
-            src="https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMGhlYWx0aGNhcmV8ZW58MXx8fHwxNzczNDAzMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-            alt="Radhakishan Hospital medical team"
-            className="w-full h-[500px] object-cover"
-          />
-        </div>
-      </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="rounded-2xl overflow-hidden shadow-xl">
+                  <ImageWithFallback
+                    src="https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMGhlYWx0aGNhcmV8ZW58MXx8fHwxNzczNDAzMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    alt="Radhakishan Hospital medical team"
+                    className="w-full h-[500px] object-cover"
+                  />
+                </div>
+              </motion.div>
 
-    </div>
-  </div>
-</section>
+            </div>
+          </div>
+        </section>
 
         {/* Mission & Vision */}
         <section className="py-20 bg-[#f8fafa]">
@@ -360,96 +360,96 @@ export function About() {
         </section>
 
         {/* Core Values */}
-<section className="py-20 bg-white">
-  <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
+        <section className="py-20 bg-white">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
 
-    <motion.div
-      {...fadeInUp}
-      className="text-center mb-12"
-    >
-      <p className="text-primary font-medium mb-2">
-        What We Stand For
-      </p>
-
-      <h2
-        className="text-3xl md:text-4xl mb-4"
-        style={{ fontWeight: 700 }}
-      >
-        Our Core Values
-      </h2>
-
-      <p className="text-muted-foreground max-w-2xl mx-auto">
-        The values that guide our interactions, decisions, and commitment
-        to every patient.
-      </p>
-    </motion.div>
-
-    <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-      {[
-        {
-          icon: "solar:dialog-2-linear",
-          title: "Communication",
-          description:
-            "We believe in clear, respectful, and meaningful communication with patients, families, and our team."
-        },
-        {
-          icon: "solar:clipboard-check-linear",
-          title: "Accountability",
-          description:
-            "We take responsibility for our actions and remain committed to delivering dependable healthcare."
-        },
-        {
-          icon: "solar:medal-star-linear",
-          title: "Excellence",
-          description:
-            "We strive for the highest standards in healthcare and continuously work to improve our services."
-        },
-        {
-          icon: "solar:hand-shake-linear",
-          title: "Respect",
-          description:
-            "We treat every patient, family member, and colleague with dignity, kindness, and respect."
-        },
-        {
-          icon: "solar:users-group-rounded-linear",
-          title: "Teamwork",
-          description:
-            "We work together to provide coordinated care and achieve better outcomes for our patients."
-        }
-      ].map((value, index) => (
-        <motion.div
-          key={value.title}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.08 }}
-        >
-          <Card className="h-full text-center p-6 hover:shadow-lg transition-shadow">
-
-            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
-              <Icon
-                icon={value.icon}
-                className="w-7 h-7 text-primary"
-              />
-            </div>
-
-            <h3
-              className="mb-3"
-              style={{ fontWeight: 700 }}
+            <motion.div
+              {...fadeInUp}
+              className="text-center mb-12"
             >
-              {value.title}
-            </h3>
+              <p className="text-primary font-medium mb-2">
+                What We Stand For
+              </p>
 
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              {value.description}
-            </p>
+              <h2
+                className="text-3xl md:text-4xl mb-4"
+                style={{ fontWeight: 700 }}
+              >
+                Our Core Values
+              </h2>
 
-          </Card>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                The values that guide our interactions, decisions, and commitment
+                to every patient.
+              </p>
+            </motion.div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+              {[
+                {
+                  icon: "solar:dialog-2-linear",
+                  title: "Communication",
+                  description:
+                    "We believe in clear, respectful, and meaningful communication with patients, families, and our team."
+                },
+                {
+                  icon: "solar:clipboard-check-linear",
+                  title: "Accountability",
+                  description:
+                    "We take responsibility for our actions and remain committed to delivering dependable healthcare."
+                },
+                {
+                  icon: "solar:medal-star-linear",
+                  title: "Excellence",
+                  description:
+                    "We strive for the highest standards in healthcare and continuously work to improve our services."
+                },
+                {
+                  icon: "solar:hand-shake-linear",
+                  title: "Respect",
+                  description:
+                    "We treat every patient, family member, and colleague with dignity, kindness, and respect."
+                },
+                {
+                  icon: "solar:users-group-rounded-linear",
+                  title: "Teamwork",
+                  description:
+                    "We work together to provide coordinated care and achieve better outcomes for our patients."
+                }
+              ].map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <Card className="h-full text-center p-6 hover:shadow-lg transition-shadow">
+
+                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                      <Icon
+                        icon={value.icon}
+                        className="w-7 h-7 text-primary"
+                      />
+                    </div>
+
+                    <h3
+                      className="mb-3"
+                      style={{ fontWeight: 700 }}
+                    >
+                      {value.title}
+                    </h3>
+
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {value.description}
+                    </p>
+
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Stats Section */}
         <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">

@@ -134,8 +134,8 @@ export function Services() {
               <div
                 key={title}
                 className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${title === 'Clinical Laboratory Services'
-                    ? 'lg:row-span-2'
-                    : ''
+                  ? 'lg:row-span-2'
+                  : ''
                   }`}
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
@@ -182,7 +182,7 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
-              Why Choose Radha Kishan Hospital
+              Why Choose RadhaKishan Hospital
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               The difference is in every detail.

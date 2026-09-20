@@ -47,14 +47,13 @@ export function Header() {
 
   return (
     <header
-      className={`top-0 z-50 w-full ${
-        isHomePage
+      className={`top-0 z-50 w-full ${isHomePage
           ? 'absolute left-0 right-0 bg-transparent text-white'
           : 'bg-white/95 shadow-sm backdrop-blur-sm'
-      }`}
+        }`}
     >
       {/* Top Bar */}
-      
+
 
       {/* Main Navigation */}
       <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
@@ -68,7 +67,7 @@ export function Header() {
               </div>
               <div>
                 <div className={`text-xl tracking-tight ${isHomePage ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
-                  Radha Kishan Hospital
+                  RadhaKishan Hospital
                 </div>
                 <div className={`hidden text-xs sm:block ${isHomePage ? 'text-white/70' : 'text-muted-foreground'}`}>Medical Center</div>
               </div>
@@ -81,11 +80,10 @@ export function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative transition-colors hover:text-primary ${
-                  isActive(link.path)
+                className={`relative transition-colors hover:text-primary ${isActive(link.path)
                     ? isHomePage ? 'text-white' : 'text-primary'
                     : isHomePage ? 'text-white/85' : 'text-foreground'
-                }`}
+                  }`}
               >
                 {link.label}
                 {isActive(link.path) && (
@@ -101,11 +99,10 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <Link to="/appointments" className="hidden md:block">
-              <Button className={`rounded-full px-6 font-medium transition-all duration-200 ${
-                isHomePage
+              <Button className={`rounded-full px-6 font-medium transition-all duration-200 ${isHomePage
                   ? 'bg-white/95 text-black hover:bg-white/80'
                   : 'bg-[#058080] text-white hover:bg-[#047070]'
-              }`}>
+                }`}>
                 Book Appointment
               </Button>
             </Link>
@@ -115,9 +112,8 @@ export function Header() {
               type="button"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
-              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${
-                isHomePage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-muted'
-              }`}
+              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${isHomePage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-muted'
+                }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -142,11 +138,10 @@ export function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`rounded-lg px-4 py-3 font-medium transition-colors hover:bg-secondary hover:text-primary ${
-                    isActive(link.path)
+                  className={`rounded-lg px-4 py-3 font-medium transition-colors hover:bg-secondary hover:text-primary ${isActive(link.path)
                       ? 'bg-secondary text-primary'
                       : 'text-foreground'
-                  }`}
+                    }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}

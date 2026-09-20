@@ -317,13 +317,18 @@ export function Doctors() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full text-center p-6 hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <div className="w-3 h-3 bg-primary rounded-full" />
-                  </div>
-                  <h3 className="mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </Card>
+
+                <div className="rounded-3xl border border-primary/10 bg-white p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+
+                  <h3 className="mb-5 text-lg font-semibold text-foreground">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {feature.description}
+                  </p>
+
+                </div>
               </motion.div>
             ))}
           </div>

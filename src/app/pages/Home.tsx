@@ -161,7 +161,7 @@ export function Home() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
-              Welcome to Radha Kishan Hospital
+              Welcome to RadhaKishan Hospital
             </div>
 
             <h1
@@ -199,7 +199,7 @@ export function Home() {
               </a>
               <a
                 href={`tel:${HOSPITAL_PHONE}`}
-                aria-label={`Call Radha Kishan Hospital at ${HOSPITAL_PHONE}`}
+                aria-label={`Call RadhaKishan Hospital at ${HOSPITAL_PHONE}`}
                 className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white"
               >
                 <span className="flex items-center justify-center gap-2 rounded-full border border-white/30 px-7 py-3.5 transition-colors group-hover:border-white/60 group-hover:bg-white/10">
@@ -215,8 +215,8 @@ export function Home() {
             {/* Trust row */}
             <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-7">
               {[
-                { k: "40+", v: "Specialties" },
-                { k: "120K", v: "Patients / year" },
+                { k: "1987", v: "Established" },
+                { k: "24/7", v: "Emergency Care" },
                 { k: "98%", v: "Satisfaction" },
               ].map((s) => (
                 <div key={s.v} className="flex items-baseline gap-2">
@@ -315,87 +315,65 @@ export function Home() {
       </section>
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-4xl text-white mb-6" style={{ fontWeight: 700 }}>
-                Why Choose Radha Kishan Hospital?
-              </h2>
-              <p className="text-white/90 mb-8">
-                We are committed to providing the highest quality healthcare services with a patient-centered approach.
-              </p>
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-2xl text-center"
+          >
+            <h2 className="text-3xl md:text-4xl text-white mb-6" style={{ fontWeight: 700 }}>
+              Why Choose RadhaKishan Hospital?
+            </h2>
+            <p className="text-white/90">
+              We are committed to providing the highest quality healthcare services with a patient-centered approach.
+            </p>
+          </motion.div>
 
-              <div className="space-y-4">
-                {[
-                  'Experienced and qualified medical professionals',
-                  'State-of-the-art medical equipment and facilities',
-                  'Comprehensive healthcare services under one roof',
-                  'Patient-centered care and personalized treatment',
-                  'Affordable and transparent pricing',
-                  '24/7 emergency services availability'
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 text-white"
-                  >
-                    <Icon
-                      icon="solar:check-circle-bold"
-                      className="w-6 h-6 flex-shrink-0 mt-0.5"
-                    />
-                    <span>{item}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-2 gap-6"
-            >
-              <Card className="bg-white p-6 h-full text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon icon="solar:chat-square-like-linear" className="w-8 h-8 text-primary" />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:gap-5">
+            {[
+              {
+                icon: 'solar:user-check-rounded-linear',
+                title: 'Experienced and qualified medical professionals'
+              },
+              {
+                icon: 'solar:test-tube-linear',
+                title: 'State-of-the-art medical equipment and facilities'
+              },
+              {
+                icon: 'solar:hospital-linear',
+                title: 'Comprehensive healthcare services under one roof'
+              },
+              {
+                icon: 'solar:heart-pulse-linear',
+                title: 'Patient-centered care and personalized treatment'
+              },
+              {
+                icon: 'solar:tag-price-linear',
+                title: 'Affordable and transparent pricing'
+              },
+              {
+                icon: 'solar:clock-circle-linear',
+                title: '24/7 emergency services availability'
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08, duration: 0.5 }}
+                className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-sm transition-colors hover:border-white/30 hover:bg-white/15"
+              >
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white/15 text-white transition-colors group-hover:bg-white group-hover:text-primary">
+                  <Icon icon={item.icon} className="h-6 w-6" />
                 </div>
-                <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>98%</div>
-                <div className="text-sm text-muted-foreground">Patient Satisfaction</div>
-              </Card>
-
-              <Card className="bg-white p-6 h-full text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon icon="solar:user-outline" className="w-8 h-8 text-primary" />
-                </div>
-                <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>50+</div>
-                <div className="text-sm text-muted-foreground">Expert Doctors</div>
-              </Card>
-
-              <Card className="bg-white p-6 h-full text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon icon="solar:heart-linear" className="w-8 h-8 text-primary" />
-                </div>
-                <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>100K+</div>
-                <div className="text-sm text-muted-foreground">Patients Treated</div>
-              </Card>
-
-              <Card className="bg-white p-6 h-full text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon icon="solar:clock-circle-linear" className="w-8 h-8 text-primary" />
-                </div>
-                <div className="text-3xl text-primary mb-2" style={{ fontWeight: 700 }}>24/7</div>
-                <div className="text-sm text-muted-foreground">Emergency Care</div>
-              </Card>
-            </motion.div>
+                <span className="text-white leading-snug" style={{ fontWeight: 500 }}>
+                  {item.title}
+                </span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
