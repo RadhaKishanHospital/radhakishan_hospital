@@ -60,7 +60,14 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
   { collection: "general_appointments" }
 )
 
-GeneralAppointmentSchema.index({ requestId: 1 }, { unique: true })
+// The partial filter keeps the index compatible with appointment records
+// created before idempotency keys were introduced. A normal unique index
+// treats all missing requestIds as the same value and can fail to build when
+// older appointment records exist.
+GeneralAppointmentSchema.index(
+  { requestId: 1 },
+  { unique: true, partialFilterExpression: { requestId: { $type: "string" } } },
+)
 export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointmentRecord ||
   mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)

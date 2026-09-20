@@ -65,16 +65,27 @@ export function expressApiPlugin(): Plugin {
 
             if (method === "POST") {
               const body = await parseJsonBody(req)
-              const doc = await GeneralAppointmentModel.create({
-                name: body.name,
-                email: body.email,
-                phone: body.phone,
-                date: body.date,
-                time: body.time,
-                notes: body.notes || "",
-                status: "pending",
-                createdAt: Date.now(),
-              })
+              // Mirror the production function's idempotency contract so a
+              // local submission is validated and stored the same way.
+              const requestId = typeof req.headers["x-idempotency-key"] === "string"
+                ? req.headers["x-idempotency-key"]
+                : body.requestId
+              if (typeof requestId !== "string" || !/^[a-zA-Z0-9_-]{16,128}$/.test(requestId)) {
+                return sendJson(res, 400, { error: "A valid appointment request key is required" })
+              }
+              const doc = await GeneralAppointmentModel.findOneAndUpdate({ requestId }, {
+                $setOnInsert: {
+                  requestId,
+                  name: body.name,
+                  email: body.email,
+                  phone: body.phone,
+                  date: body.date,
+                  time: body.time,
+                  notes: body.notes || "",
+                  status: "pending",
+                  createdAt: Date.now(),
+                },
+              }, { new: true, upsert: true, setDefaultsOnInsert: true })
               return sendJson(res, 201, formatDoc(doc))
             }
 
