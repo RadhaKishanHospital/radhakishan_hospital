@@ -1,58 +1,40 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import mongoose, { Schema } from "mongoose"
+import { connectDB, formatDoc, GeneralAppointmentModel } from "../server/db"
 
-const MONGODB_URI = process.env.MONGODB_URI || ""
-let isConnected = false
-async function connectDB() {
-  if (isConnected) return
-  await mongoose.connect(MONGODB_URI, { dbName: "hospital_db" })
-  isConnected = true
-}
+const requiredFields = ["name", "email", "phone", "date", "time"] as const
 
-const GeneralAppointmentSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
-    department: { type: String, required: true },
-    date: { type: String, required: true },
-    time: { type: String, required: true },
-    notes: { type: String, default: "" },
-    status: { type: String, enum: ["pending", "confirmed", "cancelled", "completed"], default: "pending" },
-    createdAt: { type: Number, default: () => Date.now() },
-  },
-  { collection: "general_appointments" }
-)
-const GeneralAppointment =
-  mongoose.models.GeneralAppointment ||
-  mongoose.model("GeneralAppointment", GeneralAppointmentSchema)
+function appointmentInput(body: unknown) {
+  const value = typeof body === "object" && body !== null ? body as Record<string, unknown> : {}
+  const input = Object.fromEntries(
+    requiredFields.map((field) => [field, typeof value[field] === "string" ? value[field].trim() : ""]),
+  ) as Record<(typeof requiredFields)[number], string>
+  const missing = requiredFields.filter((field) => !input[field])
 
-function formatDoc(doc: any) {
-  const obj = doc.toObject ? doc.toObject() : { ...doc }
-  obj.id = obj._id.toString()
-  delete obj._id
-  delete obj.__v
-  return obj
+  if (missing.length > 0) return { error: `Missing required fields: ${missing.join(", ")}` }
+  if (!/^\S+@\S+\.\S+$/.test(input.email)) return { error: "Please provide a valid email address" }
+
+  return {
+    input: {
+      ...input,
+      notes: typeof value.notes === "string" ? value.notes.trim() : "",
+    },
+  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     await connectDB()
     if (req.method === "GET") {
-      const list = await GeneralAppointment.find().sort({ createdAt: -1 })
+      const list = await GeneralAppointmentModel.find().sort({ createdAt: -1 })
       return res.status(200).json(list.map(formatDoc))
     }
     if (req.method === "POST") {
-      const body = req.body
-      const doc = await GeneralAppointment.create({
-        name: body.name,
-        email: body.email,
-        phone: body.phone,
-        department: body.department,
-        date: body.date,
-        time: body.time,
-        notes: body.notes || "",
-        status: body.status || "pending",
+      const result = appointmentInput(req.body)
+      if ("error" in result) return res.status(400).json({ error: result.error })
+
+      const doc = await GeneralAppointmentModel.create({
+        ...result.input,
+        status: "pending",
         createdAt: Date.now(),
       })
       return res.status(201).json(formatDoc(doc))

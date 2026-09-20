@@ -9,8 +9,11 @@ import { Calendar, Clock, User, Mail, Phone, FileText } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function Appointments() {
+  const queryClient = useQueryClient();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,8 +26,11 @@ export function Appointments() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     try {
-      await fetch('/api/general-appointments', {
+      const response = await fetch('/api/general-appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -34,23 +40,31 @@ export function Appointments() {
           date: formData.date,
           time: formData.time,
           notes: formData.message,
-          status: 'pending'
         })
+      });
+
+      const payload = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(payload?.error || 'We could not save your appointment request.');
+      }
+
+      await queryClient.invalidateQueries({ queryKey: ['generalAppointments'] });
+      toast.success('Appointment request submitted successfully! We will contact you soon.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        doctor: '',
+        message: ''
       });
     } catch (err) {
       console.error('Error saving general appointment to MongoDB:', err);
+      toast.error(err instanceof Error ? err.message : 'We could not save your appointment request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    toast.success('Appointment request submitted successfully! We will contact you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      doctor: '',
-      message: ''
-    });
   };
 
   const handleChange = (field: string, value: string) => {
@@ -283,13 +297,14 @@ export function Appointments() {
                     <Button
                       type="submit"
                       size="lg"
+                      disabled={isSubmitting}
                       className="h-12 w-full bg-primary text-base font-semibold shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
                     >
                       <Icon
                         icon="solar:calendar-add-linear"
                         className="mr-2 h-5 w-5"
                       />
-                      Submit Appointment Request
+                      {isSubmitting ? 'Submitting Appointment Request…' : 'Submit Appointment Request'}
                     </Button>
 
                     <p className="mt-4 text-center text-xs text-muted-foreground">

@@ -7,7 +7,6 @@ export type GeneralAppointment = {
   name: string
   email: string
   phone: string
-  department: string
   date: string
   time: string
   notes?: string

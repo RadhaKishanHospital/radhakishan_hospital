@@ -1,22 +1,27 @@
 import mongoose, { Schema } from "mongoose"
-import dotenv from "dotenv"
-import path from "path"
 
-dotenv.config({ path: path.resolve(process.cwd(), ".env.local") })
-
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://devdomain15_db_user:yVkYpPQVmEOtFpNH@devdomain02.vnqb2be.mongodb.net/hospital_db?retryWrites=true&w=majority"
-
-let isConnected = false
+const MONGODB_URI = process.env.MONGODB_URI
+const connectionState = globalThis as typeof globalThis & {
+  __hospitalMongoConnection?: Promise<typeof mongoose>
+}
 
 export async function connectDB() {
-  if (isConnected) return
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not configured")
+  }
+
+  if (mongoose.connection.readyState === 1) return
+
+  connectionState.__hospitalMongoConnection ??= mongoose.connect(MONGODB_URI, {
+    dbName: "hospital_db",
+    serverSelectionTimeoutMS: 8_000,
+  })
+
   try {
-    const dbName = MONGODB_URI.includes("/?") || MONGODB_URI.endsWith("/") ? "hospital_db" : undefined
-    await mongoose.connect(MONGODB_URI, dbName ? { dbName: "hospital_db" } : {})
-    isConnected = true
-    console.log("Connected to MongoDB via Mongoose successfully")
-  } catch (err) {
-    console.error("Failed to connect to MongoDB:", err)
+    await connectionState.__hospitalMongoConnection
+  } catch (error) {
+    connectionState.__hospitalMongoConnection = undefined
+    throw error
   }
 }
 
@@ -25,7 +30,6 @@ export interface IGeneralAppointment {
   name: string
   email: string
   phone: string
-  department: string
   date: string
   time: string
   notes?: string
@@ -38,7 +42,6 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    department: { type: String, required: true },
     date: { type: String, required: true },
     time: { type: String, required: true },
     notes: { type: String, default: "" },
@@ -49,8 +52,8 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
 )
 
 export const GeneralAppointmentModel =
-  mongoose.models.GeneralAppointment ||
-  mongoose.model<IGeneralAppointment>("GeneralAppointment", GeneralAppointmentSchema)
+  mongoose.models.GeneralAppointmentRecord ||
+  mongoose.model<IGeneralAppointment>("GeneralAppointmentRecord", GeneralAppointmentSchema)
 
 // 2. Doctor Appointment Schema & Model
 export interface IDoctorAppointment {
