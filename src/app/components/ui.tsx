@@ -229,7 +229,7 @@ export function ConfirmDialog({
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-600/25 transition hover:bg-rose-700"
+            className="flex-1 rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-700"
           >
             {confirmLabel}
           </button>
