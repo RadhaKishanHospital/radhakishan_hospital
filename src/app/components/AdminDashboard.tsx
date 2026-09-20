@@ -165,21 +165,43 @@ function Overview({ go }: { go: (t: Tab) => void }) {
       <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-base font-bold text-ink">Recent activity</h2>
+
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700">
-            <span className="size-1.5 rounded-full bg-brand-500" /> Live
+            <span className="size-1.5 rounded-full bg-brand-500" />
+            Live
           </span>
         </div>
-        <ul className="divide-y divide-slate-100">
-          {recent.map((r) => (
-            <li key={r.id + r.at} className="flex items-center gap-3 py-2.5">
-              <Avatar name={r.who} className="size-9 text-xs" />
-              <p className="min-w-0 flex-1 truncate text-sm text-ink">
-                <span className="font-semibold">{r.who}</span> <span className="text-muted-foreground">{r.what}</span>
-              </p>
-              <span className="shrink-0 text-xs font-medium text-slate-400">{timeAgo(r.at)}</span>
-            </li>
-          ))}
-        </ul>
+
+        {recent.length === 0 ? (
+          <div className="flex min-h-[240px] flex-col items-center justify-center px-4 py-8 text-center sm:min-h-[280px]">
+            <img
+              src="/illustrations/noactivity.svg"
+              alt="No recent activity"
+              className="mb-5 h-auto w-[150px] max-w-[65vw] sm:w-[190px] md:w-[220px]"
+            />
+
+            <p className="text-sm font-medium text-muted-foreground">
+              No recent activity yet.
+            </p>
+          </div>
+        ) : (
+          <ul className="divide-y divide-slate-100">
+            {recent.map((r) => (
+              <li key={r.id + r.at} className="flex items-center gap-3 py-2.5">
+                <Avatar name={r.who} className="size-9 text-xs" />
+
+                <p className="min-w-0 flex-1 truncate text-sm text-ink">
+                  <span className="font-semibold">{r.who}</span>{" "}
+                  <span className="text-muted-foreground">{r.what}</span>
+                </p>
+
+                <span className="shrink-0 text-xs font-medium text-slate-400">
+                  {timeAgo(r.at)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   )
@@ -501,12 +523,12 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           <div className="truncate text-xs text-muted-foreground">admin@co.in</div>
         </div>
         <button
-  onClick={() => setLogoutConfirmOpen(true)}
-  aria-label="Sign out"
-  className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
->
-  <LogOut size={16} />
-</button>
+          onClick={() => setLogoutConfirmOpen(true)}
+          aria-label="Sign out"
+          className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </div>
   )
@@ -627,65 +649,65 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         </main>
       </div>
       <AnimatePresence>
-  {logoutConfirmOpen && (
-    <div className="fixed inset-0 z-[100] grid place-items-center px-4">
-      {/* Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
-        onClick={() => setLogoutConfirmOpen(false)}
-      />
+        {logoutConfirmOpen && (
+          <div className="fixed inset-0 z-[100] grid place-items-center px-4">
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+              onClick={() => setLogoutConfirmOpen(false)}
+            />
 
-      {/* Modal */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        transition={{ duration: 0.18 }}
-        className="relative z-10 w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl"
-      >
-        <div className="flex items-start gap-4">
-          <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600">
-            <LogOut size={20} />
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.18 }}
+              className="relative z-10 w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl"
+            >
+              <div className="flex items-start gap-4">
+                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600">
+                  <LogOut size={20} />
+                </div>
+
+                <div className="min-w-0">
+                  <h2 className="text-lg font-bold text-ink">
+                    Sign out?
+                  </h2>
+
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    Are you sure you want to sign out of the admin dashboard?
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setLogoutConfirmOpen(false)}
+                  className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLogoutConfirmOpen(false)
+                    onLogout()
+                  }}
+                  className="rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </motion.div>
           </div>
-
-          <div className="min-w-0">
-            <h2 className="text-lg font-bold text-ink">
-              Sign out?
-            </h2>
-
-            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-              Are you sure you want to sign out of the admin dashboard?
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 flex justify-end gap-2">
-          <button
-            type="button"
-            onClick={() => setLogoutConfirmOpen(false)}
-            className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
-          >
-            Cancel
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setLogoutConfirmOpen(false)
-              onLogout()
-            }}
-            className="rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-700"
-          >
-            Sign Out
-          </button>
-        </div>
-      </motion.div>
-    </div>
-  )}
-</AnimatePresence>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

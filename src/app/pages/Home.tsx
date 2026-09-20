@@ -250,7 +250,7 @@ export function Home() {
         <div className='flex justify-start'>
           <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             <div className='w-full lg:w-1/2'>
-              <img src="doctors.svg" alt="Qualified doctors" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img src="illustrations/doctors.svg" alt="Qualified doctors" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
@@ -286,7 +286,7 @@ export function Home() {
               </div>
             </div>
             <div className='w-full lg:w-1/2'>
-              <img src="tech.svg" alt="Modern medical technology" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img src="illustrations/tech.svg" alt="Modern medical technology" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
           </div>
         </div>
@@ -295,7 +295,7 @@ export function Home() {
         <div className='flex justify-start'>
           <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             <div className='w-full lg:w-1/2'>
-              <img src="emergency.svg" alt="Emergency services" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img src="illustrations/emergency.svg" alt="Emergency services" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
             </div>
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
