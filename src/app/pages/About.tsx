@@ -115,12 +115,12 @@ export function About() {
                   {/* Central Hub */}
                   <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-primary to-primary/70 rounded-3xl shadow-2xl flex items-center justify-center z-10">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2">
-  <img
-    src="/logo.png"
-    alt="RadhaKishan Hospital"
-    className="w-full h-full object-contain"
-  />
-</div>
+                      <img
+                        src="/logo.png"
+                        alt="RadhaKishan Hospital"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                   </div>
 
                   {/* Floating Design System Components */}
@@ -265,10 +265,6 @@ export function About() {
         </section>
 
 
-
-
-
-        {/* Our Story */}
         {/* Our Story */}
         <section className="py-20 bg-white">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
@@ -309,9 +305,9 @@ export function About() {
               >
                 <div className="rounded-2xl overflow-hidden shadow-xl">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMGhlYWx0aGNhcmV8ZW58MXx8fHwxNzczNDAzMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    src="https://res.cloudinary.com/hizkabhg/image/upload/v1789885274/IMG_9142.JPG.jpg"
                     alt="Radhakishan Hospital medical team"
-                    className="w-full h-[500px] object-cover"
+                    className="w-full h-[415px] object-cover"
                   />
                 </div>
               </motion.div>

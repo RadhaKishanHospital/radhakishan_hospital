@@ -410,24 +410,24 @@ export function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="w-[320px] shrink-0"
+                      className="w-[340px] shrink-0"
                     >
-                      <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                        <div className="flex gap-1 mb-4">
+                      <Card className="flex h-full min-h-[360px] flex-col p-6 transition-shadow hover:shadow-lg">
+                        <div className="mb-5 flex gap-1">
                           {[...Array(testimonial.rating)].map((_, i) => (
                             <Icon
                               key={i}
                               icon="solar:star-bold"
-                              className="w-5 h-5 text-primary"
+                              className="h-5 w-5 text-primary"
                             />
                           ))}
                         </div>
 
-                        <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+                        <p className="text-muted-foreground break-words [overflow-wrap:anywhere]">
                           {testimonial.description}
                         </p>
 
-                        <div>
+                        <div className="mt-auto pt-8">
                           <div style={{ fontWeight: 600 }}>
                             {testimonial.name}
                           </div>
@@ -450,30 +450,30 @@ export function Home() {
                       key={`second-${testimonial.id || index}`}
                       className="w-[320px] shrink-0"
                     >
-                      <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                        <div className="flex gap-1 mb-4">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Icon
-                              key={i}
-                              icon="solar:star-bold"
-                              className="w-5 h-5 text-primary"
-                            />
-                          ))}
-                        </div>
+                      <Card className="flex h-full min-h-[360px] flex-col p-6 transition-shadow hover:shadow-lg">
+  <div className="mb-5 flex gap-1">
+    {[...Array(testimonial.rating)].map((_, i) => (
+      <Icon
+        key={i}
+        icon="solar:star-bold"
+        className="h-5 w-5 text-primary"
+      />
+    ))}
+  </div>
 
-                        <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
-                          {testimonial.description}
-                        </p>
+  <p className="text-muted-foreground break-words [overflow-wrap:anywhere]">
+    {testimonial.description}
+  </p>
 
-                        <div>
-                          <div style={{ fontWeight: 600 }}>
-                            {testimonial.name}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            Patient
-                          </div>
-                        </div>
-                      </Card>
+  <div className="mt-auto pt-8">
+    <div style={{ fontWeight: 600 }}>
+      {testimonial.name}
+    </div>
+    <div className="text-sm text-muted-foreground">
+      Patient
+    </div>
+  </div>
+</Card>
                     </div>
                   ))}
                 </div>

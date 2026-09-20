@@ -151,22 +151,33 @@ export default function ReviewModal({ open, onClose, onSubmit }: ReviewModalProp
 
           {/* Description */}
           <div className="mb-6">
-            <label htmlFor="review-desc" className="font-display mb-1.5 block text-sm font-semibold text-[#0f1720]">
-              Your review
-            </label>
-            <textarea
-              id="review-desc"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={4}
-              placeholder="Tell us about the care you received…"
-              className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-[15px] leading-relaxed text-[#0f1720] placeholder:text-slate-400 transition focus:outline-none focus:ring-4 ${
-                touched && !description.trim()
-                  ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100"
-                  : "border-slate-200 focus:border-[#0f766e] focus:ring-[#0f766e]/10"
-              }`}
-            />
-          </div>
+  <div className="mb-1.5 flex items-center justify-between">
+    <label
+      htmlFor="review-desc"
+      className="font-display block text-sm font-semibold text-[#0f1720]"
+    >
+      Your review
+    </label>
+
+    <span className="text-xs text-slate-400">
+      {description.length}/250
+    </span>
+  </div>
+
+  <textarea
+    id="review-desc"
+    value={description}
+    onChange={(e) => setDescription(e.target.value)}
+    rows={4}
+    maxLength={250}
+    placeholder="Tell us about the care you received…"
+    className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-[15px] leading-relaxed text-[#0f1720] placeholder:text-slate-400 transition focus:outline-none focus:ring-4 ${
+      touched && !description.trim()
+        ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100"
+        : "border-slate-200 focus:border-[#0f766e] focus:ring-[#0f766e]/10"
+    }`}
+  />
+</div>
 
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <button

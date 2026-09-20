@@ -139,28 +139,55 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {stats.map((s, i) => (
-          <motion.button
-            key={s.label}
-            onClick={() => go(s.tab)}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className={cn(cardCls, "group p-5 text-left")}
-          >
-            <div className="flex items-center justify-between">
-              <span className="grid size-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
-                <s.icon size={19} />
-              </span>
-              <ArrowUpRight size={17} className="text-slate-300 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-500" />
-            </div>
-            <div className="mt-4 text-3xl font-bold tracking-tight text-ink">{s.value}</div>
-            <div className="mt-0.5 text-sm font-semibold text-ink">{s.label}</div>
-            <div className="text-xs text-muted-foreground">{s.sub}</div>
-          </motion.button>
-        ))}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  {stats.map((s, i) => (
+    <motion.button
+      key={s.label}
+      onClick={() => go(s.tab)}
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.05 }}
+      className={cn(
+        cardCls,
+        "group relative overflow-hidden p-5 text-left sm:p-6"
+      )}
+    >
+      <div className="flex items-start justify-between">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+            <s.icon size={19} />
+          </span>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-ink">
+              {s.label}
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {s.sub}
+            </p>
+          </div>
+        </div>
+
+        <span className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-300 transition group-hover:bg-brand-50 group-hover:text-brand-500">
+          <ArrowUpRight
+            size={17}
+            className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </span>
       </div>
+
+      <div className="mt-5 flex items-end justify-between">
+        <span className="text-4xl font-bold tracking-tight text-ink">
+          {s.value}
+        </span>
+
+        <span className="text-xs font-medium text-slate-400">
+          Total
+        </span>
+      </div>
+    </motion.button>
+  ))}
+</div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
