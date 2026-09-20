@@ -17,7 +17,6 @@ export function Appointments() {
     phone: '',
     date: '',
     time: '',
-    department: '',
     doctor: '',
     message: ''
   });
@@ -32,7 +31,6 @@ export function Appointments() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          department: formData.department,
           date: formData.date,
           time: formData.time,
           notes: formData.message,
@@ -50,7 +48,6 @@ export function Appointments() {
       phone: '',
       date: '',
       time: '',
-      department: '',
       doctor: '',
       message: ''
     });
@@ -141,27 +138,6 @@ export function Appointments() {
                         required
                         className="border-border"
                       />
-                    </div>
-
-                    {/* Department */}
-                    <div className="space-y-2">
-                      <Label htmlFor="department" className="flex items-center gap-2">
-                        <Icon icon="solar:file-text-linear" className="w-4 h-4 text-primary" />
-                        Department *
-                      </Label>
-                      <Select value={formData.department} onValueChange={(value) => handleChange('department', value)} required>
-                        <SelectTrigger className="border-border">
-                          <SelectValue placeholder="Select department" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="cardiology">Cardiology</SelectItem>
-                          <SelectItem value="pediatrics">Pediatrics</SelectItem>
-                          <SelectItem value="orthopedics">Orthopedics</SelectItem>
-                          <SelectItem value="neurology">Neurology</SelectItem>
-                          <SelectItem value="general">General Medicine</SelectItem>
-                          <SelectItem value="emergency">Emergency Care</SelectItem>
-                        </SelectContent>
-                      </Select>
                     </div>
 
                     {/* Date */}

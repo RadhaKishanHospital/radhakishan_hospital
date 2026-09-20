@@ -137,7 +137,7 @@ function Overview({ go }: { go: (t: Tab) => void }) {
   ]
 
   const recent = [
-    ...generalAppointments.map((a) => ({ id: a.id, who: a.name, what: `booked ${a.department}`, at: a.createdAt })),
+    ...generalAppointments.map((a) => ({ id: a.id, who: a.name, what: "booked a general appointment", at: a.createdAt })),
     ...doctorAppointments.map((a) => ({ id: a.id, who: a.patientName, what: `requested ${a.doctorName}`, at: a.createdAt })),
     ...messages.map((m) => ({ id: m.id, who: m.name, what: `sent “${m.subject}”`, at: m.createdAt })),
   ]
@@ -203,7 +203,7 @@ function GeneralAppointments() {
   const [del, setDel] = useState<string | null>(null)
 
   const rows = useMemo(
-    () => generalAppointments.filter((a) => [a.name, a.email, a.department, a.phone].join(" ").toLowerCase().includes(q.toLowerCase())),
+    () => generalAppointments.filter((a) => [a.name, a.email, a.phone].join(" ").toLowerCase().includes(q.toLowerCase())),
     [generalAppointments, q],
   )
 
@@ -227,7 +227,6 @@ function GeneralAppointments() {
                       </div>
                       <p className="text-sm text-muted-foreground">{a.email} · {a.phone}</p>
                       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
-                        <span className="font-semibold text-brand-700">{a.department}</span>
                         <span className="inline-flex items-center gap-1"><CalendarDays size={13} /> {formatDate(a.date)}</span>
                         <span className="inline-flex items-center gap-1"><Clock size={13} /> {a.time}</span>
                       </div>
@@ -423,7 +422,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       .map((m) => ({ id: "msg" + m.id, who: m.name, text: `New message: ${m.subject}`, at: m.createdAt, tab: "messages" as Tab, icon: MessageSquare })),
     ...generalAppointments
       .filter((a) => a.status === "pending")
-      .map((a) => ({ id: "gen" + a.id, who: a.name, text: `General appointment · ${a.department}`, at: a.createdAt, tab: "general" as Tab, icon: CalendarDays })),
+      .map((a) => ({ id: "gen" + a.id, who: a.name, text: "New general appointment", at: a.createdAt, tab: "general" as Tab, icon: CalendarDays })),
     ...doctorAppointments
       .filter((a) => a.status === "pending")
       .map((a) => ({ id: "doc" + a.id, who: a.patientName, text: `Doctor appointment · ${a.doctorName}`, at: a.createdAt, tab: "doctorAppts" as Tab, icon: Stethoscope })),
