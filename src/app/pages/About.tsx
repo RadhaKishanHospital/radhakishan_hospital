@@ -286,25 +286,18 @@ export function About() {
         </h2>
 
         <div className="space-y-4 text-muted-foreground">
-          <p>
-            Radhakishan Hospital has earned its name and reputation over
-            the last three decades by serving patients and families with
-            dedication and care.
-          </p>
+  <p>
+    Established in 1987, Radhakishan Hospital has been serving patients and families with honesty, dedication, and hard work for decades. From its foundation in Kurukshetra, Haryana, the hospital has continued to expand its healthcare services for patients across Haryana and beyond. With changing healthcare needs, Radhakishan Hospital continues to embrace new technologies, modern medical practices, new skills, improved systems, and evolving developments in healthcare to enhance the overall patient experience and delivery of care.
+  </p>
 
-          <p>
-            Our approach combines quality healthcare with compassion,
-            evidence-based medicine, and responsible medical practice.
-            We believe that every patient deserves to be treated with
-            dignity, understanding, and respect.
-          </p>
+  <p>
+    We believe that a hospital is not only about treatment but also about creating a clean, safe, comfortable, and respectful environment. Our team takes care of the hospital surroundings and makes every effort to guide patients and attendants properly, communicate with them courteously, and support them throughout their healthcare journey.
+  </p>
 
-          <p>
-            With a commitment to continuous improvement, our team works
-            together to provide dependable healthcare services and
-            contribute to the health and well-being of our local community.
-          </p>
-        </div>
+  <p>
+    Our commitment remains simple — to serve with integrity, evolve with healthcare, and care for every patient with respect.
+  </p>
+</div>
       </motion.div>
 
       <motion.div

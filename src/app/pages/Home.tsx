@@ -28,6 +28,8 @@ const staggerChildren = {
 const HERO_VIDEO =
   "https://res.cloudinary.com/m89jw24l/video/upload/v1788940880/herosectionrkh.mp4";
 
+const HOSPITAL_PHONE = "+917206029516";
+
 // Inlined design values (previously lived in src/styles.css).
 const OVERLAY_COLOR = "rgba(0, 0, 0, 0.35)";
 const BOTTOM_FADE =
@@ -196,13 +198,17 @@ export function Home() {
                 </svg>
               </a>
               <a
-                href="/services"
+                href={`tel:${HOSPITAL_PHONE}`}
+                aria-label={`Call Radha Kishan Hospital at ${HOSPITAL_PHONE}`}
                 className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white"
               >
-                <span className="gap-2 px-7 py-3.5 text-sm font-semibold flex items-center justify-center rounded-full border border-white/30 transition-colors group-hover:border-white/60">
-                  Our Services
+                <span className="flex items-center justify-center gap-2 rounded-full border border-white/30 px-7 py-3.5 transition-colors group-hover:border-white/60 group-hover:bg-white/10">
+                  <Icon
+                    icon="solar:phone-calling-linear"
+                    className="h-5 w-5"
+                  />
+                  Call Us
                 </span>
-
               </a>
             </div>
 
@@ -409,94 +415,94 @@ export function Home() {
             </p>
           </motion.div>
 
-<div className="reviews-viewport relative w-full overflow-hidden">
-  {reviews.length === 0 ? (
-    <div className="text-center py-8 text-muted-foreground">
-      No reviews yet. Be the first to share your experience!
-    </div>
-  ) : (
-    <div className="reviews-track">
-      
-      {/* First row */}
-      <div className="reviews-group flex items-stretch gap-6 shrink-0">
-        {reviews.map((testimonial, index) => (
-          <motion.div
-            key={`first-${testimonial.id || index}`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="w-[320px] shrink-0"
-          >
-            <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Icon
-                    key={i}
-                    icon="solar:star-bold"
-                    className="w-5 h-5 text-primary"
-                  />
-                ))}
+          <div className="reviews-viewport relative w-full overflow-hidden">
+            {reviews.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                No reviews yet. Be the first to share your experience!
               </div>
+            ) : (
+              <div className="reviews-track">
 
-              <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
-                {testimonial.description}
-              </p>
+                {/* First row */}
+                <div className="reviews-group flex items-stretch gap-6 shrink-0">
+                  {reviews.map((testimonial, index) => (
+                    <motion.div
+                      key={`first-${testimonial.id || index}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="w-[320px] shrink-0"
+                    >
+                      <Card className="h-full p-6 hover:shadow-lg transition-shadow">
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Icon
+                              key={i}
+                              icon="solar:star-bold"
+                              className="w-5 h-5 text-primary"
+                            />
+                          ))}
+                        </div>
 
-              <div>
-                <div style={{ fontWeight: 600 }}>
-                  {testimonial.name}
+                        <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+                          {testimonial.description}
+                        </p>
+
+                        <div>
+                          <div style={{ fontWeight: 600 }}>
+                            {testimonial.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Patient
+                          </div>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  Patient
+
+                {/* Duplicate row for seamless loop */}
+                <div
+                  className="reviews-group flex items-stretch gap-6 shrink-0"
+                  aria-hidden="true"
+                >
+                  {reviews.map((testimonial, index) => (
+                    <div
+                      key={`second-${testimonial.id || index}`}
+                      className="w-[320px] shrink-0"
+                    >
+                      <Card className="h-full p-6 hover:shadow-lg transition-shadow">
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Icon
+                              key={i}
+                              icon="solar:star-bold"
+                              className="w-5 h-5 text-primary"
+                            />
+                          ))}
+                        </div>
+
+                        <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
+                          {testimonial.description}
+                        </p>
+
+                        <div>
+                          <div style={{ fontWeight: 600 }}>
+                            {testimonial.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Patient
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  ))}
                 </div>
+
               </div>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Duplicate row for seamless loop */}
-      <div
-        className="reviews-group flex items-stretch gap-6 shrink-0"
-        aria-hidden="true"
-      >
-        {reviews.map((testimonial, index) => (
-          <div
-            key={`second-${testimonial.id || index}`}
-            className="w-[320px] shrink-0"
-          >
-            <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Icon
-                    key={i}
-                    icon="solar:star-bold"
-                    className="w-5 h-5 text-primary"
-                  />
-                ))}
-              </div>
-
-              <p className="text-muted-foreground mb-6 break-words [overflow-wrap:anywhere]">
-                {testimonial.description}
-              </p>
-
-              <div>
-                <div style={{ fontWeight: 600 }}>
-                  {testimonial.name}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Patient
-                </div>
-              </div>
-            </Card>
+            )}
           </div>
-        ))}
-      </div>
-
-    </div>
-  )}
-</div>
           <div className="mt-10 flex justify-center">
             <Button
               type='button'
