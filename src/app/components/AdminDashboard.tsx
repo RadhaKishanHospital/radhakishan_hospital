@@ -50,14 +50,15 @@ function StatusBadge({ status }: { status: Status }) {
   )
 }
 
-function StatusSelect({ value, onChange }: { value: Status; onChange: (s: Status) => void }) {
+function StatusSelect({ value, onChange, className }: { value: Status; onChange: (s: Status) => void; className?: string }) {
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as Status)}
       className={cn(
-        "cursor-pointer rounded-full px-3 py-1 text-xs font-semibold capitalize outline-none ring-1 transition",
+        "cursor-pointer rounded-full px-3 py-1.5 text-xs font-semibold capitalize outline-none ring-1 transition",
         statusStyles[value],
+        className,
       )}
     >
       {statusOptions.map((s) => (
@@ -269,7 +270,7 @@ function GeneralAppointments() {
                   "min-w-0 max-w-full overflow-hidden"
                 )}
               >
-                <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+                <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-nowrap sm:items-start sm:justify-between">
 
                   {/* Appointment information */}
                   <div className="flex min-w-0 flex-1 gap-3.5">
@@ -314,7 +315,7 @@ function GeneralAppointments() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex shrink-0 flex-wrap items-center gap-2">
+                  <div className="flex items-center gap-2 border-t border-slate-100 pt-3 sm:shrink-0 sm:border-0 sm:pt-0">
                     <StatusSelect
                       value={a.status}
                       onChange={(s) =>
@@ -323,12 +324,13 @@ function GeneralAppointments() {
                           status: s,
                         })
                       }
+                      className="flex-1 text-center sm:flex-none sm:text-left"
                     />
 
                     <button
                       onClick={() => setDel(a.id)}
                       aria-label="Delete appointment"
-                      className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+                      className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 sm:hover:bg-rose-50"
                     >
                       <Trash2 size={16} />
                     </button>
