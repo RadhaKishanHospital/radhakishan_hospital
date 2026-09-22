@@ -128,13 +128,13 @@ const DoctorProfile = () => {
                 <div className="w-10 h-10 shrink-0 flex items-center justify-center">
                   <img
                     src="/logo.png"
-                    alt="RadhaKishan Hospital"
+                    alt="Radhakishan Hospital"
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="min-w-0">
                   <div className="text-base sm:text-xl tracking-tight leading-tight" style={{ fontWeight: 600 }}>
-                    RadhaKishan Hospital
+                    Radhakishan Hospital
                   </div>
                   <div className="text-xs text-muted-foreground">Medical Center</div>
                 </div>

@@ -91,7 +91,7 @@ export function About() {
               className="text-center max-w-3xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-                About <span className="text-primary">RadhaKishan Hospital</span>
+                About <span className="text-primary">Radhakishan Hospital</span>
               </h1>
               <p className="text-lg text-muted-foreground">
                 Committed to delivering high-quality healthcare with compassion,
@@ -117,7 +117,7 @@ export function About() {
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2">
                       <img
                         src="/logo.png"
-                        alt="RadhaKishan Hospital"
+                        alt="Radhakishan Hospital"
                         className="w-full h-full object-contain"
                       />
                     </div>

@@ -68,13 +68,13 @@ export function Header() {
               >
                 <img
                   src="/logo.png"
-                  alt="RadhaKishan Hospital"
+                  alt="Radhakishan Hospital"
                   className="h-full w-full object-contain"
                 />
               </div>
               <div>
                 <div className={`text-xl tracking-tight ${isHomePage ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
-                  RadhaKishan Hospital
+                  Radhakishan Hospital
                 </div>
                 <div className={`hidden text-xs sm:block ${isHomePage ? 'text-white/70' : 'text-muted-foreground'}`}>Medical Center</div>
               </div>

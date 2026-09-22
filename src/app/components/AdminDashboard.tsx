@@ -505,13 +505,13 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         <div className="flex size-10 shrink-0 items-center justify-center">
           <img
             src="/logo.png"
-            alt="RadhaKishan Hospital"
+            alt="Radhakishan Hospital"
             className="h-full w-full object-contain"
           />
         </div>
 
         <div className="leading-tight">
-          <div className="text-sm font-bold text-ink">RadhaKishan</div>
+          <div className="text-sm font-bold text-ink">Radhakishan</div>
           <div className="text-xs text-muted-foreground">Admin Console</div>
         </div>
       </div>

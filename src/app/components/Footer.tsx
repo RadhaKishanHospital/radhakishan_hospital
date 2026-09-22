@@ -13,13 +13,13 @@ export function Footer() {
               <div className="flex h-10 w-10 shrink-0 items-center justify-center">
                 <img
                   src="/logo.png"
-                  alt="RadhaKishan Hospital"
+                  alt="Radhakishan Hospital"
                   className="h-full w-full object-contain"
                 />
               </div>
               <div>
                 <div className="text-lg tracking-tight" style={{ fontWeight: 600 }}>
-                  RadhaKishan Hospital
+                  Radhakishan Hospital
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@ export function Footer() {
               </a>
               <a
                 href="mailto:radhakishanhospital@gmail.com"
-                aria-label="Email RadhaKishan Hospital"
+                aria-label="Email Radhakishan Hospital"
                 className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
@@ -159,7 +159,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} RadhaKishan Hospital. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Radhakishan Hospital. All rights reserved.</p>
         </div>
       </div>
     </footer>

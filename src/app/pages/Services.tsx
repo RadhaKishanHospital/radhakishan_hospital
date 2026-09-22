@@ -182,7 +182,7 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
-              Why Choose RadhaKishan Hospital
+              Why Choose Radhakishan Hospital
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               The difference is in every detail.

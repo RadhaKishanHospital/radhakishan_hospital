@@ -59,7 +59,7 @@ export default function AdminLogin({
           <div className="flex h-16 w-16 items-center justify-center">
             <img
               src="/logo.png"
-              alt="RadhaKishan Hospital"
+              alt="Radhakishan Hospital"
               className="h-full w-full object-contain"
             />
           </div>

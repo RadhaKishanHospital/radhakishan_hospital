@@ -36,9 +36,30 @@ const BOTTOM_FADE =
   "linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 38%)";
 const HERO_SHADOW = "0 20px 50px -24px rgba(0, 0, 0, 0.35)";
 
+const INSURERS = [
+  { name: "Ayushman Bharat", logo: "/insurance/ayushman-bharat-logo-png_seeklogo-429020.png" },
+  { name: "ECHS", logo: "/insurance/corporates-echs-logo.jpg" },
+  { name: "Cigna", logo: "/insurance/cignahlthcr_logo_color_pos_rgb-01.jpg" },
+  { name: "FHPL", logo: "/insurance/FHPL.png" },
+  { name: "Paramount Health", logo: "/insurance/Paramount-Health.png" },
+  { name: "Heritage Health", logo: "/insurance/Heritage-Health.png" },
+  { name: "IFFCO Tokio", logo: "/insurance/IFFCO-TOKIO.png" },
+  { name: "Cholamandalam MS", logo: "/insurance/CHola-MS.png" },
+  { name: "Universal Sompo", logo: "/insurance/UniversalSompo_LOGO.jpg" },
+  { name: "MA Yojana", logo: "/insurance/MA_logo.png" },
+  { name: "Aditya Birla Capital", logo: "/insurance/ADBL.png" },
+  { name: "HDFC ERGO", logo: "/insurance/Untitled-design-7.png" },
+  { name: "Care Health Insurance", logo: "/insurance/CHI.png" },
+  { name: "Tata AIG", logo: "/insurance/TAIT.png" },
+  { name: "Niva Bupa", logo: "/insurance/NBHI.png" },
+  { name: "Reliance General", logo: "/insurance/RGI.png" },
+  { name: "Star Health", logo: "/insurance/SHAICL.png" },
+  { name: "Genins India", logo: "/insurance/Genins-India.png" },
+];
+
 const VIDEOS = [
-  { id: "ZI8iEtAULdw", title: "RadhaKishan Hospital — Overview" },
-  { id: "rfwK752VGFw", title: "RadhaKishan Hospital — Facilities & Care" },
+  { id: "ZI8iEtAULdw", title: "Radhakishan Hospital — Overview" },
+  { id: "rfwK752VGFw", title: "Radhakishan Hospital — Facilities & Care" },
 ];
 
 const DOCTORS = [
@@ -181,7 +202,7 @@ export function Home() {
         <div className="absolute inset-0 -z-20 h-full w-full">
           <img
             src="https://res.cloudinary.com/hizkabhg/image/upload/v1789981105/WhatsApp_Image_2026-09-06_at_16.20.47.jpg"
-            alt="RadhaKishan Hospital"
+            alt="Radhakishan Hospital"
             className="h-full w-full object-cover object-[65%_center] sm:object-center"
           />
         </div>
@@ -201,7 +222,7 @@ export function Home() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
-              Welcome to RadhaKishan Hospital
+              Welcome to Radhakishan Hospital
             </div>
 
             <h1
@@ -239,7 +260,7 @@ export function Home() {
               </a>
               <a
                 href={`tel:${HOSPITAL_PHONE}`}
-                aria-label={`Call RadhaKishan Hospital at ${HOSPITAL_PHONE}`}
+                aria-label={`Call Radhakishan Hospital at ${HOSPITAL_PHONE}`}
                 className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white"
               >
                 <span className="flex items-center justify-center gap-2 rounded-full border border-white/30 px-7 py-3.5 transition-colors group-hover:border-white/60 group-hover:bg-white/10">
@@ -288,9 +309,18 @@ export function Home() {
 
       <section className='flex flex-col gap-5 lg:gap-8 pb-16 md:pb-24 bg-white px-4'>
         <div className='flex justify-start'>
-          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
+          <motion.div
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             <div className='w-full lg:w-1/2'>
-              <img src="illustrations/doctors.svg" alt="Qualified doctors" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img
+                src="illustrations/doctors.svg"
+                alt="Qualified doctors"
+                className="w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain"
+              />
             </div>
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
@@ -298,19 +328,30 @@ export function Home() {
                   <div className='text-2xl sm:text-3xl md:text-4xl'>Experienced & Qualified Medical Professionals</div>
                   <div><p className='leading-tight'>Highly experienced and qualified doctors providing safe, personalized, and compassionate healthcare for patients and families.</p></div>
                 </div>
-                <div className='flex flex-wrap gap-2 text-[12px]'>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Expertise</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Experience</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Compassion</div>
-                </div>
+                <motion.div
+                  variants={staggerChildren}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true, margin: "-80px" }}
+                  className='flex flex-wrap gap-2 text-[12px]'
+                >
+                  {["Expertise", "Experience", "Compassion"].map((chip) => (
+                    <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
+                  ))}
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
 
         <div className='flex justify-end'>
-          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col-reverse lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
+          <motion.div
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col-reverse lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
 
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
@@ -318,24 +359,43 @@ export function Home() {
                   <div className='text-2xl sm:text-3xl md:text-4xl'>State-of-the-art medical equipment and facilities</div>
                   <div><p className='leading-tight'>Our hospital uses state-of-the-art medical equipment and modern facilities to ensure accurate diagnosis and advanced treatment.</p></div>
                 </div>
-                <div className='flex flex-wrap gap-2 text-[12px]'>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Technology</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Precision</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Innovation</div>
-                </div>
+                <motion.div
+                  variants={staggerChildren}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true, margin: "-80px" }}
+                  className='flex flex-wrap gap-2 text-[12px]'
+                >
+                  {["Technology", "Precision", "Innovation"].map((chip) => (
+                    <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
+                  ))}
+                </motion.div>
               </div>
             </div>
             <div className='w-full lg:w-1/2'>
-              <img src="illustrations/tech.svg" alt="Modern medical technology" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img
+  src="illustrations/tech.svg"
+  alt="Modern medical technology"
+  className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
+/>
             </div>
-          </div>
+          </motion.div>
         </div>
 
 
         <div className='flex justify-start'>
-          <div className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
+          <motion.div
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             <div className='w-full lg:w-1/2'>
-              <img src="illustrations/emergency.svg" alt="Emergency services" className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain' />
+              <img
+  src="illustrations/emergency.svg"
+  alt="Emergency services"
+  className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
+/>
             </div>
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
@@ -343,18 +403,26 @@ export function Home() {
                   <div className='text-2xl sm:text-3xl md:text-4xl'>24/7 emergency services availability</div>
                   <div><p className='leading-tight'>Our hospital provides 24/7 emergency services with rapid response, expert doctors, and immediate critical care support.</p></div>
                 </div>
-                <div className='flex flex-wrap gap-2 text-[12px]'>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Emergency</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Response</div>
-                  <div className='bg-white w-fit p-3 rounded-sm'>Availability</div>
-                </div>
+                <motion.div
+                  variants={staggerChildren}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={{ once: true, margin: "-80px" }}
+                  className='flex flex-wrap gap-2 text-[12px]'
+                >
+                  {["Emergency", "Response", "Availability"].map((chip) => (
+                    <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
+                  ))}
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
+
+
       {/* Meet Our Doctors */}
-      <section className="bg-white px-4 py-14 md:py-20">
+      <section className="bg-white px-4 pb-14 md:pb-20">
         <div className="mx-auto w-full max-w-7xl">
           <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#d8eded] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
@@ -383,19 +451,9 @@ export function Home() {
                     <ImageWithFallback
                       src={doctor.image}
                       alt={doctor.name}
-                      className="h-full w-full object-cover object-top transition-transform duration-[600ms] group-hover:scale-105"
+                      className="h-full w-full object-cover object-top"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
-
-                    {doctor.available && (
-                      <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 shadow-sm backdrop-blur-sm">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        </span>
-                        Available
-                      </span>
-                    )}
 
                     {/* Name + specialty over the photo */}
                     <div className="absolute inset-x-0 bottom-0 p-4">
@@ -437,7 +495,7 @@ export function Home() {
               Take a Tour
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
-              Inside RadhaKishan Hospital
+              Inside Radhakishan Hospital
             </h2>
             <p className="mt-4 text-sm sm:text-base text-muted-foreground">
               Watch how we combine advanced technology with compassionate care.
@@ -470,6 +528,58 @@ export function Home() {
         </div>
       </section>
 
+      
+      {/* Insurance / Cashless Partners */}
+      <section className="bg-white px-4 py-14 md:py-20">
+        <div className="mx-auto w-full max-w-7xl">
+          <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#d8eded] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
+              Cashless & Insurance
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
+              Insurance We Accept
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground">
+              We are empanelled with leading TPAs and insurers for hassle-free cashless treatment.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerChildren}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-60px" }}
+            className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:mt-14 lg:grid-cols-5"
+          >
+            {INSURERS.map((insurer) => (
+              <motion.div
+                key={insurer.name}
+                variants={fadeInUp}
+                className="group flex flex-col items-center overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_-6px_rgba(15,23,42,0.15)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d8eded] hover:shadow-[0_18px_40px_-24px_rgba(4,117,117,0.45)]"
+              >
+                <div className="flex h-24 w-full items-center justify-center px-5 py-4 sm:h-28">
+                  <img
+                    src={insurer.logo}
+                    alt={insurer.name}
+                    loading="lazy"
+                    className="max-h-full w-auto max-w-full object-contain"
+                  />
+                </div>
+                <div className="w-full border-t border-slate-100 bg-slate-50/60 px-3 py-2.5 text-center">
+                  <span className="text-xs font-semibold text-slate-700 sm:text-sm">
+                    {insurer.name}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Don't see your provider? <a href={`tel:${HOSPITAL_PHONE}`} className="font-semibold text-[#047575] hover:underline">Call us</a> to confirm coverage.
+          </p>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-4">
@@ -481,7 +591,7 @@ export function Home() {
             className="mx-auto max-w-2xl text-center"
           >
             <h2 className="text-3xl md:text-4xl text-white mb-6" style={{ fontWeight: 700 }}>
-              Why Choose RadhaKishan Hospital?
+              Why Choose Radhakishan Hospital?
             </h2>
             <p className="text-white/90">
               We are committed to providing the highest quality healthcare services with a patient-centered approach.
@@ -650,6 +760,7 @@ export function Home() {
           </div>
         </div>
       </section>
+
 
       {/* CTA Section */}
       <section className="py-20 bg-[#f0fafa]">
