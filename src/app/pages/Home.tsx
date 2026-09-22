@@ -26,7 +26,7 @@ const staggerChildren = {
 };
 
 const HERO_VIDEO =
-  "https://res.cloudinary.com/m89jw24l/video/upload/v1788940880/herosectionrkh.mp4";
+  "https://res.cloudinary.com/hizkabhg/video/upload/v1790061693/Untitled_design.mp4";
 
 const HOSPITAL_PHONE = "+917206029516";
 
@@ -196,15 +196,19 @@ export function Home() {
   }
 `}</style>
       {/* Hero Section */}
-      <section className="relative isolate flex min-h-[720px] w-full flex-col overflow-hidden bg-slate-950 sm:min-h-screen">
+      <section className="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-slate-950">
         {/* Video background */}
-        {/* Hero image background */}
         <div className="absolute inset-0 -z-20 h-full w-full">
-          <img
-            src="https://res.cloudinary.com/hizkabhg/image/upload/v1789981105/WhatsApp_Image_2026-09-06_at_16.20.47.jpg"
-            alt="Radhakishan Hospital"
-            className="h-full w-full object-cover object-[65%_center] sm:object-center"
-          />
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src={HERO_VIDEO} type="video/mp4" />
+          </video>
         </div>
 
         {/* Flat dark overlay + bottom fade */}

@@ -317,41 +317,185 @@ export function About() {
         </section>
 
         {/* Mission & Vision */}
-        <section className="py-20 bg-[#f8fafa]">
+ <section
+  className="relative py-20 bg-[#f8fafa] overflow-hidden"
+  style={{
+    backgroundImage: `
+      linear-gradient(
+        rgba(248, 250, 250, 0.72),
+        rgba(248, 250, 250, 0.72)
+      ),
+      url("https://img.magnific.com/free-photo/group-medics-masks-reading-paper_23-2147763838.jpg?t=st=1790063029~exp=1790066629~hmac=b425cc407605ba345d489daa2dd57cf753081c6e48a6d8ef0f54da6eeefe591d&w=1480")
+    `,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+              {/* Mission */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <Card className="h-full p-8 hover:shadow-lg transition-shadow">
+                <Card className="h-full p-8 border border-slate-100 hover:shadow-lg transition-shadow">
+
+                  {/* Icon */}
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <Icon icon="solar:target-linear" className="w-8 h-8 text-primary" />
+                    <Icon
+                      icon="solar:target-linear"
+                      className="w-8 h-8 text-primary"
+                    />
                   </div>
-                  <h3 className="text-2xl mb-4" style={{ fontWeight: 700 }}>Our Mission</h3>
-                  <p className="text-muted-foreground">
-                    To provide the highest quality healthcare through evidence-based medicine, compassionate and empathetic medical care, continuous learning, and a strong commitment to enhancing the health and well-being of children and families in our local community.
+
+                  <h3
+                    className="text-2xl mb-4"
+                    style={{ fontWeight: 700 }}
+                  >
+                    Our Mission
+                  </h3>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    To provide high-quality healthcare through evidence-based medicine, compassionate care, continuous learning, and a commitment to the health and well-being of children and families.
                   </p>
+
+                  {/* Mission pillars */}
+                  <div className="mt-7 grid grid-cols-2 gap-3">
+
+                    <div className="rounded-xl bg-[#f8fafa] border border-slate-100 p-3.5">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <Icon
+                          icon="solar:heart-pulse-linear"
+                          className="w-4 h-4 text-primary"
+                        />
+                        <span className="text-sm font-semibold text-slate-800">
+                          Care
+                        </span>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        Highest quality healthcare
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl bg-[#f8fafa] border border-slate-100 p-3.5">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <Icon
+                          icon="solar:test-tube-linear"
+                          className="w-4 h-4 text-primary"
+                        />
+                        <span className="text-sm font-semibold text-slate-800">
+                          Science
+                        </span>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        Evidence-based medicine
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl bg-[#f8fafa] border border-slate-100 p-3.5">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <Icon
+                          icon="solar:book-2-linear"
+                          className="w-4 h-4 text-primary"
+                        />
+                        <span className="text-sm font-semibold text-slate-800">
+                          Teach
+                        </span>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        Empathy in medical care
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl bg-[#f8fafa] border border-slate-100 p-3.5">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <Icon
+                          icon="solar:users-group-rounded-linear"
+                          className="w-4 h-4 text-primary"
+                        />
+                        <span className="text-sm font-semibold text-slate-800">
+                          Community
+                        </span>
+                      </div>
+
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        Health & well-being of families
+                      </p>
+                    </div>
+
+                  </div>
                 </Card>
               </motion.div>
 
+
+              {/* Vision + Goal */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                <Card className="h-full p-8 hover:shadow-lg transition-shadow">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <Icon icon="solar:eye-linear" className="w-8 h-8 text-primary" />
+                <Card className="h-full p-8 border border-slate-100 hover:shadow-lg transition-shadow flex flex-col">
+
+                  {/* Vision - Top Half */}
+                  <div className="flex-1 flex flex-col">
+
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                      <Icon
+                        icon="solar:eye-linear"
+                        className="w-8 h-8 text-primary"
+                      />
+                    </div>
+
+                    <h3
+                      className="text-2xl mb-4"
+                      style={{ fontWeight: 700 }}
+                    >
+                      Our Vision
+                    </h3>
+
+                    <p className="text-muted-foreground leading-relaxed">
+                      To make a meaningful difference in every patient’s life through dedicated care, saving lives, and creating a healthier community.
+                    </p>
+
                   </div>
-                  <h3 className="text-2xl mb-4" style={{ fontWeight: 700 }}>Our Vision</h3>
-                  <p className="text-muted-foreground">
-                    To achieve professional satisfaction through the noble responsibility of saving lives, providing meaningful care to every patient, and making a positive difference in the lives of individuals and families through dedicated healthcare services.
-                  </p>
+
+
+                  {/* Divider */}
+                  <div className="border-t border-slate-100 my-7" />
+
+
+                  {/* Goal - Bottom Half */}
+                  <div className="flex-1 flex flex-col">
+
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                      <Icon
+                        icon="solar:medal-star-linear"
+                        className="w-8 h-8 text-primary"
+                      />
+                    </div>
+
+                    <h3
+                      className="text-2xl mb-4"
+                      style={{ fontWeight: 700 }}
+                    >
+                      Our Goal
+                    </h3>
+
+                    <p className="text-muted-foreground leading-relaxed">
+                      Excellent quality care at reasonable rates.
+                    </p>
+
+                  </div>
+
                 </Card>
               </motion.div>
+
             </div>
           </div>
         </section>
