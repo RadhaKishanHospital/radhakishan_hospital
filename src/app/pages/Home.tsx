@@ -36,6 +36,50 @@ const BOTTOM_FADE =
   "linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 38%)";
 const HERO_SHADOW = "0 20px 50px -24px rgba(0, 0, 0, 0.35)";
 
+const VIDEOS = [
+  { id: "ZI8iEtAULdw", title: "RadhaKishan Hospital — Overview" },
+  { id: "rfwK752VGFw", title: "RadhaKishan Hospital — Facilities & Care" },
+];
+
+const DOCTORS = [
+  {
+    id: 1,
+    name: "Dr. Akanksha Tyagi",
+    specialty: "General Medicine",
+    qualification: "MBBS, MD (General Medicine)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
+    available: true,
+  },
+  {
+    id: 2,
+    name: "Dr. Shashank Singhal",
+    specialty: "Surgery",
+    qualification: "MBBS, MS (General Surgery)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
+    available: true,
+  },
+  {
+    id: 3,
+    name: "Dr. Monika Dixit",
+    specialty: "Pathology",
+    qualification: "MBBS, MD (Pathology)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
+    available: true,
+  },
+  {
+    id: 4,
+    name: "Dr. Lokender Goyal",
+    specialty: "Pediatrics & Neonatal Care",
+    qualification: "MBBS, MD (Pediatrics)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
+    available: true,
+  },
+];
+
 
 export function Home() {
   const [open, setOpen] = useState(false);
@@ -134,13 +178,13 @@ export function Home() {
       <section className="relative isolate flex min-h-[720px] w-full flex-col overflow-hidden bg-slate-950 sm:min-h-screen">
         {/* Video background */}
         {/* Hero image background */}
-<div className="absolute inset-0 -z-20 h-full w-full">
-  <img
-    src="https://res.cloudinary.com/hizkabhg/image/upload/v1789981105/WhatsApp_Image_2026-09-06_at_16.20.47.jpg"
-    alt="RadhaKishan Hospital"
-    className="h-full w-full object-cover object-[65%_center] sm:object-center"
-  />
-</div>
+        <div className="absolute inset-0 -z-20 h-full w-full">
+          <img
+            src="https://res.cloudinary.com/hizkabhg/image/upload/v1789981105/WhatsApp_Image_2026-09-06_at_16.20.47.jpg"
+            alt="RadhaKishan Hospital"
+            className="h-full w-full object-cover object-[65%_center] sm:object-center"
+          />
+        </div>
 
         {/* Flat dark overlay + bottom fade */}
         <div
@@ -309,6 +353,123 @@ export function Home() {
           </div>
         </div>
       </section>
+      {/* Meet Our Doctors */}
+      <section className="bg-white px-4 py-14 md:py-20">
+        <div className="mx-auto w-full max-w-7xl">
+          <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#d8eded] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
+              Our Specialists
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
+              Meet Our Doctors
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground">
+              A team of experienced, board-certified specialists dedicated to your care.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerChildren}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 md:mt-14 md:gap-6"
+          >
+            {DOCTORS.map((doctor) => (
+              <motion.div key={doctor.id} variants={fadeInUp}>
+                <Card className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white p-0 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_55px_-28px_rgba(4,117,117,0.5)]">
+                  {/* Portrait with soft teal wash + gradient scrim */}
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#d8eded]">
+                    <ImageWithFallback
+                      src={doctor.image}
+                      alt={doctor.name}
+                      className="h-full w-full object-cover object-top transition-transform duration-[600ms] group-hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
+
+                    {doctor.available && (
+                      <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 shadow-sm backdrop-blur-sm">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        </span>
+                        Available
+                      </span>
+                    )}
+
+                    {/* Name + specialty over the photo */}
+                    <div className="absolute inset-x-0 bottom-0 p-4">
+                      <span className="inline-block rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                        {doctor.specialty}
+                      </span>
+                      <h3 className="mt-2 text-lg leading-tight text-white" style={{ fontWeight: 700 }}>
+                        {doctor.name}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Footer */}
+                  <CardContent className="flex flex-1 flex-col p-5">
+                    <p className="flex items-start gap-2 text-sm leading-snug text-slate-600">
+                      <Icon icon="solar:diploma-verified-linear" className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#047575]" />
+                      {doctor.qualification}
+                    </p>
+                    <a
+                      href="/appointments"
+                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#035c5c]"
+                    >
+                      Book appointment
+                      <Icon icon="solar:arrow-right-linear" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </a>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Video Section */}
+      <section className="bg-[#f0fafa] px-4 py-14 md:py-20">
+        <div className="mx-auto w-full max-w-6xl">
+          <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
+              Take a Tour
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
+              Inside RadhaKishan Hospital
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground">
+              Watch how we combine advanced technology with compassionate care.
+            </p>
+          </motion.div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:mt-14 lg:grid-cols-2">
+            {VIDEOS.map((video, index) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="overflow-hidden rounded-3xl bg-slate-950 shadow-[0_30px_60px_-30px_rgba(4,117,117,0.5)]"
+              >
+                <div className="relative aspect-video w-full">
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0`}
+                    title={video.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-primary to-[#047070]">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-4">
@@ -447,29 +608,29 @@ export function Home() {
                       className="w-[320px] shrink-0"
                     >
                       <Card className="flex h-full min-h-[360px] flex-col p-6 transition-shadow hover:shadow-lg">
-  <div className="mb-5 flex gap-1">
-    {[...Array(testimonial.rating)].map((_, i) => (
-      <Icon
-        key={i}
-        icon="solar:star-bold"
-        className="h-5 w-5 text-primary"
-      />
-    ))}
-  </div>
+                        <div className="mb-5 flex gap-1">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Icon
+                              key={i}
+                              icon="solar:star-bold"
+                              className="h-5 w-5 text-primary"
+                            />
+                          ))}
+                        </div>
 
-  <p className="text-muted-foreground break-words [overflow-wrap:anywhere]">
-    {testimonial.description}
-  </p>
+                        <p className="text-muted-foreground break-words [overflow-wrap:anywhere]">
+                          {testimonial.description}
+                        </p>
 
-  <div className="mt-auto pt-8">
-    <div style={{ fontWeight: 600 }}>
-      {testimonial.name}
-    </div>
-    <div className="text-sm text-muted-foreground">
-      Patient
-    </div>
-  </div>
-</Card>
+                        <div className="mt-auto pt-8">
+                          <div style={{ fontWeight: 600 }}>
+                            {testimonial.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Patient
+                          </div>
+                        </div>
+                      </Card>
                     </div>
                   ))}
                 </div>
