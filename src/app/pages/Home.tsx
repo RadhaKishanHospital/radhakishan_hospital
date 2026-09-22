@@ -37,7 +37,7 @@ const BOTTOM_FADE =
 const HERO_SHADOW = "0 20px 50px -24px rgba(0, 0, 0, 0.35)";
 
 const INSURERS = [
-  { name: "Ayushman Bharat", logo: "/insurance/ayushman-bharat-logo-png_seeklogo-429020.png" },
+  { name: "Ayushman Bharat", logo: "/insurance/ayushman-bharat.png" },
   { name: "ECHS", logo: "/insurance/corporates-echs-logo.jpg" },
   { name: "Cigna", logo: "/insurance/cignahlthcr_logo_color_pos_rgb-01.jpg" },
   { name: "FHPL", logo: "/insurance/FHPL.png" },
