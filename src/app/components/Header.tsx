@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import { motion } from 'motion/react';
-import { Menu, X, Plus } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { useRef, useState } from 'react';
 import AdminLogin, { ADMIN_SESSION_KEY } from './AdminLogin';
@@ -8,6 +8,8 @@ import AdminLogin, { ADMIN_SESSION_KEY } from './AdminLogin';
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [language, setLanguage] = useState('en');
   const logoClicks = useRef(0);
   const logoClickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
@@ -44,6 +46,14 @@ export function Header() {
     { path: '/doctors', label: 'Doctors' },
     { path: '/contact', label: 'Contact' },
   ];
+
+  const changeLanguage = (lang: string) => {
+    setLanguage(lang);
+    setLanguageOpen(false);
+
+    // Later connect this to i18next:
+    // i18n.changeLanguage(lang);
+  };
 
   return (
     <header
@@ -104,12 +114,89 @@ export function Header() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setLanguageOpen(!languageOpen)}
+                aria-label="Change language"
+                aria-expanded={languageOpen}
+                className={`
+        flex items-center gap-1.5 rounded-full px-3 py-2
+        text-sm font-medium transition-all duration-200
+        border
+        ${isHomePage
+                    ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'
+                    : 'border-gray-200 bg-white text-foreground hover:bg-gray-50'
+                  }
+      `}
+              >
+                <Globe className="h-4 w-4" />
+
+                <span className="hidden sm:inline">
+                  {language === 'en' ? 'English' : 'हिन्दी'}
+                </span>
+
+                <span className="sm:hidden">
+                  {language === 'en' ? 'EN' : 'हि'}
+                </span>
+
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform duration-200 ${languageOpen ? 'rotate-180' : ''
+                    }`}
+                />
+              </button>
+
+              {/* Language Dropdown */}
+              {languageOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  className="absolute right-0 top-full z-50 mt-2 w-36 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 text-gray-800 shadow-xl"
+                >
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('en')}
+                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${language === 'en'
+                      ? 'bg-primary/10 text-primary'
+                      : 'hover:bg-gray-50'
+                      }`}
+                  >
+                    <span>English</span>
+
+                    {language === 'en' && (
+                      <span className="text-primary">✓</span>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('hi')}
+                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${language === 'hi'
+                      ? 'bg-primary/10 text-primary'
+                      : 'hover:bg-gray-50'
+                      }`}
+                  >
+                    <span>हिन्दी</span>
+
+                    {language === 'hi' && (
+                      <span className="text-primary">✓</span>
+                    )}
+                  </button>
+                </motion.div>
+              )}
+            </div>
+
+            {/* Book Appointment */}
             <Link to="/appointments" className="hidden md:block">
-              <Button className={`rounded-full px-6 font-medium transition-all duration-200 ${isHomePage
-                ? 'bg-white/95 text-black hover:bg-white/80'
-                : 'bg-[#058080] text-white hover:bg-[#047070]'
-                }`}>
+              <Button
+                className={`rounded-full px-6 font-medium transition-all duration-200 ${isHomePage
+                  ? 'bg-white/95 text-black hover:bg-white/80'
+                  : 'bg-[#058080] text-white hover:bg-[#047070]'
+                  }`}
+              >
                 Book Appointment
               </Button>
             </Link>
@@ -117,9 +204,15 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               type="button"
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={
+                mobileMenuOpen
+                  ? 'Close navigation menu'
+                  : 'Open navigation menu'
+              }
               aria-expanded={mobileMenuOpen}
-              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${isHomePage ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-muted'
+              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${isHomePage
+                ? 'text-white hover:bg-white/10'
+                : 'text-foreground hover:bg-muted'
                 }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -164,6 +257,6 @@ export function Header() {
         )}
       </nav>
       <AdminLogin open={adminLoginOpen} onClose={() => setAdminLoginOpen(false)} onSuccess={handleAdminSuccess} />
-    </header>
+    </header >
   );
 }
