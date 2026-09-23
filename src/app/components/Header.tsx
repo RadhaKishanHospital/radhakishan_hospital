@@ -4,13 +4,14 @@ import { Menu, X } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { Button } from './ui/button';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AdminLogin, { ADMIN_SESSION_KEY } from './AdminLogin';
 
 export function Header() {
+  const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [adminLoginOpen, setAdminLoginOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState('en');
   const logoClicks = useRef(0);
   const logoClickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const languageRef = useRef<HTMLDivElement>(null);
@@ -42,19 +43,17 @@ export function Header() {
   const isActive = (path: string) => location.pathname === path;
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/services', label: 'Services' },
-    { path: '/doctors', label: 'Doctors' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/', label: t('navbar.home') },
+    { path: '/about', label: t('navbar.about') },
+    { path: '/services', label: t('navbar.services') },
+    { path: '/doctors', label: t('navbar.doctors') },
+    { path: '/contact', label: t('navbar.contact') },
   ];
 
   const changeLanguage = (lang: string) => {
-    setLanguage(lang);
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
     setLanguageOpen(false);
-
-    // Later connect this to i18next:
-    // i18n.changeLanguage(lang);
   };
 
   useEffect(() => {
@@ -153,18 +152,18 @@ export function Header() {
               >
                 {/* Current Flag */}
                 <Icon
-                  icon={language === 'en' ? 'emojione:flag-for-united-kingdom' : 'emojione:flag-for-india'}
+                  icon={i18n.language === 'en' ? 'emojione:flag-for-united-kingdom' : 'emojione:flag-for-india'}
                   className="h-6 w-6"
                 />
 
                 {/* Language Name */}
                 <span className="hidden sm:inline">
-                  {language === 'en' ? 'English' : 'हिन्दी'}
+                  {i18n.language === 'en' ? 'English' : 'हिन्दी'}
                 </span>
 
                 {/* Mobile Short Name */}
                 <span className="sm:hidden">
-                  {language === 'en' ? 'EN' : 'हि'}
+                  {i18n.language === 'en' ? 'EN' : 'हि'}
                 </span>
 
                 <Icon
@@ -203,7 +202,7 @@ export function Header() {
                     <button
                       type="button"
                       onClick={() => changeLanguage('en')}
-                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${language === 'en'
+                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${i18n.language === 'en'
                         ? 'bg-gray-100'
                         : 'hover:bg-gray-50'
                         }`}
@@ -220,7 +219,7 @@ export function Header() {
                     <button
                       type="button"
                       onClick={() => changeLanguage('hi')}
-                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${language === 'hi'
+                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${i18n.language === 'hi'
                         ? 'bg-gray-100'
                         : 'hover:bg-gray-50'
                         }`}
@@ -245,7 +244,7 @@ export function Header() {
                   : 'bg-[#058080] text-white hover:bg-[#047070]'
                   }`}
               >
-                Book Appointment
+                {t('navbar.bookAppointment')}
               </Button>
             </Link>
 
@@ -297,7 +296,7 @@ export function Header() {
               ))}
               <Link to="/appointments" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="mt-2 w-full bg-primary hover:bg-primary/90">
-                  Book Appointment
+                  {t('navbar.bookAppointment')}
                 </Button>
               </Link>
             </div>

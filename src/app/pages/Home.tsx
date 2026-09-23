@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Icon } from '@iconify/react';
 import { Button } from '../components/ui/button';
@@ -63,7 +64,7 @@ const VIDEOS = [
 ];
 
 const DOCTORS = [
-    {
+  {
     id: 1,
     name: "Dr. Lokender Goyal",
     specialty: "Pediatrics & Neonatal Care",
@@ -72,7 +73,7 @@ const DOCTORS = [
       "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
     available: true,
   },
-    {
+  {
     id: 2,
     name: "Dr. Monika Dixit",
     specialty: "Pathology",
@@ -107,6 +108,7 @@ export function Home() {
   const { data: reviews = [] } = useReviews();
   const addReviewMutation = useAddReview();
   const [isRatingsPaused, setIsRatingsPaused] = useState(false);
+  const { t } = useTranslation();
 
   const handleReviewSubmit = async (review: ReviewDraft) => {
     try {
@@ -226,21 +228,21 @@ export function Home() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
-              Welcome to Radhakishan Hospital
+              {t("home.welcome")}
             </div>
 
             <h1
               className="mt-7 text-[2.75rem] font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[3.75rem]"
 
             >
-              Exceptional care,
-              <span className="block text-white/90">trusted for life.</span>
+              {t("home.heroTitle")}
+              <span className="block text-white/90">
+                {t("home.heroTitleHighlight")}
+              </span>
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-              From preventive wellness to complex surgery, our specialists deliver
-              compassionate, evidence-based medicine — powered by advanced technology,
-              available 24 hours a day.
+              {t("home.heroDescription")}
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-5">
@@ -249,7 +251,7 @@ export function Home() {
                 className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition-transform hover:bg-white/90"
                 style={{ boxShadow: HERO_SHADOW }}
               >
-                Book an appointment
+                {t("home.bookAppointment")}
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -272,28 +274,28 @@ export function Home() {
                     icon="solar:phone-calling-linear"
                     className="h-5 w-5"
                   />
-                  Call Us
+                  {t("home.callUs")}
                 </span>
               </a>
             </div>
 
             {/* Trust row */}
             <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-7">
-              {[
-                { k: "1987", v: "Established" },
-                { k: "24/7", v: "Emergency Care" },
-                { k: "98%", v: "Satisfaction" },
-              ].map((s) => (
-                <div key={s.v} className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-white">
-                    {s.k}
-                  </span>
-                  <span className="text-xs font-medium uppercase tracking-wider text-white/55">
-                    {s.v}
-                  </span>
-                </div>
-              ))}
-            </div>
+  {[
+    { k: "1987", v: t("home.established") },
+    { k: "24/7", v: t("home.emergencyCare") },
+    { k: "98%", v: t("home.satisfaction") },
+  ].map((s) => (
+    <div key={s.v} className="flex items-baseline gap-2">
+      <span className="text-2xl font-bold text-white">
+        {s.k}
+      </span>
+      <span className="text-xs font-medium uppercase tracking-wider text-white/55">
+        {s.v}
+      </span>
+    </div>
+  ))}
+</div>
           </div>
         </div>
       </section>
@@ -301,13 +303,13 @@ export function Home() {
 
 
       <section className='flex flex-col gap-6 md:gap-8 py-14 md:py-20 bg-white px-4'>
-        <div className='flex justify-center text-sm md:text-base'>Services</div>
-        <div><p className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center text-[#047575] max-w-[800px] mx-auto leading-tight'>Expert care for your health,
+        <div className='flex justify-center text-sm md:text-base'>{t("home.services")}</div>
+        <div><p className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center text-[#047575] max-w-[800px] mx-auto leading-tight'>{t("home.servicesTitle")}
           <br aria-hidden="true" />
-          so you can focus on what matters most.</p></div>
-        <div><p className='text-center text-sm sm:text-base'>Providing modern healthcare solutions for patients and families since 1987.</p></div>
+          {t("home.servicesTitleSecond")}</p></div>
+        <div><p className='text-center text-sm sm:text-base'>{t("home.servicesDescription")}</p></div>
         <div className='flex justify-center'>
-          <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">Schedule a call</Button>
+          <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">{t("home.scheduleCall")}</Button>
         </div>
       </section>
 
@@ -329,8 +331,8 @@ export function Home() {
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
                 <div className='flex flex-col gap-6 md:gap-8'>
-                  <div className='text-2xl sm:text-3xl md:text-4xl'>Experienced & Qualified Medical Professionals</div>
-                  <div><p className='leading-tight'>Highly experienced and qualified doctors providing safe, personalized, and compassionate healthcare for patients and families.</p></div>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>{t("home.professionalsTitle")}</div>
+                  <div><p className='leading-tight'>{t("home.professionalsDescription")}.</p></div>
                 </div>
                 <motion.div
                   variants={staggerChildren}
@@ -339,7 +341,11 @@ export function Home() {
                   viewport={{ once: true, margin: "-80px" }}
                   className='flex flex-wrap gap-2 text-[12px]'
                 >
-                  {["Expertise", "Experience", "Compassion"].map((chip) => (
+                  {[
+                    t("home.expertise"),
+                    t("home.experience"),
+                    t("home.compassion")
+                  ].map((chip) => (
                     <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
                   ))}
                 </motion.div>
@@ -360,8 +366,8 @@ export function Home() {
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
                 <div className='flex flex-col gap-6 md:gap-8'>
-                  <div className='text-2xl sm:text-3xl md:text-4xl'>State-of-the-art medical equipment and facilities</div>
-                  <div><p className='leading-tight'>Our hospital uses state-of-the-art medical equipment and modern facilities to ensure accurate diagnosis and advanced treatment.</p></div>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>{t("home.equipmentTitle")}</div>
+                  <div><p className='leading-tight'>{t("home.equipmentDescription")}</p></div>
                 </div>
                 <motion.div
                   variants={staggerChildren}
@@ -370,7 +376,11 @@ export function Home() {
                   viewport={{ once: true, margin: "-80px" }}
                   className='flex flex-wrap gap-2 text-[12px]'
                 >
-                  {["Technology", "Precision", "Innovation"].map((chip) => (
+                  {[
+                    t("home.technology"),
+                    t("home.precision"),
+                    t("home.innovation")
+                  ].map((chip) => (
                     <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
                   ))}
                 </motion.div>
@@ -378,10 +388,10 @@ export function Home() {
             </div>
             <div className='w-full lg:w-1/2'>
               <img
-  src="illustrations/tech.svg"
-  alt="Modern medical technology"
-  className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
-/>
+                src="illustrations/tech.svg"
+                alt="Modern medical technology"
+                className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
+              />
             </div>
           </motion.div>
         </div>
@@ -396,16 +406,16 @@ export function Home() {
             className='bg-[#d8eded] w-full max-w-[1040px] p-6 sm:p-8 md:p-12 lg:p-16 xl:pr-20 flex flex-col lg:flex-row gap-8 lg:gap-[70px] rounded-3xl'>
             <div className='w-full lg:w-1/2'>
               <img
-  src="illustrations/emergency.svg"
-  alt="Emergency services"
-  className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
-/>
+                src="illustrations/emergency.svg"
+                alt="Emergency services"
+                className='w-full h-auto max-h-[280px] sm:max-h-[340px] md:max-h-[380px] object-contain'
+              />
             </div>
             <div className='w-full lg:w-1/2'>
               <div className='flex flex-col gap-16'>
                 <div className='flex flex-col gap-6 md:gap-8'>
-                  <div className='text-2xl sm:text-3xl md:text-4xl'>24/7 emergency services availability</div>
-                  <div><p className='leading-tight'>Our hospital provides 24/7 emergency services with rapid response, expert doctors, and immediate critical care support.</p></div>
+                  <div className='text-2xl sm:text-3xl md:text-4xl'>{t("home.emergencyTitle")}</div>
+                  <div><p className='leading-tight'>{t("home.emergencyDescription")}</p></div>
                 </div>
                 <motion.div
                   variants={staggerChildren}
@@ -414,7 +424,11 @@ export function Home() {
                   viewport={{ once: true, margin: "-80px" }}
                   className='flex flex-wrap gap-2 text-[12px]'
                 >
-                  {["Emergency", "Response", "Availability"].map((chip) => (
+                  {[
+                    t("home.emergency"),
+                    t("home.response"),
+                    t("home.availability")
+                  ].map((chip) => (
                     <motion.div key={chip} variants={fadeInUp} className='bg-white w-fit p-3 rounded-sm'>{chip}</motion.div>
                   ))}
                 </motion.div>
@@ -430,13 +444,13 @@ export function Home() {
         <div className="mx-auto w-full max-w-7xl">
           <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#d8eded] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
-              Our Specialists
+              {t("home.ourSpecialists")}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
-              Meet Our Doctors
+              {t("home.meetDoctors")}
             </h2>
             <p className="mt-4 text-sm sm:text-base text-muted-foreground">
-              A team of experienced, board-certified specialists dedicated to your care.
+              {t("home.doctorsDescription")}
             </p>
           </motion.div>
 
@@ -480,7 +494,7 @@ export function Home() {
                       href="/appointments"
                       className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#035c5c]"
                     >
-                      Book appointment
+                      {t("home.bookDoctorAppointment")}
                       <Icon icon="solar:arrow-right-linear" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </a>
                   </CardContent>
@@ -496,13 +510,13 @@ export function Home() {
         <div className="mx-auto w-full max-w-6xl">
           <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
-              Take a Tour
+              {t("home.takeTour")}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
-              Inside Radhakishan Hospital
+              {t("home.insideHospital")}
             </h2>
             <p className="mt-4 text-sm sm:text-base text-muted-foreground">
-              Watch how we combine advanced technology with compassionate care.
+              {t("home.tourDescription")}
             </p>
           </motion.div>
 
@@ -532,19 +546,19 @@ export function Home() {
         </div>
       </section>
 
-      
+
       {/* Insurance / Cashless Partners */}
       <section className="bg-white px-4 py-14 md:py-20">
         <div className="mx-auto w-full max-w-7xl">
           <motion.div {...fadeInUp} className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#d8eded] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#047575]">
-              Cashless & Insurance
+              {t("home.cashlessInsurance")}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#047575]" style={{ fontWeight: 700 }}>
-              Insurance We Accept
+              {t("home.insuranceTitle")}
             </h2>
             <p className="mt-4 text-sm sm:text-base text-muted-foreground">
-              We are empanelled with leading TPAs and insurers for hassle-free cashless treatment.
+              {t("home.insuranceDescription")}
             </p>
           </motion.div>
 
@@ -579,7 +593,14 @@ export function Home() {
           </motion.div>
 
           <p className="mt-8 text-center text-xs text-muted-foreground">
-            Don't see your provider? <a href={`tel:${HOSPITAL_PHONE}`} className="font-semibold text-[#047575] hover:underline">Call us</a> to confirm coverage.
+            {t("home.providerNotFound")}{" "}
+            <a
+              href={`tel:${HOSPITAL_PHONE}`}
+              className="font-semibold text-[#047575] hover:underline"
+            >
+              {t("home.callUs")}
+            </a>{" "}
+            {t("home.callToConfirm")}
           </p>
         </div>
       </section>
@@ -595,10 +616,10 @@ export function Home() {
             className="mx-auto max-w-2xl text-center"
           >
             <h2 className="text-3xl md:text-4xl text-white mb-6" style={{ fontWeight: 700 }}>
-              Why Choose Radhakishan Hospital?
+              {t("home.whyChoose")}
             </h2>
             <p className="text-white/90">
-              We are committed to providing the highest quality healthcare services with a patient-centered approach.
+              {t("home.whyChooseDescription")}
             </p>
           </motion.div>
 
@@ -606,27 +627,27 @@ export function Home() {
             {[
               {
                 icon: 'solar:user-check-rounded-linear',
-                title: 'Experienced and qualified medical professionals'
+                title: t("home.qualifiedProfessionals")
               },
               {
                 icon: 'solar:test-tube-linear',
-                title: 'State-of-the-art medical equipment and facilities'
+                title: t("home.modernEquipment")
               },
               {
                 icon: 'solar:hospital-linear',
-                title: 'Comprehensive healthcare services under one roof'
+                title: t("home.comprehensiveServices")
               },
               {
                 icon: 'solar:heart-pulse-linear',
-                title: 'Patient-centered care and personalized treatment'
+                title: t("home.patientCentered")
               },
               {
                 icon: 'solar:tag-price-linear',
-                title: 'Affordable and transparent pricing'
+                title: t("home.affordablePricing")
               },
               {
                 icon: 'solar:clock-circle-linear',
-                title: '24/7 emergency services availability'
+                title: t("home.emergencyAvailability")
               }
             ].map((item, index) => (
               <motion.div
@@ -657,17 +678,17 @@ export function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl mb-4" style={{ fontWeight: 700 }}>
-              What Our Patients Say
+              {t("home.patientReviews")}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Real stories from real patients
+              {t("home.realStories")}
             </p>
           </motion.div>
 
           <div className="reviews-viewport relative w-full overflow-hidden">
             {reviews.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
-                No reviews yet. Be the first to share your experience!
+                {t("home.noReviews")}
               </div>
             ) : (
               <div className="reviews-track">
@@ -703,7 +724,7 @@ export function Home() {
                             {testimonial.name}
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            Patient
+                            {t("home.patient")}
                           </div>
                         </div>
                       </Card>
@@ -741,7 +762,7 @@ export function Home() {
                             {testimonial.name}
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            Patient
+                            {t("home.patient")}
                           </div>
                         </div>
                       </Card>
@@ -759,7 +780,7 @@ export function Home() {
               size="lg"
               className="w-fit rounded-full bg-primary cursor-pointer hover:bg-primary/90"
             >
-              Add Your Review
+              {t("home.addReview")}
             </Button>
           </div>
         </div>
@@ -776,14 +797,14 @@ export function Home() {
             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl mb-6" style={{ fontWeight: 700 }}>
-              Ready to Get Started?
+              {t("home.readyStarted")}
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Book an appointment today and experience world-class healthcare
+              {t("home.readyDescription")}
             </p>
             <Link to="/appointments">
               <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200">
-                Book Your Appointment
+                {t("home.bookYourAppointment")}
                 <Icon
                   icon="solar:arrow-right-linear"
                   className="ml-2 w-5 h-5"
