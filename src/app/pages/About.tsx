@@ -7,6 +7,7 @@ import { Badge } from "../components/ui/badge";
 import { LogoCarousel, LogoItem } from '../components/ui/logo-carousel';
 import { ArrowRight, Play } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -18,7 +19,7 @@ export function About() {
 
 
 
-
+  const { t } = useTranslation();
   const sceneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -91,12 +92,14 @@ export function About() {
               className="text-center max-w-3xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-                About <span className="text-primary">Radhakishan Hospital</span>
+                {t("about.hero.title")}{" "}
+                <span className="text-primary">
+                  {t("about.hero.hospitalName")}
+                </span>
               </h1>
+
               <p className="text-lg text-muted-foreground">
-                Committed to delivering high-quality healthcare with compassion,
-                evidence-based medicine, and a strong focus on the well-being of
-                children, families, and our community.
+                {t("about.hero.description")}
               </p>
             </motion.div>
           </div>
@@ -279,20 +282,20 @@ export function About() {
                   className="text-3xl md:text-4xl mb-6"
                   style={{ fontWeight: 700 }}
                 >
-                  Our Journey
+                  {t("about.journey.title")}
                 </h2>
 
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Established in 1987, Radhakishan Hospital has been serving patients and families with honesty, dedication, and hard work for decades. From its foundation in Kurukshetra, Haryana, the hospital has continued to expand its healthcare services for patients across Haryana and beyond. With changing healthcare needs, Radhakishan Hospital continues to embrace new technologies, modern medical practices, new skills, improved systems, and evolving developments in healthcare to enhance the overall patient experience and delivery of care.
+                    {t("about.journey.paragraph1")}
                   </p>
 
                   <p>
-                    We believe that a hospital is not only about treatment but also about creating a clean, safe, comfortable, and respectful environment. Our team takes care of the hospital surroundings and makes every effort to guide patients and attendants properly, communicate with them courteously, and support them throughout their healthcare journey.
+                    {t("about.journey.paragraph2")}
                   </p>
 
                   <p>
-                    Our commitment remains simple — to serve with integrity, evolve with healthcare, and care for every patient with respect.
+                    {t("about.journey.paragraph3")}
                   </p>
                 </div>
               </motion.div>
@@ -354,11 +357,11 @@ export function About() {
                     className="text-2xl mb-4"
                     style={{ fontWeight: 700 }}
                   >
-                    Our Mission
+                    {t("about.mission.title")}
                   </h3>
 
                   <p className="text-muted-foreground leading-relaxed">
-                    To provide high-quality healthcare through evidence-based medicine, compassionate care, continuous learning, and a commitment to the health and well-being of children and families.
+                    {t("about.mission.description")}
                   </p>
 
                   {/* Mission pillars */}
@@ -371,12 +374,12 @@ export function About() {
                           className="w-4 h-4 text-primary"
                         />
                         <span className="text-sm font-semibold text-slate-800">
-                          Care
+                          {t("about.mission.pillars.care.title")}
                         </span>
                       </div>
 
                       <p className="text-xs leading-relaxed text-muted-foreground">
-                        Highest quality healthcare
+                        {t("about.mission.pillars.care.description")}
                       </p>
                     </div>
 
@@ -387,12 +390,12 @@ export function About() {
                           className="w-4 h-4 text-primary"
                         />
                         <span className="text-sm font-semibold text-slate-800">
-                          Science
+                          {t("about.mission.pillars.science.title")}
                         </span>
                       </div>
 
                       <p className="text-xs leading-relaxed text-muted-foreground">
-                        Evidence-based medicine
+                        {t("about.mission.pillars.science.description")}
                       </p>
                     </div>
 
@@ -403,12 +406,12 @@ export function About() {
                           className="w-4 h-4 text-primary"
                         />
                         <span className="text-sm font-semibold text-slate-800">
-                          Teach
+                          {t("about.mission.pillars.teach.title")}
                         </span>
                       </div>
 
                       <p className="text-xs leading-relaxed text-muted-foreground">
-                        Empathy in medical care
+                        {t("about.mission.pillars.teach.description")}
                       </p>
                     </div>
 
@@ -419,12 +422,12 @@ export function About() {
                           className="w-4 h-4 text-primary"
                         />
                         <span className="text-sm font-semibold text-slate-800">
-                          Community
+                          {t("about.mission.pillars.community.title")}
                         </span>
                       </div>
 
                       <p className="text-xs leading-relaxed text-muted-foreground">
-                        Health & well-being of families
+                        {t("about.mission.pillars.community.description")}
                       </p>
                     </div>
 
@@ -456,12 +459,11 @@ export function About() {
                       className="text-2xl mb-4"
                       style={{ fontWeight: 700 }}
                     >
-                      Our Vision
+                      {t("about.vision.title")}
                     </h3>
 
                     <p className="text-muted-foreground leading-relaxed">
-                      To make a meaningful difference in every patient’s life through dedicated care, saving lives, and creating a healthier community.
-                    </p>
+                      {t("about.vision.description")}                   </p>
 
                   </div>
 
@@ -484,11 +486,11 @@ export function About() {
                       className="text-2xl mb-4"
                       style={{ fontWeight: 700 }}
                     >
-                      Our Goal
+                      {t("about.goal.title")}
                     </h3>
 
                     <p className="text-muted-foreground leading-relaxed">
-                      Excellent quality care at reasonable rates.
+                      {t("about.goal.description")}
                     </p>
 
                   </div>
@@ -509,19 +511,18 @@ export function About() {
               className="text-center mb-12"
             >
               <p className="text-primary font-medium mb-2">
-                What We Stand For
+                {t("about.values.subtitle")}
               </p>
 
               <h2
                 className="text-3xl md:text-4xl mb-4"
                 style={{ fontWeight: 700 }}
               >
-                Our Core Values
+                {t("about.values.title")}
               </h2>
 
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                The values that guide our interactions, decisions, and commitment
-                to every patient.
+                {t("about.values.description")}
               </p>
             </motion.div>
 
@@ -529,33 +530,28 @@ export function About() {
               {[
                 {
                   icon: "solar:dialog-2-linear",
-                  title: "Communication",
-                  description:
-                    "We believe in clear, respectful, and meaningful communication with patients, families, and our team."
+                  title: t("about.values.communication.title"),
+                  description: t("about.values.communication.description")
                 },
                 {
                   icon: "solar:clipboard-check-linear",
-                  title: "Accountability",
-                  description:
-                    "We take responsibility for our actions and remain committed to delivering dependable healthcare."
+                  title: t("about.values.accountability.title"),
+                  description: t("about.values.accountability.description")
                 },
                 {
                   icon: "solar:medal-star-linear",
-                  title: "Excellence",
-                  description:
-                    "We strive for the highest standards in healthcare and continuously work to improve our services."
+                  title: t("about.values.excellence.title"),
+                  description: t("about.values.excellence.description")
                 },
                 {
                   icon: "solar:hand-shake-linear",
-                  title: "Respect",
-                  description:
-                    "We treat every patient, family member, and colleague with dignity, kindness, and respect."
+                  title: t("about.values.respect.title"),
+                  description: t("about.values.respect.description")
                 },
                 {
                   icon: "solar:users-group-rounded-linear",
-                  title: "Teamwork",
-                  description:
-                    "We work together to provide coordinated care and achieve better outcomes for our patients."
+                  title: t("about.values.teamwork.title"),
+                  description: t("about.values.teamwork.description")
                 }
               ].map((value, index) => (
                 <motion.div
@@ -597,10 +593,22 @@ export function About() {
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { number: '100%', label: 'Patient-Centered Care' },
-                { number: '24/7', label: 'Emergency Care' },
-                { number: '100K+', label: 'Happy Patients' },
-                { number: '98%', label: 'Success Rate' }
+                {
+                  number: '100%',
+                  label: t("about.stats.patientCare")
+                },
+                {
+                  number: '24/7',
+                  label: t("about.stats.emergency")
+                },
+                {
+                  number: '100K+',
+                  label: t("about.stats.happyPatients")
+                },
+                {
+                  number: '98%',
+                  label: t("about.stats.successRate")
+                }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -628,32 +636,49 @@ export function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl mb-4" style={{ fontWeight: 700 }}>
-                Our Healthcare Highlights
+                {t("about.highlights.title")}
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Recognized for excellence in healthcare
+                {t("about.highlights.description")}
               </p>
             </motion.div>
 
             <div className="size-full flex items-center justify-center bg-gray-50">
               <LogoCarousel speed={60}>
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Patient Care Excellence</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.patientCare")}
+                  </div>
                 </LogoItem>
+
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Quality Healthcare Services</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.qualityServices")}
+                  </div>
                 </LogoItem>
+
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Experienced Medical Team</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.medicalTeam")}
+                  </div>
                 </LogoItem>
+
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Advanced Medical Facilities</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.facilities")}
+                  </div>
                 </LogoItem>
+
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">24/7 Emergency Care</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.emergency")}
+                  </div>
                 </LogoItem>
+
                 <LogoItem>
-                  <div className="text-2xl font-bold text-gray-800">Patient Safety & Satisfaction</div>
+                  <div className="text-2xl font-bold text-gray-800">
+                    {t("about.highlights.safety")}
+                  </div>
                 </LogoItem>
               </LogoCarousel>
             </div>

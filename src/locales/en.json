@@ -11,7 +11,6 @@
     "english": "English",
     "hindi": "हिन्दी"
   },
-
   "home": {
     "welcome": "Welcome to Radhakishan Hospital",
     "heroTitle": "Exceptional care,",
@@ -70,5 +69,89 @@
     "readyStarted": "Ready to Get Started?",
     "readyDescription": "Book an appointment today and experience world-class healthcare",
     "bookYourAppointment": "Book Your Appointment"
+  },
+  "about": {
+    "hero": {
+      "title": "About",
+      "hospitalName": "Radhakishan Hospital",
+      "description": "Committed to delivering high-quality healthcare with compassion, evidence-based medicine, and a strong focus on the well-being of children, families, and our community."
+    },
+    "journey": {
+      "title": "Our Journey",
+      "paragraph1": "Established in 1987, Radhakishan Hospital has been serving patients and families with honesty, dedication, and hard work for decades. From its foundation in Kurukshetra, Haryana, the hospital has continued to expand its healthcare services for patients across Haryana and beyond. With changing healthcare needs, Radhakishan Hospital continues to embrace new technologies, modern medical practices, new skills, improved systems, and evolving developments in healthcare to enhance the overall patient experience and delivery of care.",
+      "paragraph2": "We believe that a hospital is not only about treatment but also about creating a clean, safe, comfortable, and respectful environment. Our team takes care of the hospital surroundings and makes every effort to guide patients and attendants properly, communicate with them courteously, and support them throughout their healthcare journey.",
+      "paragraph3": "Our commitment remains simple — to serve with integrity, evolve with healthcare, and care for every patient with respect."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "To provide high-quality healthcare through evidence-based medicine, compassionate care, continuous learning, and a commitment to the health and well-being of children and families.",
+      "pillars": {
+        "care": {
+          "title": "Care",
+          "description": "Highest quality healthcare"
+        },
+        "science": {
+          "title": "Science",
+          "description": "Evidence-based medicine"
+        },
+        "teach": {
+          "title": "Teach",
+          "description": "Empathy in medical care"
+        },
+        "community": {
+          "title": "Community",
+          "description": "Health & well-being of families"
+        }
+      }
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To make a meaningful difference in every patient’s life through dedicated care, saving lives, and creating a healthier community."
+    },
+    "goal": {
+      "title": "Our Goal",
+      "description": "Excellent quality care at reasonable rates."
+    },
+    "values": {
+      "subtitle": "What We Stand For",
+      "title": "Our Core Values",
+      "description": "The values that guide our interactions, decisions, and commitment to every patient.",
+      "communication": {
+        "title": "Communication",
+        "description": "We believe in clear, respectful, and meaningful communication with patients, families, and our team."
+      },
+      "accountability": {
+        "title": "Accountability",
+        "description": "We take responsibility for our actions and remain committed to delivering dependable healthcare."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "We strive for the highest standards in healthcare and continuously work to improve our services."
+      },
+      "respect": {
+        "title": "Respect",
+        "description": "We treat every patient, family member, and colleague with dignity, kindness, and respect."
+      },
+      "teamwork": {
+        "title": "Teamwork",
+        "description": "We work together to provide coordinated care and achieve better outcomes for our patients."
+      }
+    },
+    "stats": {
+      "patientCare": "Patient-Centered Care",
+      "emergency": "Emergency Care",
+      "happyPatients": "Happy Patients",
+      "successRate": "Success Rate"
+    },
+    "highlights": {
+      "title": "Our Healthcare Highlights",
+      "description": "Recognized for excellence in healthcare",
+      "patientCare": "Patient Care Excellence",
+      "qualityServices": "Quality Healthcare Services",
+      "medicalTeam": "Experienced Medical Team",
+      "facilities": "Advanced Medical Facilities",
+      "emergency": "24/7 Emergency Care",
+      "safety": "Patient Safety & Satisfaction"
+    }
   }
 }

@@ -281,21 +281,21 @@ export function Home() {
 
             {/* Trust row */}
             <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-7">
-  {[
-    { k: "1987", v: t("home.established") },
-    { k: "24/7", v: t("home.emergencyCare") },
-    { k: "98%", v: t("home.satisfaction") },
-  ].map((s) => (
-    <div key={s.v} className="flex items-baseline gap-2">
-      <span className="text-2xl font-bold text-white">
-        {s.k}
-      </span>
-      <span className="text-xs font-medium uppercase tracking-wider text-white/55">
-        {s.v}
-      </span>
-    </div>
-  ))}
-</div>
+              {[
+                { k: "1987", v: t("home.established") },
+                { k: "24/7", v: t("home.emergencyCare") },
+                { k: "98%", v: t("home.satisfaction") },
+              ].map((s) => (
+                <div key={s.v} className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold text-white">
+                    {s.k}
+                  </span>
+                  <span className="text-xs font-medium uppercase tracking-wider text-white/55">
+                    {s.v}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
