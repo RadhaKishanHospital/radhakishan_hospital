@@ -25,8 +25,41 @@ const doctors: Record<
     image?: string;
   }
 > = {
+  
   1: {
     id: 1,
+    name: "Dr. Lokender Goyal",
+    specialty: "Pediatrics & Neonatal Care",
+    qualification: "MBBS, MD (Pediatrics)",
+    initials: "LG",
+    bio: "Specialist in Pediatrics and Neonatal Care.",
+    education: [
+      "Himachal Pradesh University",
+      "Panjab University",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-21452",
+    available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
+  },
+  
+  2: {
+    id: 2,
+    name: "Dr. Monika Dixit",
+    specialty: "Pathology",
+    qualification: "MBBS, MD (Pathology)",
+    initials: "MD",
+    bio: "Specialist in Pathology.",
+    education: [
+      "Institute of Medical Sciences, BHU, Varanasi",
+    ],
+    registrationAuthority: "Haryana Medical Council",
+    registrationNo: "HN-013272",
+    available: true,
+    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
+  },
+  3: {
+    id: 3,
     name: "Dr. Akanksha Tyagi",
     specialty: "General Medicine",
     qualification: "MBBS, MD (General Medicine)",
@@ -41,8 +74,8 @@ const doctors: Record<
     image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
   },
 
-  2: {
-    id: 2,
+  4: {
+    id: 4,
     name: "Dr. Shashank Singhal",
     specialty: "Surgery",
     qualification: "MBBS, MS (General Surgery)",
@@ -56,39 +89,6 @@ const doctors: Record<
     registrationNo: "HN-10817",
     available: true,
     image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
-  },
-
-  3: {
-    id: 3,
-    name: "Dr. Monika Dixit",
-    specialty: "Pathology",
-    qualification: "MBBS, MD (Pathology)",
-    initials: "MD",
-    bio: "Specialist in Pathology.",
-    education: [
-      "Institute of Medical Sciences, BHU, Varanasi",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-013272",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
-  },
-
-  4: {
-    id: 4,
-    name: "Dr. Lokender Goyal",
-    specialty: "Pediatrics & Neonatal Care",
-    qualification: "MBBS, MD (Pediatrics)",
-    initials: "LG",
-    bio: "Specialist in Pediatrics and Neonatal Care.",
-    education: [
-      "Himachal Pradesh University",
-      "Panjab University",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-21452",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
   },
 };
 
@@ -119,8 +119,8 @@ const DoctorProfile = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-  <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
-    <div className="flex items-center justify-between">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
+          <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
               <motion.div
                 className="flex items-center gap-2"

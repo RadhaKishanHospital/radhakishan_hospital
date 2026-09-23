@@ -63,26 +63,17 @@ const VIDEOS = [
 ];
 
 const DOCTORS = [
-  {
+    {
     id: 1,
-    name: "Dr. Akanksha Tyagi",
-    specialty: "General Medicine",
-    qualification: "MBBS, MD (General Medicine)",
+    name: "Dr. Lokender Goyal",
+    specialty: "Pediatrics & Neonatal Care",
+    qualification: "MBBS, MD (Pediatrics)",
     image:
-      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
     available: true,
   },
-  {
+    {
     id: 2,
-    name: "Dr. Shashank Singhal",
-    specialty: "Surgery",
-    qualification: "MBBS, MS (General Surgery)",
-    image:
-      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
-    available: true,
-  },
-  {
-    id: 3,
     name: "Dr. Monika Dixit",
     specialty: "Pathology",
     qualification: "MBBS, MD (Pathology)",
@@ -91,12 +82,21 @@ const DOCTORS = [
     available: true,
   },
   {
-    id: 4,
-    name: "Dr. Lokender Goyal",
-    specialty: "Pediatrics & Neonatal Care",
-    qualification: "MBBS, MD (Pediatrics)",
+    id: 3,
+    name: "Dr. Akanksha Tyagi",
+    specialty: "General Medicine",
+    qualification: "MBBS, MD (General Medicine)",
     image:
-      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
+    available: true,
+  },
+  {
+    id: 4,
+    name: "Dr. Shashank Singhal",
+    specialty: "Surgery",
+    qualification: "MBBS, MS (General Surgery)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
     available: true,
   },
 ];

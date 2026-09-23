@@ -317,20 +317,20 @@ export function About() {
         </section>
 
         {/* Mission & Vision */}
- <section
-  className="relative py-20 bg-[#f8fafa] overflow-hidden"
-  style={{
-    backgroundImage: `
+        <section
+          className="relative py-20 bg-[#f8fafa] overflow-hidden"
+          style={{
+            backgroundImage: `
       linear-gradient(
         rgba(248, 250, 250, 0.72),
         rgba(248, 250, 250, 0.72)
       ),
       url("https://img.magnific.com/free-photo/group-medics-masks-reading-paper_23-2147763838.jpg?t=st=1790063029~exp=1790066629~hmac=b425cc407605ba345d489daa2dd57cf753081c6e48a6d8ef0f54da6eeefe591d&w=1480")
     `,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
