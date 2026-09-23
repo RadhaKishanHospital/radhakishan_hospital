@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router';
-import { motion } from 'motion/react';
-import { Menu, X, Globe, ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Menu, X } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { Button } from './ui/button';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AdminLogin, { ADMIN_SESSION_KEY } from './AdminLogin';
 
 export function Header() {
@@ -12,6 +13,7 @@ export function Header() {
   const [language, setLanguage] = useState('en');
   const logoClicks = useRef(0);
   const logoClickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
@@ -54,6 +56,23 @@ export function Header() {
     // Later connect this to i18next:
     // i18n.changeLanguage(lang);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        languageRef.current &&
+        !languageRef.current.contains(event.target as Node)
+      ) {
+        setLanguageOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header
@@ -117,76 +136,105 @@ export function Header() {
           <div className="flex items-center gap-3">
 
             {/* Language Selector */}
-            <div className="relative">
+            <div ref={languageRef} className="relative">
               <button
                 type="button"
-                onClick={() => setLanguageOpen(!languageOpen)}
+                onClick={() => setLanguageOpen((prev) => !prev)}
                 aria-label="Change language"
                 aria-expanded={languageOpen}
                 className={`
-        flex items-center gap-1.5 rounded-full px-3 py-2
-        text-sm font-medium transition-all duration-200
-        border
-        ${isHomePage
+      flex items-center gap-1.5 rounded-full border px-2 py-1
+      text-sm font-medium transition-all duration-200
+      ${isHomePage
                     ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'
                     : 'border-gray-200 bg-white text-foreground hover:bg-gray-50'
                   }
-      `}
+    `}
               >
-                <Globe className="h-4 w-4" />
+                {/* Current Flag */}
+                <Icon
+                  icon={language === 'en' ? 'emojione:flag-for-united-kingdom' : 'emojione:flag-for-india'}
+                  className="h-6 w-6"
+                />
 
+                {/* Language Name */}
                 <span className="hidden sm:inline">
                   {language === 'en' ? 'English' : 'हिन्दी'}
                 </span>
 
+                {/* Mobile Short Name */}
                 <span className="sm:hidden">
                   {language === 'en' ? 'EN' : 'हि'}
                 </span>
 
-                <ChevronDown
+                <Icon
+                  icon="lucide:chevron-down"
                   className={`h-3.5 w-3.5 transition-transform duration-200 ${languageOpen ? 'rotate-180' : ''
                     }`}
                 />
               </button>
 
               {/* Language Dropdown */}
-              {languageOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  className="absolute right-0 top-full z-50 mt-2 w-36 overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 text-gray-800 shadow-xl"
-                >
-                  <button
-                    type="button"
-                    onClick={() => changeLanguage('en')}
-                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${language === 'en'
-                      ? 'bg-primary/10 text-primary'
-                      : 'hover:bg-gray-50'
-                      }`}
+              <AnimatePresence>
+                {languageOpen && (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: -8,
+                      scale: 0.96,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      y: -8,
+                      scale: 0.96,
+                    }}
+                    transition={{
+                      duration: 0.18,
+                      ease: 'easeOut',
+                    }}
+                    className="absolute right-0 top-full z-50 mt-2 w-40 origin-top-right overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 text-gray-800 shadow-xl"
                   >
-                    <span>English</span>
+                    {/* English */}
+                    <button
+                      type="button"
+                      onClick={() => changeLanguage('en')}
+                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${language === 'en'
+                        ? 'bg-gray-100'
+                        : 'hover:bg-gray-50'
+                        }`}
+                    >
+                      <Icon
+                        icon="emojione:flag-for-united-kingdom"
+                        className="h-6 w-6 shrink-0"
+                      />
 
-                    {language === 'en' && (
-                      <span className="text-primary">✓</span>
-                    )}
-                  </button>
+                      <span>English</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => changeLanguage('hi')}
-                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors ${language === 'hi'
-                      ? 'bg-primary/10 text-primary'
-                      : 'hover:bg-gray-50'
-                      }`}
-                  >
-                    <span>हिन्दी</span>
+                    {/* Hindi */}
+                    <button
+                      type="button"
+                      onClick={() => changeLanguage('hi')}
+                      className={`flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors ${language === 'hi'
+                        ? 'bg-gray-100'
+                        : 'hover:bg-gray-50'
+                        }`}
+                    >
+                      <Icon
+                        icon="emojione:flag-for-india"
+                        className="h-6 w-6 shrink-0"
+                      />
 
-                    {language === 'hi' && (
-                      <span className="text-primary">✓</span>
-                    )}
-                  </button>
-                </motion.div>
-              )}
+                      <span>हिन्दी</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Book Appointment */}
