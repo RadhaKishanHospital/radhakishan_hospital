@@ -222,5 +222,69 @@
       "description": "Our team is ready to provide you with the best healthcare services. Book an appointment or contact us for more information.",
       "button": "Book Appointment"
     }
+  },
+  "doctors": {
+  "hero": {
+    "title": "Meet Our",
+    "highlight": "Expert Doctors",
+    "description": "Our team of highly qualified and experienced medical professionals is dedicated to providing you with the best healthcare possible."
+  },
+
+  "specialties": {
+    "title": "Specialties",
+    "subtitle": "Expert Care Across Disciplines",
+    "generalMedicine": "General Medicine",
+    "surgery": "Surgery",
+    "pathology": "Pathology",
+    "pediatricsNeonatal": "Pediatrics & Neonatal Care"
+  },
+
+  "directory": {
+    "title": "Our Doctors",
+    "subtitle": "Meet Our Specialists",
+    "noDoctors": "No doctors found for this specialty."
+  },
+
+  "filters": {
+    "all": "All"
+  },
+
+  "experience": {
+    "experienced": "Experienced"
+  },
+
+  "availability": {
+    "appointmentsAvailable": "Appointments Available"
+  },
+
+  "whyChoose": {
+    "title": "Why Choose Our Doctors",
+    "description": "Our medical professionals are committed to excellence in patient care",
+
+    "features": {
+      "boardCertified": {
+        "title": "Board Certified",
+        "description": "All our doctors are board-certified in their specialties"
+      },
+      "experienced": {
+        "title": "Experienced",
+        "description": "Average of 15+ years of medical experience"
+      },
+      "compassionate": {
+        "title": "Compassionate",
+        "description": "Patient-centered approach with empathy and care"
+      },
+      "innovative": {
+        "title": "Innovative",
+        "description": "Using latest medical techniques and technologies"
+      }
+    }
+  },
+
+  "cta": {
+    "title": "Schedule Your Appointment Today",
+    "description": "Connect with our expert doctors and start your journey to better health",
+    "button": "Book Appointment"
   }
+}
 }

@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
@@ -37,7 +38,8 @@ const fadeInUp = {
 };
 
 export function Doctors() {
-  const [activeSpecialty, setActiveSpecialty] = useState("All");
+  const [activeSpecialty, setActiveSpecialty] = useState("all");
+  const { t } = useTranslation();
 
 
   const fadeUp = {
@@ -51,22 +53,26 @@ export function Doctors() {
 
   const specialties = [
     {
-      name: "General Medicine",
+      name: "generalMedicine",
+      label: t("doctors.specialties.generalMedicine"),
       icon: Stethoscope,
       color: "from-blue-50 to-cyan-50",
     },
     {
-      name: "Surgery",
+      name: "surgery",
+      label: t("doctors.specialties.surgery"),
       icon: Scissors,
       color: "from-red-50 to-rose-50",
     },
     {
-      name: "Pathology",
+      name: "pathology",
+      label: t("doctors.specialties.pathology"),
       icon: Microscope,
       color: "from-purple-50 to-violet-50",
     },
     {
-      name: "Pediatrics & Neonatal Care",
+      name: "pediatricsNeonatal",
+      label: t("doctors.specialties.pediatricsNeonatal"),
       icon: Baby,
       color: "from-green-50 to-emerald-50",
     },
@@ -76,53 +82,51 @@ export function Doctors() {
     {
       id: 1,
       name: "Dr. Lokender Goyal",
-      specialty: "Pediatrics & Neonatal Care",
+      specialty: "pediatricsNeonatal",
       qualification: "MD (Pediatrics)",
       available: true,
-      nextSlot: "Appointments Available",
-      experience: "Experienced",
+      nextSlot: "appointmentsAvailable",
+      experience: "experienced",
       initials: "LG",
     },
     {
       id: 2,
       name: "Dr. Monika Dixit",
-      specialty: "Pathology",
+      specialty: "pathology",
       qualification: "MD (Pathology)",
       available: true,
-      nextSlot: "Appointments Available",
-      experience: "Experienced",
+      nextSlot: "appointmentsAvailable",
+      experience: "experienced",
       initials: "MD",
     },
     {
       id: 3,
       name: "Dr. Akanksha Tyagi",
-      specialty: "General Medicine",
+      specialty: "generalMedicine",
       qualification: "MD (General Medicine)",
       available: true,
-      nextSlot: "Appointments Available",
-      experience: "Experienced",
+      nextSlot: "appointmentsAvailable",
+      experience: "experienced",
       initials: "AT",
     },
     {
       id: 4,
       name: "Dr. Shashank Singhal",
-      specialty: "Surgery",
+      specialty: "surgery",
       qualification: "MD (General Surgery)",
       available: true,
-      nextSlot: "Appointments Available",
-      experience: "Experienced",
+      nextSlot: "appointmentsAvailable",
+      experience: "experienced",
       initials: "SS",
     },
   ];
 
   const filteredDoctors = useMemo(() => {
-    const normalizedSpecialty = activeSpecialty.trim().toLowerCase();
-
-    if (normalizedSpecialty === "all") {
+    if (activeSpecialty === "all") {
       return doctors;
     }
 
-    return doctors.filter((doc) => doc.specialty.toLowerCase() === normalizedSpecialty);
+    return doctors.filter((doc) => doc.specialty === activeSpecialty);
   }, [activeSpecialty]);
 
   return (
@@ -136,11 +140,12 @@ export function Doctors() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-              Meet Our <span className="text-primary">Expert Doctors</span>
+              {t("doctors.hero.title")}{" "}
+              <span className="text-primary">{t("doctors.hero.highlight")}</span>
             </h1>
+
             <p className="text-lg text-muted-foreground">
-              Our team of highly qualified and experienced medical professionals is
-              dedicated to providing you with the best healthcare possible.
+              {t("doctors.hero.description")}
             </p>
           </motion.div>
         </div>
@@ -156,10 +161,10 @@ export function Doctors() {
             className="text-center mb-12"
           >
             <motion.p variants={fadeUp} custom={0} className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">
-              Specialties
+              {t("doctors.specialties.title")}
             </motion.p>
             <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-4xl font-bold font-display text-foreground">
-              Expert Care Across Disciplines
+              {t("doctors.specialties.subtitle")}
             </motion.h2>
           </motion.div>
 
@@ -174,7 +179,11 @@ export function Doctors() {
                 key={spec.name}
                 variants={fadeUp}
                 custom={i}
-                onClick={() => setActiveSpecialty(activeSpecialty === spec.name ? "All" : spec.name)}
+                onClick={() =>
+                  setActiveSpecialty(
+                    activeSpecialty === spec.name ? "all" : spec.name
+                  )
+                }
                 whileHover={{ y: -4, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`group relative p-6 rounded-2xl bg-card shadow-elegant hover:shadow-elegant-lg transition-all duration-300 text-center cursor-pointer ${activeSpecialty === spec.name ? "ring-2 ring-primary shadow-elegant-lg" : ""
@@ -183,7 +192,9 @@ export function Doctors() {
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${spec.color} flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
                   <spec.icon className="w-6 h-6 text-primary" />
                 </div>
-                <p className="font-semibold text-sm text-foreground">{spec.name}</p>
+                <p className="font-semibold text-sm text-foreground">
+                  {spec.label}
+                </p>
               </motion.button>
             ))}
           </motion.div>
@@ -201,23 +212,29 @@ export function Doctors() {
           >
             <div>
               <motion.p variants={fadeUp} custom={0} className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">
-                Our Doctors
+                {t("doctors.directory.title")}
               </motion.p>
               <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-4xl font-bold font-display text-foreground">
-                Meet Our Specialists
+                {t("doctors.directory.subtitle")}
               </motion.h2>
             </div>
             <motion.div variants={fadeUp} custom={2} className="flex items-center gap-2 flex-wrap">
-              {["All", ...specialties.map((s) => s.name)].map((s) => (
+              {[
+                { key: "all", label: t("doctors.filters.all") },
+                ...specialties.map((s) => ({
+                  key: s.name,
+                  label: s.label,
+                })),
+              ].map((s) => (
                 <button
-                  key={s}
-                  onClick={() => setActiveSpecialty(s)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${activeSpecialty === s
+                  key={s.key}
+                  onClick={() => setActiveSpecialty(s.key)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${activeSpecialty === s.key
                     ? "bg-primary text-primary-foreground shadow-elegant"
                     : "bg-secondary text-secondary-foreground hover:bg-accent"
                     }`}
                 >
-                  {s}
+                  {s.label}
                 </button>
               ))}
             </motion.div>
@@ -244,8 +261,13 @@ export function Doctors() {
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-semibold text-foreground text-sm truncate group-hover:text-primary transition-colors">{doc.name}</h3>
-                        <p className="text-xs text-muted-foreground mt-0.5">{doc.specialty}</p>
-                        <p className="text-xs text-muted-foreground">{doc.experience} exp.</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {t(`doctors.specialties.${doc.specialty}`)}
+                        </p>
+
+                        <p className="text-xs text-muted-foreground">
+                          {t(`doctors.experience.${doc.experience}`)}
+                        </p>
                       </div>
                     </div>
 
@@ -259,7 +281,9 @@ export function Doctors() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className={`w-2 h-2 rounded-full ${doc.available ? "bg-emerald-500" : "bg-amber-500"}`} />
-                        <span className="text-xs text-muted-foreground">{doc.nextSlot}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {t(`doctors.availability.${doc.nextSlot}`)}
+                        </span>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
                     </div>
@@ -269,7 +293,7 @@ export function Doctors() {
             ))}
             {filteredDoctors.length === 0 && (
               <div className="sm:col-span-2 lg:col-span-4 rounded-2xl border border-dashed border-border bg-card/40 py-10 text-center text-muted-foreground">
-                No doctors found for this specialty.
+                {t("doctors.directory.noDoctors")}
               </div>
             )}
           </motion.div>
@@ -284,31 +308,32 @@ export function Doctors() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl mb-4" style={{ fontWeight: 700 }}>
-              Why Choose Our Doctors
+              {t("doctors.whyChoose.title")}
             </h2>
+
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our medical professionals are committed to excellence in patient care
+              {t("doctors.whyChoose.description")}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               {
-                title: 'Board Certified',
-                description: 'All our doctors are board-certified in their specialties'
+                title: t("doctors.whyChoose.features.boardCertified.title"),
+                description: t("doctors.whyChoose.features.boardCertified.description"),
               },
               {
-                title: 'Experienced',
-                description: 'Average of 15+ years of medical experience'
+                title: t("doctors.whyChoose.features.experienced.title"),
+                description: t("doctors.whyChoose.features.experienced.description"),
               },
               {
-                title: 'Compassionate',
-                description: 'Patient-centered approach with empathy and care'
+                title: t("doctors.whyChoose.features.compassionate.title"),
+                description: t("doctors.whyChoose.features.compassionate.description"),
               },
               {
-                title: 'Innovative',
-                description: 'Using latest medical techniques and technologies'
-              }
+                title: t("doctors.whyChoose.features.innovative.title"),
+                description: t("doctors.whyChoose.features.innovative.description"),
+              },
             ].map((feature, index) => (
               <motion.div
                 key={index}
@@ -347,15 +372,15 @@ export function Doctors() {
             <Card className="bg-gradient-to-br from-primary to-[#047070] text-white p-12">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl mb-4 text-white" style={{ fontWeight: 700 }}>
-                  Schedule Your Appointment Today
+                  {t("doctors.cta.title")}
                 </h2>
                 <p className="text-white/90 text-lg mb-8">
-                  Connect with our expert doctors and start your journey to better health
+                  {t("doctors.cta.description")}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Link to="/appointments">
                     <Button size="lg" className="bg-white text-[#058080] rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:bg-[#e6f2f2] hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">
-                      Book Appointment
+                      {t("doctors.cta.button")}
                     </Button>
                   </Link>
 
