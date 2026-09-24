@@ -389,5 +389,54 @@
     "description": "Our emergency department is open 24/7 to provide immediate medical attention",
     "button": "Call Emergency: +91 1744 270516"
   }
+},
+"appointments": {
+  "hero": {
+    "title": "Book an",
+    "highlight": "Appointment",
+    "description": "Schedule your visit with our expert medical team. We're here to provide you with the best healthcare experience."
+  },
+  "form": {
+    "name": {
+      "label": "Full Name *",
+      "placeholder": "Your name"
+    },
+    "email": {
+      "label": "Email Address *",
+      "placeholder": "Your email"
+    },
+    "phone": {
+      "label": "Phone Number *",
+      "placeholder": "Your 10-digit mobile number"
+    },
+    "date": {
+      "label": "Preferred Date *"
+    },
+    "time": {
+      "label": "Preferred Time *",
+      "placeholder": "Select time"
+    },
+    "message": {
+      "label": "Additional Notes",
+      "placeholder": "Please provide any additional information about your appointment..."
+    },
+    "button": "Submit Appointment Request",
+    "required": "* Required fields. We will contact you to confirm your appointment.",
+    "success": "Appointment request submitted successfully! We will contact you soon."
+  },
+  "info": {
+    "scheduling": {
+      "title": "Flexible Scheduling",
+      "description": "Choose a date and time that works best for you"
+    },
+    "confirmation": {
+      "title": "Quick Confirmation",
+      "description": "Receive confirmation within 24 hours"
+    },
+    "care": {
+      "title": "Expert Care",
+      "description": "Connect with our qualified medical professionals"
+    }
+  }
 }
 }

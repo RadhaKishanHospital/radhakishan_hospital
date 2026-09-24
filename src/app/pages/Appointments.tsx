@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -11,6 +12,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 export function Appointments() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,7 +43,7 @@ export function Appointments() {
       console.error('Error saving general appointment to MongoDB:', err);
     }
 
-    toast.success('Appointment request submitted successfully! We will contact you soon.');
+    toast.success(t("appointments.form.success"));
     setFormData({
       name: '',
       email: '',
@@ -68,11 +70,13 @@ export function Appointments() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-              Book an <span className="text-primary">Appointment</span>
+              {t("appointments.hero.title")}{" "}
+              <span className="text-primary">
+                {t("appointments.hero.highlight")}
+              </span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Schedule your visit with our expert medical team. We're here to provide
-              you with the best healthcare experience.
+              {t("appointments.hero.description")}
             </p>
           </motion.div>
         </div>
@@ -94,11 +98,11 @@ export function Appointments() {
                     <div className="space-y-2">
                       <Label htmlFor="name" className="flex items-center gap-2">
                         <Icon icon="solar:user-outline" className="w-4 h-4 text-primary" />
-                        Full Name *
+                        {t("appointments.form.name.label")}
                       </Label>
                       <Input
                         id="name"
-                        placeholder="Your name"
+                        placeholder={t("appointments.form.name.placeholder")}
                         value={formData.name}
                         onChange={(e) => handleChange('name', e.target.value)}
                         required
@@ -110,12 +114,12 @@ export function Appointments() {
                     <div className="space-y-2">
                       <Label htmlFor="email" className="flex items-center gap-2">
                         <Icon icon="solar:letter-linear" className="w-4 h-4 text-primary" />
-                        Email Address *
+                        {t("appointments.form.email.label")}
                       </Label>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="Your email"
+                        placeholder={t("appointments.form.email.placeholder")}
                         value={formData.email}
                         onChange={(e) => handleChange('email', e.target.value)}
                         required
@@ -127,12 +131,12 @@ export function Appointments() {
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="flex items-center gap-2">
                         <Icon icon="solar:phone-linear" className="w-4 h-4 text-primary" />
-                        Phone Number *
+                        {t("appointments.form.phone.label")}
                       </Label>
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="Your 10-digit mobile number"
+                        placeholder={t("appointments.form.phone.placeholder")}
                         value={formData.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
                         required
@@ -144,7 +148,7 @@ export function Appointments() {
                     <div className="space-y-2">
                       <Label htmlFor="date" className="flex items-center gap-2">
                         <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
-                        Preferred Date *
+                        {t("appointments.form.date.label")}
                       </Label>
                       <Input
                         id="date"
@@ -161,11 +165,11 @@ export function Appointments() {
                     <div className="space-y-2">
                       <Label htmlFor="time" className="flex items-center gap-2">
                         <Icon icon="solar:clock-circle-linear" className="w-4 h-4 text-primary" />
-                        Preferred Time *
+                        {t("appointments.form.time.label")}
                       </Label>
                       <Select value={formData.time} onValueChange={(value) => handleChange('time', value)} required>
                         <SelectTrigger className="border-border">
-                          <SelectValue placeholder="Select time" />
+                          <SelectValue placeholder={t("appointments.form.time.placeholder")} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="09:00">09:00 AM</SelectItem>
@@ -185,11 +189,11 @@ export function Appointments() {
                   <div className="space-y-2">
                     <Label htmlFor="message" className="flex items-center gap-2">
                       <Icon icon="solar:file-text-linear" className="w-4 h-4 text-primary" />
-                      Additional Notes
+                      {t("appointments.form.message.label")}
                     </Label>
                     <Textarea
                       id="message"
-                      placeholder="Please provide any additional information about your appointment..."
+                      placeholder={t("appointments.form.message.placeholder")}
                       value={formData.message}
                       onChange={(e) => handleChange('message', e.target.value)}
                       rows={4}
@@ -198,11 +202,11 @@ export function Appointments() {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                    Submit Appointment Request
+                    {t("appointments.form.button")}
                   </Button>
 
                   <p className="text-sm text-muted-foreground text-center">
-                    * Required fields. We will contact you to confirm your appointment.
+                    {t("appointments.form.required")}
                   </p>
                 </form>
               </Card>
@@ -224,9 +228,11 @@ export function Appointments() {
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon icon="solar:calendar-linear" className="w-7 h-7 text-primary" />
                 </div>
-                <h3 className="mb-2">Flexible Scheduling</h3>
+                <h3 className="mb-2">
+                  {t("appointments.info.scheduling.title")}
+                </h3>
                 <p className="text-muted-foreground text-sm">
-                  Choose a date and time that works best for you
+                  {t("appointments.info.scheduling.description")}
                 </p>
               </Card>
             </motion.div>
@@ -241,9 +247,11 @@ export function Appointments() {
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon icon="solar:clock-circle-linear" className="w-7 h-7 text-primary" />
                 </div>
-                <h3 className="mb-2">Quick Confirmation</h3>
+                <h3 className="mb-2">
+                  {t("appointments.info.confirmation.title")}
+                </h3>
                 <p className="text-muted-foreground text-sm">
-                  Receive confirmation within 24 hours
+                  {t("appointments.info.confirmation.description")}
                 </p>
               </Card>
             </motion.div>
@@ -258,9 +266,11 @@ export function Appointments() {
                 <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon icon="solar:user-outline" className="w-7 h-7 text-primary" />
                 </div>
-                <h3 className="mb-2">Expert Care</h3>
+                <h3 className="mb-2">
+                  {t("appointments.info.care.title")}
+                </h3>
                 <p className="text-muted-foreground text-sm">
-                  Connect with our qualified medical professionals
+                  {t("appointments.info.care.description")}
                 </p>
               </Card>
             </motion.div>
