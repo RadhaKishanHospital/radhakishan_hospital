@@ -286,5 +286,108 @@
     "description": "Connect with our expert doctors and start your journey to better health",
     "button": "Book Appointment"
   }
+},
+"contact": {
+  "hero": {
+    "title": "Get in",
+    "highlight": "Touch",
+    "description": "Have questions or need assistance? We're here to help. Reach out to us and we'll respond as soon as possible."
+  },
+
+  "info": {
+    "visit": {
+      "title": "Visit Us",
+      "address": "Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118"
+    },
+
+    "call": {
+      "title": "Call Us",
+      "emergency": "Emergency: +91 1744 270516",
+      "opd": "OPD: +91 72060 29516"
+    },
+
+    "hours": {
+      "title": "Working Hours",
+      "opdMorning": "OPD: 10:00 AM – 2:00 PM",
+      "opdEvening": "OPD: 5:00 PM – 7:00 PM",
+      "emergency": "Emergency: 24/7",
+      "sunday": "Sunday: OPD Closed"
+    }
+  },
+
+  "form": {
+    "title": "Send us a Message",
+
+    "name": {
+      "label": "Full Name *",
+      "placeholder": "Your name"
+    },
+
+    "mobile": {
+      "label": "Mobile number *",
+      "placeholder": "Enter your mobile number"
+    },
+
+    "subject": {
+      "label": "Subject *",
+      "placeholder": "How can we help you?"
+    },
+
+    "message": {
+      "label": "Message *",
+      "placeholder": "Tell us more about your inquiry..."
+    },
+
+    "button": "Send Message",
+    "success": "Message sent successfully! We will get back to you soon."
+  },
+
+  "map": {
+    "title": "Find Us",
+    "description": "Proudly serving the community from the heart of Kurukshetra."
+  },
+
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Find quick answers to common questions about our services."
+  },
+
+  "faqs": {
+    "booking": {
+      "question": "How do I book an OPD appointment?",
+      "answer": "OPD appointments start at 9:00 AM in the morning. You can book an appointment by calling our OPD number at +91 72060 29516."
+    },
+
+    "timings": {
+      "question": "What are your OPD timings?",
+      "answer": "OPD timings are from 10:00 AM to 2:00 PM and from 5:00 PM to 7:00 PM. OPD remains closed on Sunday. OPD appointments start at 9:00 AM in the morning."
+    },
+
+    "emergency": {
+      "question": "Is emergency care available 24/7?",
+      "answer": "Yes. Our Emergency Department is available 24/7. For emergency assistance, call +91 1744 270516."
+    },
+
+    "insurance": {
+      "question": "Do you provide cashless insurance facilities?",
+      "answer": "Yes. Cashless facility is available for the following insurance/healthcare schemes and providers: Genins India Insurance TPA Limited, Star Health Insurance, Reliance Health Insurance, Niva Bupa Health Insurance, Tata AIG, Care Health Insurance, HDFC ERGO Health Insurance Plans, Aditya Birla Capital, Ayushman Bharat, Cigna Health Life Insurance, Heritage Health, Medi Assist Insurance TPA Pvt. Ltd., Paramount Health Insurance, IFFCO Tokio General Insurance, Chola MS General Insurance, Universal Sompo, FHPL Insurance (Beyond Insurance), and ECHS."
+    },
+
+    "contact": {
+      "question": "How can I contact the hospital?",
+      "answer": "For OPD-related queries and appointments, call +91 72060 29516. For emergency assistance, call +91 1744 270516."
+    },
+
+    "location": {
+      "question": "Where is Radhakishan Hospital located?",
+      "answer": "Radhakishan Hospital is located at Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118."
+    }
+  },
+
+  "emergency": {
+    "title": "Need Emergency Care?",
+    "description": "Our emergency department is open 24/7 to provide immediate medical attention",
+    "button": "Call Emergency: +91 1744 270516"
+  }
 }
 }
