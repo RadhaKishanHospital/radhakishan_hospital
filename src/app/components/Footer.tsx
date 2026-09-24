@@ -1,8 +1,10 @@
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Facebook, Youtube, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 import { Icon } from '@iconify/react';
 
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-[#f8fafa] border-t">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-12">
@@ -24,10 +26,10 @@ export function Footer() {
               </div>
             </div>
             <p className="text-muted-foreground mb-4">
-              Providing exceptional healthcare services with compassion and excellence since 1983.
+              {t('footer.description')}
             </p>
             <div className="flex gap-3">
-               <a href="https://www.instagram.com/radhakishan.hospital?stkn=MWsxNjB6dzJkdm1idQ%3D%3D&utm_source=qr" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+              <a href="https://www.instagram.com/radhakishan.hospital?stkn=MWsxNjB6dzJkdm1idQ%3D%3D&utm_source=qr" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
                 <Instagram className="w-4 h-4" />
               </a>
               <a href="https://www.youtube.com/watch?v=ZI8iEtAULdw" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
@@ -39,69 +41,69 @@ export function Footer() {
                 className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
-              </a>      
+              </a>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="mb-4 text-foreground">Our Services</h3>
+            <h3 className="mb-4 text-foreground">{t('footer.services.title')}</h3>
 
             <ul className="space-y-2 text-muted-foreground">
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Pediatrics
+                {t('footer.services.pediatrics')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Pediatric Intensive Care Unit
+                {t('footer.services.picu')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Neonatal Intensive Care Unit
+                {t('footer.services.nicu')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Anaesthesiology Unit (On call)
+                {t('footer.services.anaesthesiology')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Clinical Laboratory Services
+                {t('footer.services.laboratory')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Dietetics & Nutrition
+                {t('footer.services.dietetics')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Pharmacy
+                {t('footer.services.pharmacy')}
               </li>
               <li className="hover:text-primary transition-colors cursor-pointer">
-                Ultrasound & X-Ray
+                {t('footer.services.ultrasound')}
               </li>
             </ul>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-foreground">Quick Links</h3>
+            <h3 className="mb-4 text-foreground">{t('footer.quickLinks.title')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                  About Us
+                  {t('footer.quickLinks.about')}
                 </Link>
               </li>
               <li>
                 <Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">
-                  Our Services
+                  {t('footer.quickLinks.services')}
                 </Link>
               </li>
               <li>
                 <Link to="/doctors" className="text-muted-foreground hover:text-primary transition-colors">
-                  Our Doctors
+                  {t('footer.quickLinks.doctors')}
                 </Link>
               </li>
               <li>
                 <Link to="/appointments" className="text-muted-foreground hover:text-primary transition-colors">
-                  Book Appointment
+                  {t('footer.quickLinks.appointment')}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact Us
+                  {t('footer.quickLinks.contact')}
                 </Link>
               </li>
             </ul>
@@ -111,7 +113,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="mb-4 text-foreground">Contact Info</h3>
+            <h3 className="mb-4 text-foreground">{t('footer.contact.title')}</h3>
 
             <ul className="space-y-3">
               <li>
@@ -159,7 +161,10 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Radhakishan Hospital. All rights reserved.</p>
+         <p>
+  &copy; {new Date().getFullYear()} Radhakishan Hospital.{' '}
+  {t('footer.copyright')}
+</p>
         </div>
       </div>
     </footer>

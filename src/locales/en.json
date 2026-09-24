@@ -455,5 +455,31 @@
     "pathology": "Specialist in Pathology.",
     "generalMedicine": "Specialist in General Medicine.",
     "surgery": "Specialist in General Surgery."
-  }
+  },
+  "footer": {
+  "description": "Providing exceptional healthcare services with compassion and excellence since 1983.",
+  "services": {
+    "title": "Our Services",
+    "pediatrics": "Pediatrics",
+    "picu": "Pediatric Intensive Care Unit",
+    "nicu": "Neonatal Intensive Care Unit",
+    "anaesthesiology": "Anaesthesiology Unit (On call)",
+    "laboratory": "Clinical Laboratory Services",
+    "dietetics": "Dietetics & Nutrition",
+    "pharmacy": "Pharmacy",
+    "ultrasound": "Ultrasound & X-Ray"
+  },
+  "quickLinks": {
+    "title": "Quick Links",
+    "about": "About Us",
+    "services": "Our Services",
+    "doctors": "Our Doctors",
+    "appointment": "Book Appointment",
+    "contact": "Contact Us"
+  },
+  "contact": {
+    "title": "Contact Info"
+  },
+  "copyright": "All rights reserved."
+}
 }
