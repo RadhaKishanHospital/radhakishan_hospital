@@ -153,5 +153,74 @@
       "emergency": "24/7 Emergency Care",
       "safety": "Patient Safety & Satisfaction"
     }
+  },
+  "services": {
+    "hero": {
+      "title": "Our Medical",
+      "highlight": "Services",
+      "description": "Quality healthcare services for children, newborns, diagnostic needs, nutrition, pharmacy, and other essential medical requirements."
+    },
+    "items": {
+      "pediatrics": {
+        "title": "Pediatrics",
+        "description": "Specialized medical care for infants, children, and adolescents, providing comprehensive treatment for pediatric health needs."
+      },
+      "picu": {
+        "title": "Pediatric Intensive Care Unit",
+        "description": "Intensive medical care and continuous monitoring for children who require specialized critical care."
+      },
+      "nicu": {
+        "title": "Neonatal Intensive Care Unit",
+        "description": "Specialized intensive care and monitoring for newborn infants who require advanced medical attention."
+      },
+      "anaesthesiology": {
+        "title": "Anaesthesiology Unit (On call)",
+        "description": "Anaesthesiology services available on call to provide safe and effective anaesthesia support when required."
+      },
+      "laboratory": {
+        "title": "Clinical Laboratory Services",
+        "description": "Comprehensive clinical laboratory services for accurate diagnosis and medical evaluation.",
+        "features": {
+          "bioChemistry": "Bio Chemistry",
+          "haematology": "Haematology",
+          "microbiology": "Microbiology",
+          "clinicalPathology": "Clinical Pathology"
+        }
+      },
+      "dietetics": {
+        "title": "Dietetics & Nutrition",
+        "description": "Dietary and nutritional services to support patients’ health, treatment, and recovery."
+      },
+      "pharmacy": {
+        "title": "Pharmacy",
+        "description": "Pharmacy services providing prescribed medicines and essential pharmaceutical support for patients."
+      },
+      "ultrasound": {
+        "title": "Ultrasound & X-Ray",
+        "description": "Point-of-care diagnostic imaging services including ultrasound and X-ray for medical evaluation."
+      }
+    },
+    "availableTests": "Available Tests",
+    "whyChoose": {
+      "title": "Why Choose Radhakishan Hospital",
+      "subtitle": "The difference is in every detail.",
+      "patientCare": {
+        "title": "Patient-Centered Care",
+        "description": "We focus on providing attentive and compassionate care tailored to the needs of every patient."
+      },
+      "specializedServices": {
+        "title": "Specialized Services",
+        "description": "Our hospital provides dedicated pediatric, neonatal, laboratory, pharmacy, and diagnostic services."
+      },
+      "comprehensiveSupport": {
+        "title": "Comprehensive Support",
+        "description": "From diagnosis and treatment to nutrition and pharmacy services, we support patients throughout their care."
+      }
+    },
+    "cta": {
+      "title": "Need Medical Assistance?",
+      "description": "Our team is ready to provide you with the best healthcare services. Book an appointment or contact us for more information.",
+      "button": "Book Appointment"
+    }
   }
 }

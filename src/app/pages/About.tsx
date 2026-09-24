@@ -52,10 +52,6 @@ export function About() {
     animateCards();
   }, []);
 
-
-
-
-
   return (
     <>
 

@@ -17,6 +17,7 @@ import {
 import { Icon } from "@iconify/react";
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -25,81 +26,71 @@ const fadeInUp = {
 };
 
 export function Services() {
+  const { t } = useTranslation();
   const services = [
     {
       icon: Baby,
-      title: 'Pediatrics',
-      description:
-        'Specialized medical care for infants, children, and adolescents, providing comprehensive treatment for pediatric health needs.',
+      title: t('services.items.pediatrics.title'),
+      description: t('services.items.pediatrics.description'),
     },
     {
       icon: Activity,
-      title: 'Pediatric Intensive Care Unit',
-      description:
-        'Intensive medical care and continuous monitoring for children who require specialized critical care.',
+      title: t('services.items.picu.title'),
+      description: t('services.items.picu.description'),
     },
     {
       icon: Baby,
-      title: 'Neonatal Intensive Care Unit',
-      description:
-        'Specialized intensive care and monitoring for newborn infants who require advanced medical attention.',
+      title: t('services.items.nicu.title'),
+      description: t('services.items.nicu.description'),
     },
     {
       icon: Stethoscope,
-      title: 'Anaesthesiology Unit (On call)',
-      description:
-        'Anaesthesiology services available on call to provide safe and effective anaesthesia support when required.',
+      title: t('services.items.anaesthesiology.title'),
+      description: t('services.items.anaesthesiology.description'),
     },
     {
       icon: Microscope,
-      title: 'Clinical Laboratory Services',
-      description:
-        'Comprehensive clinical laboratory services for accurate diagnosis and medical evaluation.',
+      title: t('services.items.laboratory.title'),
+      description: t('services.items.laboratory.description'),
       features: [
-        'Bio Chemistry',
-        'Haematology',
-        'Microbiology',
-        'Clinical Pathology',
+        t('services.items.laboratory.features.bioChemistry'),
+        t('services.items.laboratory.features.haematology'),
+        t('services.items.laboratory.features.microbiology'),
+        t('services.items.laboratory.features.clinicalPathology'),
       ],
     },
     {
       icon: Activity,
-      title: 'Dietetics & Nutrition',
-      description:
-        'Dietary and nutritional services to support patients’ health, treatment, and recovery.',
+      title: t('services.items.dietetics.title'),
+      description: t('services.items.dietetics.description'),
     },
     {
       icon: Pill,
-      title: 'Pharmacy',
-      description:
-        'Pharmacy services providing prescribed medicines and essential pharmaceutical support for patients.',
+      title: t('services.items.pharmacy.title'),
+      description: t('services.items.pharmacy.description'),
     },
     {
       icon: Scan,
-      title: 'Ultrasound & X-Ray',
-      description:
-        'Point-of-care diagnostic imaging services including ultrasound and X-ray for medical evaluation.',
+      title: t('services.items.ultrasound.title'),
+      description: t('services.items.ultrasound.description'),
     },
   ];
 
   const whyChoose = [
     {
       icon: "solar:heart-pulse-linear",
-      title: "Patient-Centered Care",
-      description:
-        "We focus on providing attentive and compassionate care tailored to the needs of every patient.",
+      title: t('services.whyChoose.patientCare.title'),
+      description: t('services.whyChoose.patientCare.description'),
     },
     {
       icon: "solar:stethoscope-linear",
-      title: "Specialized Services",
-      description:
-        "Our hospital provides dedicated pediatric, neonatal, laboratory, pharmacy, and diagnostic services.",
+      title: t('services.whyChoose.specializedServices.title'),
+      description: t('services.whyChoose.specializedServices.description'),
     },
     {
       icon: "solar:shield-check-linear",
-      title: "Comprehensive Support",
-      description:
-        "From diagnosis and treatment to nutrition and pharmacy services, we support patients throughout their care.",
+      title: t('services.whyChoose.comprehensiveSupport.title'),
+      description: t('services.whyChoose.comprehensiveSupport.description'),
     },
   ];
 
@@ -114,11 +105,11 @@ export function Services() {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl mb-6" style={{ fontWeight: 700 }}>
-              Our Medical <span className="text-primary">Services</span>
+              {t('services.hero.title')} <span className="text-primary">{t('services.hero.highlight')}</span>
             </h1>
+
             <p className="text-lg text-muted-foreground">
-              Quality healthcare services for children, newborns, diagnostic needs,
-              nutrition, pharmacy, and other essential medical requirements.
+              {t('services.hero.description')}
             </p>
           </motion.div>
         </div>
@@ -133,10 +124,10 @@ export function Services() {
             {services.map(({ icon: Icon, title, description, features }) => (
               <div
                 key={title}
-                className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${title === 'Clinical Laboratory Services'
-                  ? 'lg:row-span-2'
-                  : ''
-                  }`}
+                className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${title === t('services.items.laboratory.title')
+  ? 'lg:row-span-2'
+  : ''
+}`}
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
                   <Icon className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary-foreground" />
@@ -153,7 +144,7 @@ export function Services() {
                 {features && (
                   <div className="mt-6 border-t border-border/60 pt-6">
                     <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-                      Available Tests
+                      {t('services.availableTests')}
                     </p>
 
                     <ul className="flex flex-col divide-y divide-border/50">
@@ -182,11 +173,12 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
-              Why Choose Radhakishan Hospital
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              The difference is in every detail.
-            </p>
+  {t('services.whyChoose.title')}
+</h2>
+
+<p className="mt-4 text-lg text-muted-foreground">
+  {t('services.whyChoose.subtitle')}
+</p>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3">
@@ -213,16 +205,16 @@ export function Services() {
             className="text-center max-w-3xl mx-auto text-white"
           >
             <h2 className="text-3xl md:text-4xl mb-6" style={{ fontWeight: 700 }}>
-              Need Medical Assistance?
-            </h2>
-            <p className="text-white/90 text-lg mb-8">
-              Our team is ready to provide you with the best healthcare services.
-              Book an appointment or contact us for more information.
-            </p>
+  {t('services.cta.title')}
+</h2>
+
+<p className="text-white/90 text-lg mb-8">
+  {t('services.cta.description')}
+</p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/appointments">
                 <Button size="lg" className="bg-white text-[#058080] rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:bg-[#e6f2f2] hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">
-                  Book Appointment
+                  {t('services.cta.button')}
                 </Button>
               </Link>
 
