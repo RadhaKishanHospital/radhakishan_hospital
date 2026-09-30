@@ -5,6 +5,9 @@ export type Status = "pending" | "confirmed" | "cancelled" | "completed"
 export type GeneralAppointment = {
   id: string
   name: string
+  fatherName?: string
+  dob?: string
+  address?: string
   email: string
   phone: string
   date: string

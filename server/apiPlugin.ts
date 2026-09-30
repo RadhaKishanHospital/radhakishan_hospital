@@ -66,11 +66,14 @@ export function expressApiPlugin(): Plugin {
               const body = await parseJsonBody(req)
               const doc = await GeneralAppointmentModel.create({
                 name: body.name,
+                fatherName: body.fatherName || body.father_name || body.father || "",
+                dob: body.dob || body.dateOfBirth || body.date_of_birth || "",
+                address: body.address || body.fullAddress || body.location || "",
                 email: body.email,
                 phone: body.phone,
                 date: body.date,
                 time: body.time,
-                notes: body.notes || "",
+                notes: body.notes || body.message || "",
                 status: body.status || "pending",
                 createdAt: Date.now(),
               })

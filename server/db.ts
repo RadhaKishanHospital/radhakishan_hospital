@@ -23,6 +23,9 @@ export async function connectDB() {
 // 1. General Appointment Schema & Model
 export interface IGeneralAppointment {
   name: string
+  fatherName?: string
+  dob?: string
+  address?: string
   email: string
   phone: string
   date: string
@@ -35,6 +38,9 @@ export interface IGeneralAppointment {
 const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
   {
     name: { type: String, required: true },
+    fatherName: { type: String, default: "" },
+    dob: { type: String, default: "" },
+    address: { type: String, default: "" },
     email: { type: String, required: true },
     phone: { type: String, required: true },
     date: { type: String, required: true },
@@ -43,8 +49,14 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
     status: { type: String, enum: ["pending", "confirmed", "cancelled", "completed"], default: "pending" },
     createdAt: { type: Number, default: () => Date.now() },
   },
-  { collection: "general_appointments" }
+  { collection: "general_appointments", strict: false }
 )
+
+if (mongoose.models.GeneralAppointment) {
+  try {
+    delete mongoose.models.GeneralAppointment
+  } catch (e) {}
+}
 
 export const GeneralAppointmentModel =
   mongoose.models.GeneralAppointment ||

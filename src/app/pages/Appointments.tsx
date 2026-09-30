@@ -15,6 +15,9 @@ export function Appointments() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
+    fatherName: '',
+    dob: '',
+    address: '',
     email: '',
     phone: '',
     date: '',
@@ -31,6 +34,9 @@ export function Appointments() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
+          fatherName: formData.fatherName,
+          dob: formData.dob,
+          address: formData.address,
           email: formData.email,
           phone: formData.phone,
           date: formData.date,
@@ -46,6 +52,9 @@ export function Appointments() {
     toast.success(t("appointments.form.success"));
     setFormData({
       name: '',
+      fatherName: '',
+      dob: '',
+      address: '',
       email: '',
       phone: '',
       date: '',
@@ -105,6 +114,55 @@ export function Appointments() {
                         placeholder={t("appointments.form.name.placeholder")}
                         value={formData.name}
                         onChange={(e) => handleChange('name', e.target.value)}
+                        required
+                        className="border-border"
+                      />
+                    </div>
+
+                    {/* Father's Name */}
+                    <div className="space-y-2">
+                      <Label htmlFor="fatherName" className="flex items-center gap-2">
+                        <Icon icon="solar:user-outline" className="w-4 h-4 text-primary" />
+                        {t("appointments.form.fatherName.label", "Father's Name *")}
+                      </Label>
+                      <Input
+                        id="fatherName"
+                        placeholder={t("appointments.form.fatherName.placeholder", "Enter father's name")}
+                        value={formData.fatherName}
+                        onChange={(e) => handleChange('fatherName', e.target.value)}
+                        required
+                        className="border-border"
+                      />
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="space-y-2">
+                      <Label htmlFor="dob" className="flex items-center gap-2">
+                        <Icon icon="solar:calendar-linear" className="w-4 h-4 text-primary" />
+                        {t("appointments.form.dob.label", "Date of Birth *")}
+                      </Label>
+                      <Input
+                        id="dob"
+                        type="date"
+                        value={formData.dob}
+                        onChange={(e) => handleChange('dob', e.target.value)}
+                        required
+                        className="border-border"
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="address" className="flex items-center gap-2">
+                        <Icon icon="solar:home-2-linear" className="w-4 h-4 text-primary" />
+                        {t("appointments.form.address.label", "Address *")}
+                      </Label>
+                      <Textarea
+                        id="address"
+                        placeholder={t("appointments.form.address.placeholder", "Enter your full address")}
+                        value={formData.address}
+                        onChange={(e) => handleChange('address', e.target.value)}
+                        rows={3}
                         required
                         className="border-border"
                       />

@@ -15,6 +15,7 @@ import {
   ArrowUpRight,
   Clock,
   Bell,
+  MapPin,
 } from "lucide-react"
 import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
@@ -246,7 +247,14 @@ function GeneralAppointments() {
   const [del, setDel] = useState<string | null>(null)
 
   const rows = useMemo(
-    () => generalAppointments.filter((a) => [a.name, a.email, a.phone].join(" ").toLowerCase().includes(q.toLowerCase())),
+    () =>
+      generalAppointments.filter((a: any) =>
+        [a.name, a.fatherName, a.father_name, a.dob, a.dateOfBirth, a.date_of_birth, a.address, a.fullAddress, a.email, a.phone]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(q.toLowerCase())
+      ),
     [generalAppointments, q],
   )
 
@@ -258,41 +266,70 @@ function GeneralAppointments() {
       ) : (
         <div className="space-y-3">
           <AnimatePresence initial={false}>
-            {rows.map((a) => (
-              <motion.div
-                key={a.id}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className={cn(
-                  cardCls,
-                  "min-w-0 max-w-full overflow-hidden"
-                )}
-              >
-                <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-nowrap sm:items-start sm:justify-between">
+            {rows.map((a) => {
+              const fatherName = a.fatherName || (a as any).father_name || (a as any).father
+              const dob = a.dob || (a as any).dateOfBirth || (a as any).date_of_birth
+              const address = a.address || (a as any).fullAddress || (a as any).location
 
-                  {/* Appointment information */}
-                  <div className="flex min-w-0 flex-1 gap-3.5">
-                    <Avatar
-                      name={a.name}
-                      className="size-11 shrink-0 text-sm"
-                    />
+              return (
+                <motion.div
+                  key={a.id}
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className={cn(
+                    cardCls,
+                    "min-w-0 max-w-full overflow-hidden"
+                  )}
+                >
+                  <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-nowrap sm:items-start sm:justify-between">
 
-                    <div className="min-w-0 flex-1 overflow-hidden">
-                      <div className="flex min-w-0 flex-wrap items-center gap-2">
-                        <h3 className="min-w-0 break-words font-bold text-ink [overflow-wrap:anywhere]">
-                          {a.name}
-                        </h3>
+                    {/* Appointment information */}
+                    <div className="flex min-w-0 flex-1 gap-3.5">
+                      <Avatar
+                        name={a.name}
+                        className="size-11 shrink-0 text-sm"
+                      />
 
-                        <StatusBadge status={a.status} />
-                      </div>
+                      <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="flex min-w-0 flex-wrap items-center gap-2">
+                          <h3 className="min-w-0 break-words font-bold text-ink [overflow-wrap:anywhere]">
+                            {a.name}
+                          </h3>
 
-                      <p className="break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
-                        {a.email}
-                        <span className="mx-1">·</span>
-                        {a.phone}
-                      </p>
+                          <StatusBadge status={a.status} />
+                        </div>
+
+                        {/* Father Name & DOB */}
+                        {(fatherName || dob) && (
+                          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600">
+                            {fatherName && (
+                              <span className="inline-flex items-center gap-1 font-medium">
+                                <span className="text-slate-400">Father:</span> {fatherName}
+                              </span>
+                            )}
+                            {fatherName && dob && <span className="text-slate-300">·</span>}
+                            {dob && (
+                              <span className="inline-flex items-center gap-1 font-medium">
+                                <span className="text-slate-400">DOB:</span> {dob}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        <p className="mt-1 break-words text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                          {a.email}
+                          <span className="mx-1">·</span>
+                          {a.phone}
+                        </p>
+
+                        {address && (
+                          <p className="mt-1.5 flex items-start gap-1.5 text-xs text-slate-600 [overflow-wrap:anywhere]">
+                            <MapPin size={13} className="mt-0.5 shrink-0 text-slate-400" />
+                            <span>{address}</span>
+                          </p>
+                        )}
 
                       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
                         <span className="inline-flex shrink-0 items-center gap-1">
@@ -337,7 +374,7 @@ function GeneralAppointments() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )})}
           </AnimatePresence>
         </div>
       )}

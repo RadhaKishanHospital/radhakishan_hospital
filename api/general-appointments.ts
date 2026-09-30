@@ -12,6 +12,9 @@ async function connectDB() {
 const GeneralAppointmentSchema = new Schema(
   {
     name: { type: String, required: true },
+    fatherName: { type: String, default: "" },
+    dob: { type: String, default: "" },
+    address: { type: String, default: "" },
     email: { type: String, required: true },
     phone: { type: String, required: true },
     date: { type: String, required: true },
@@ -20,8 +23,15 @@ const GeneralAppointmentSchema = new Schema(
     status: { type: String, enum: ["pending", "confirmed", "cancelled", "completed"], default: "pending" },
     createdAt: { type: Number, default: () => Date.now() },
   },
-  { collection: "general_appointments" }
+  { collection: "general_appointments", strict: false }
 )
+
+if (mongoose.models.GeneralAppointment) {
+  try {
+    delete mongoose.models.GeneralAppointment
+  } catch (e) {}
+}
+
 const GeneralAppointment =
   mongoose.models.GeneralAppointment ||
   mongoose.model("GeneralAppointment", GeneralAppointmentSchema)
@@ -45,11 +55,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const body = req.body
       const doc = await GeneralAppointment.create({
         name: body.name,
+        fatherName: body.fatherName || body.father_name || body.father || "",
+        dob: body.dob || body.dateOfBirth || body.date_of_birth || "",
+        address: body.address || body.fullAddress || body.location || "",
         email: body.email,
         phone: body.phone,
         date: body.date,
         time: body.time,
-        notes: body.notes || "",
+        notes: body.notes || body.message || "",
         status: body.status || "pending",
         createdAt: Date.now(),
       })

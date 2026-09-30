@@ -401,6 +401,17 @@
         "label": "Full Name *",
         "placeholder": "Your name"
       },
+      "fatherName": {
+        "label": "Father's Name *",
+        "placeholder": "Enter father's name"
+      },
+      "dob": {
+        "label": "Date of Birth *"
+      },
+      "address": {
+        "label": "Address *",
+        "placeholder": "Enter your full address"
+      },
       "email": {
         "label": "Email Address *",
         "placeholder": "Your email"

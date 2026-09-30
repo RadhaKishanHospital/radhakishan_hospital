@@ -401,6 +401,17 @@
         "label": "पूरा नाम *",
         "placeholder": "अपना नाम दर्ज करें"
       },
+      "fatherName": {
+        "label": "पिता का नाम *",
+        "placeholder": "पिता का नाम दर्ज करें"
+      },
+      "dob": {
+        "label": "जन्म तिथि *"
+      },
+      "address": {
+        "label": "पता *",
+        "placeholder": "अपना पूरा पता दर्ज करें"
+      },
       "email": {
         "label": "ईमेल पता *",
         "placeholder": "अपना ईमेल दर्ज करें"
