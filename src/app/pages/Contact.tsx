@@ -98,10 +98,13 @@ export function Contact() {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
-      await fetch('/api/messages', {
+      const res = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -112,17 +115,25 @@ export function Contact() {
           read: false
         })
       });
-    } catch (err) {
-      console.error('Error saving message to MongoDB:', err);
-    }
 
-    toast.success(t("contact.form.success"));
-    setFormData({
-      name: '',
-      number: '',
-      subject: '',
-      message: ''
-    });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      toast.success(t("contact.form.success", "Your message has been sent successfully!"));
+      setFormData({
+        name: '',
+        number: '',
+        subject: '',
+        message: ''
+      });
+    } catch (err: any) {
+      console.error('Error saving message to MongoDB:', err);
+      toast.error(t("contact.form.error", "Unable to send message. Please check your connection or try again."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -240,9 +251,9 @@ export function Contact() {
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
+                <Button type="submit" size="lg" disabled={isSubmitting} className="w-full bg-primary hover:bg-primary/90 disabled:opacity-60">
                   <Icon icon="solar:plane-linear" className="w-4 h-4 mr-2" />
-                  {t("contact.form.button")}
+                  {isSubmitting ? "Sending..." : t("contact.form.button", "Send Message")}
                 </Button>
               </form>
             </Card>

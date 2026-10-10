@@ -433,7 +433,8 @@
       },
       "button": "Submit Appointment Request",
       "required": "* Required fields. We will contact you to confirm your appointment.",
-      "success": "Appointment request submitted successfully! We will contact you soon."
+      "success": "Appointment request submitted successfully! We will contact you soon.",
+      "error": "Unable to schedule appointment. Please check your connection or try again."
     },
     "info": {
       "scheduling": {

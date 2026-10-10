@@ -26,10 +26,13 @@ export function Appointments() {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
-      await fetch('/api/general-appointments', {
+      const res = await fetch('/api/general-appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -45,23 +48,31 @@ export function Appointments() {
           status: 'pending'
         })
       });
-    } catch (err) {
-      console.error('Error saving general appointment to MongoDB:', err);
-    }
 
-    toast.success(t("appointments.form.success"));
-    setFormData({
-      name: '',
-      fatherName: '',
-      dob: '',
-      address: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      doctor: '',
-      message: ''
-    });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to schedule appointment');
+      }
+
+      toast.success(t("appointments.form.success"));
+      setFormData({
+        name: '',
+        fatherName: '',
+        dob: '',
+        address: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        doctor: '',
+        message: ''
+      });
+    } catch (err: any) {
+      console.error('Error saving general appointment to MongoDB:', err);
+      toast.error(t("appointments.form.error", "Unable to set appointment. Please check your connection or try again."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -259,8 +270,8 @@ export function Appointments() {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                    {t("appointments.form.button")}
+                  <Button type="submit" size="lg" disabled={isSubmitting} className="w-full bg-primary hover:bg-primary/90 disabled:opacity-60">
+                    {isSubmitting ? "Submitting..." : t("appointments.form.button")}
                   </Button>
 
                   <p className="text-sm text-muted-foreground text-center">
