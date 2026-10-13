@@ -29,7 +29,7 @@ export function useIsMobile(query = "(max-width: 639px)") {
 type Toast = { id: number; message: string; type: "success" | "info" | "error" }
 type ToastCtx = { push: (message: string, type?: Toast["type"]) => void }
 
-const ToastContext = createContext<ToastCtx>({ push: () => {} })
+const ToastContext = createContext<ToastCtx>({ push: () => { } })
 export const useToast = () => useContext(ToastContext)
 
 export function ToastProvider({ children }: { children: ReactNode }) {

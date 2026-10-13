@@ -10,6 +10,7 @@ import { Calendar, Clock, User, Mail, Phone, FileText } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { SEO } from '../components/SEO';
 
 export function Appointments() {
   const { t } = useTranslation();
@@ -81,6 +82,12 @@ export function Appointments() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Book an Appointment"
+        description="Schedule your visit at Radhakishan Hospital, Kurukshetra. Book an OPD appointment online or call +91 72060 29516. Flexible scheduling with quick confirmation."
+        path="/appointments"
+        ogImage="/logo.png"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">

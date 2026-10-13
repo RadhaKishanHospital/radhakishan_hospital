@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { Toaster } from './components/ui/sonner';
 import AdminDashboard from './components/AdminDashboard';
 import { ADMIN_SESSION_KEY } from './components/AdminLogin';
+import { SEO } from './components/SEO';
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -56,12 +57,15 @@ function AdminRoute() {
   if (!authenticated) return null;
 
   return (
-    <AdminDashboard
-      onLogout={() => {
-        sessionStorage.removeItem(ADMIN_SESSION_KEY);
-        navigate('/', { replace: true });
-      }}
-    />
+    <>
+      <SEO title="Admin Portal" description="Hospital Administration Dashboard" noIndex />
+      <AdminDashboard
+        onLogout={() => {
+          sessionStorage.removeItem(ADMIN_SESSION_KEY);
+          navigate('/', { replace: true });
+        }}
+      />
+    </>
   );
 }
 
@@ -103,6 +107,7 @@ export const router = createBrowserRouter([
     element: (
       <WithScroll>
         <Layout>
+          <SEO title="404 — Page Not Found" description="The page you requested could not be found on Radhakishan Hospital website." noIndex />
           <div className="min-h-screen flex items-center justify-center">
             <div className="text-center">
               <h1 className="text-4xl mb-4" style={{ fontWeight: 700 }}>404</h1>
@@ -110,7 +115,7 @@ export const router = createBrowserRouter([
               <a href="/" className="text-primary hover:underline">Go back home</a>
             </div>
           </div>
-      </Layout>
+        </Layout>
       </WithScroll>
     ),
   },

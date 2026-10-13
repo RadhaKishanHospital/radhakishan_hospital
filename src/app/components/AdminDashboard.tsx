@@ -16,10 +16,13 @@ import {
   Clock,
   Bell,
   MapPin,
+  ShieldCheck,
 } from "lucide-react"
 import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
+import ManageAccess, { getStoredAdminUsers } from "./ManageAccess"
+import { ADMIN_CURRENT_USER_KEY } from "./AdminLogin"
 import {
   useGeneralAppointments,
   useMessages,
@@ -29,12 +32,13 @@ import {
   useDeleteMessage,
 } from "../../../lib/queries"
 
-type Tab = "overview" | "general" | "messages"
+type Tab = "overview" | "general" | "messages" | "access"
 
 const nav: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "general", label: "General Appointments", icon: CalendarDays },
   { id: "messages", label: "Messages", icon: MessageSquare },
+  { id: "access", label: "Manage Access", icon: ShieldCheck },
 ]
 
 const statusOptions: Status[] = ["pending", "confirmed", "completed", "cancelled"]
@@ -126,10 +130,12 @@ const cardCls =
 function Overview({ go }: { go: (t: Tab) => void }) {
   const { data: generalAppointments = [] } = useGeneralAppointments()
   const { data: messages = [] } = useMessages()
+  const adminUsers = getStoredAdminUsers()
 
   const stats = [
     { label: "General Appointments", value: generalAppointments.length, sub: `${generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
     { label: "Messages", value: messages.length, sub: `${messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
+    { label: "Manage Access", value: adminUsers.length, sub: `${adminUsers.filter((u) => u.status === "active").length} active admins`, icon: ShieldCheck, tab: "access" as Tab },
   ]
 
   const recent = [
@@ -141,55 +147,55 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-  {stats.map((s, i) => (
-    <motion.button
-      key={s.label}
-      onClick={() => go(s.tab)}
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: i * 0.05 }}
-      className={cn(
-        cardCls,
-        "group relative overflow-hidden p-5 text-left sm:p-6"
-      )}
-    >
-      <div className="flex items-start justify-between">
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
-            <s.icon size={19} />
-          </span>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {stats.map((s, i) => (
+          <motion.button
+            key={s.label}
+            onClick={() => go(s.tab)}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+            className={cn(
+              cardCls,
+              "group relative overflow-hidden p-5 text-left sm:p-6"
+            )}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+                  <s.icon size={19} />
+                </span>
 
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-ink">
-              {s.label}
-            </p>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {s.sub}
-            </p>
-          </div>
-        </div>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-ink">
+                    {s.label}
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {s.sub}
+                  </p>
+                </div>
+              </div>
 
-        <span className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-300 transition group-hover:bg-brand-50 group-hover:text-brand-500">
-          <ArrowUpRight
-            size={17}
-            className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
-        </span>
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-300 transition group-hover:bg-brand-50 group-hover:text-brand-500">
+                <ArrowUpRight
+                  size={17}
+                  className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </span>
+            </div>
+
+            <div className="mt-5 flex items-end justify-between">
+              <span className="text-4xl font-bold tracking-tight text-ink">
+                {s.value}
+              </span>
+
+              <span className="text-xs font-medium text-slate-400">
+                Total
+              </span>
+            </div>
+          </motion.button>
+        ))}
       </div>
-
-      <div className="mt-5 flex items-end justify-between">
-        <span className="text-4xl font-bold tracking-tight text-ink">
-          {s.value}
-        </span>
-
-        <span className="text-xs font-medium text-slate-400">
-          Total
-        </span>
-      </div>
-    </motion.button>
-  ))}
-</div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
@@ -331,50 +337,51 @@ function GeneralAppointments() {
                           </p>
                         )}
 
-                      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
-                        <span className="inline-flex shrink-0 items-center gap-1">
-                          <CalendarDays size={13} />
-                          {formatDate(a.date)}
-                        </span>
+                        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
+                          <span className="inline-flex shrink-0 items-center gap-1">
+                            <CalendarDays size={13} />
+                            {formatDate(a.date)}
+                          </span>
 
-                        <span className="inline-flex shrink-0 items-center gap-1">
-                          <Clock size={13} />
-                          {a.time}
-                        </span>
+                          <span className="inline-flex shrink-0 items-center gap-1">
+                            <Clock size={13} />
+                            {a.time}
+                          </span>
+                        </div>
+
+                        {a.notes && (
+                          <p className="mt-2 max-w-full whitespace-pre-wrap break-words rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600 [overflow-wrap:anywhere]">
+                            {a.notes}
+                          </p>
+                        )}
                       </div>
+                    </div>
 
-                      {a.notes && (
-                        <p className="mt-2 max-w-full whitespace-pre-wrap break-words rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600 [overflow-wrap:anywhere]">
-                          {a.notes}
-                        </p>
-                      )}
+                    {/* Actions */}
+                    <div className="flex items-center gap-2 border-t border-slate-100 pt-3 sm:shrink-0 sm:border-0 sm:pt-0">
+                      <StatusSelect
+                        value={a.status}
+                        onChange={(s) =>
+                          updateStatusMutation.mutate({
+                            id: a.id,
+                            status: s,
+                          })
+                        }
+                        className="flex-1 text-center sm:flex-none sm:text-left"
+                      />
+
+                      <button
+                        onClick={() => setDel(a.id)}
+                        aria-label="Delete appointment"
+                        className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 sm:hover:bg-rose-50"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
-
-                  {/* Actions */}
-                  <div className="flex items-center gap-2 border-t border-slate-100 pt-3 sm:shrink-0 sm:border-0 sm:pt-0">
-                    <StatusSelect
-                      value={a.status}
-                      onChange={(s) =>
-                        updateStatusMutation.mutate({
-                          id: a.id,
-                          status: s,
-                        })
-                      }
-                      className="flex-1 text-center sm:flex-none sm:text-left"
-                    />
-
-                    <button
-                      onClick={() => setDel(a.id)}
-                      aria-label="Delete appointment"
-                      className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 sm:hover:bg-rose-50"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )})}
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </div>
       )}
@@ -582,20 +589,40 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         })}
       </nav>
 
-      <div className="m-3 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
-        <span className="grid size-9 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white">AD</span>
-        <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-semibold text-ink">Administrator</div>
-          <div className="truncate text-xs text-muted-foreground">admin@co.in</div>
-        </div>
-        <button
-          onClick={() => setLogoutConfirmOpen(true)}
-          aria-label="Sign out"
-          className="grid size-8 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
-        >
-          <LogOut size={16} />
-        </button>
-      </div>
+      {(() => {
+        let sessionUser = { name: "Administrator", email: "admin@co.in" }
+        try {
+          const raw = sessionStorage.getItem(ADMIN_CURRENT_USER_KEY)
+          if (raw) sessionUser = JSON.parse(raw)
+        } catch {
+          /* ignore */
+        }
+        const userInitials = sessionUser.name
+          .split(" ")
+          .map((s: string) => s[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase() || "AD"
+
+        return (
+          <div className="m-3 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white">
+              {userInitials}
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="truncate text-sm font-semibold text-ink">{sessionUser.name}</div>
+              <div className="truncate text-xs text-muted-foreground">{sessionUser.email}</div>
+            </div>
+            <button
+              onClick={() => setLogoutConfirmOpen(true)}
+              aria-label="Sign out"
+              className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+        )
+      })()}
     </div>
   )
 
@@ -710,6 +737,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
               {tab === "overview" && <Overview go={go} />}
               {tab === "general" && <GeneralAppointments />}
               {tab === "messages" && <Messages />}
+              {tab === "access" && <ManageAccess />}
             </motion.div>
           </AnimatePresence>
         </main>

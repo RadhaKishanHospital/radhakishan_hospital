@@ -3,9 +3,12 @@ import { motion } from "motion/react"
 import { Lock, Mail, Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react"
 import { Modal, inputCls } from "./ui"
 
+import { ADMIN_USERS_STORAGE_KEY, INITIAL_ADMIN_USERS, type AdminUser } from "./ManageAccess"
+
 const ADMIN_EMAIL = "admin@co.in"
 const ADMIN_PASSWORD = "123456"
 export const ADMIN_SESSION_KEY = "rkh_admin_authenticated"
+export const ADMIN_CURRENT_USER_KEY = "rkh_admin_current_user"
 
 export default function AdminLogin({
   open,
@@ -35,9 +38,45 @@ export default function AdminLogin({
     e.preventDefault()
     setError("")
     setLoading(true)
-    // brief delay to feel real
+
+    // Check against stored admin users or fallback
+    let storedUsers: AdminUser[] = INITIAL_ADMIN_USERS
+    try {
+      const raw = localStorage.getItem(ADMIN_USERS_STORAGE_KEY)
+      if (raw) storedUsers = JSON.parse(raw)
+    } catch {
+      /* ignore */
+    }
+
+    const inputEmail = email.trim().toLowerCase()
+    const foundUser = storedUsers.find((u) => u.email.toLowerCase() === inputEmail)
+
     setTimeout(() => {
-      if (email.trim().toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      // Direct superadmin fallback or matched user password
+      const isDefaultSuperAdmin = inputEmail === ADMIN_EMAIL && password === ADMIN_PASSWORD
+      const isMatchedUser = foundUser && (foundUser.password === password || (foundUser.isPrimary && password === ADMIN_PASSWORD))
+
+      if (isDefaultSuperAdmin || isMatchedUser) {
+        if (foundUser && foundUser.status === "inactive") {
+          setLoading(false)
+          setError("This administrator account is currently deactivated. Please contact Super Admin.")
+          return
+        }
+
+        // Store active session user info
+        try {
+          const sessionUser = foundUser || {
+            id: "usr_primary_admin",
+            name: "Dr. Radhakishan (Super Admin)",
+            email: ADMIN_EMAIL,
+            role: "super_admin",
+            status: "active",
+          }
+          sessionStorage.setItem(ADMIN_CURRENT_USER_KEY, JSON.stringify(sessionUser))
+        } catch {
+          /* ignore */
+        }
+
         setLoading(false)
         onSuccess()
       } else {

@@ -8,6 +8,7 @@ import { LogoCarousel, LogoItem } from '../components/ui/logo-carousel';
 import { ArrowRight, Play } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useTranslation } from 'react-i18next';
+import { SEO } from '../components/SEO';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -54,6 +55,12 @@ export function About() {
 
   return (
     <>
+      <SEO
+        title="About Us — Our Story, Mission & Values"
+        description="Learn about Radhakishan Hospital, Kurukshetra — serving patients since 1987 with compassionate, evidence-based healthcare. Discover our mission, vision, core values, and commitment to the community."
+        path="/about"
+        ogImage="/logo.png"
+      />
 
       <style>
         {`

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
+import { SEO } from "../components/SEO";
 
 const DEFAULT_DOCTOR_IMAGE =
   "https://res.cloudinary.com/hizkabhg/image/upload/v1789883056/close-up-doctor-with-stethoscope.jpg";
@@ -16,7 +17,7 @@ const doctors: Record<
     name: string;
     specialty: string;
     qualification: string;
-    experience: string;
+    experience?: string;
     initials: string;
     bio: string;
     education: string[];
@@ -99,12 +100,17 @@ const DoctorProfile = () => {
   const doctor = doctors[Number(id)];
 
    const [doctorImage, setDoctorImage] = useState(
-    doctor.image || DEFAULT_DOCTOR_IMAGE
+    doctor?.image || DEFAULT_DOCTOR_IMAGE
   );
 
   if (!doctor) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
+        <SEO
+          title="Doctor Not Found"
+          description="The requested doctor profile was not found at Radhakishan Hospital."
+          noIndex
+        />
         <div className="text-center">
           <h1 className="text-2xl font-bold font-display text-foreground mb-4">{t("doctors.profile.notFound")}</h1>
           <Link to="/">
@@ -120,6 +126,27 @@ const DoctorProfile = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={`${doctor.name} — ${doctor.qualification}`}
+        description={`${doctor.name}, ${doctor.qualification} at Radhakishan Hospital, Kurukshetra. Registered with ${doctor.registrationAuthority} (Reg. No. ${doctor.registrationNo}). Book an appointment today.`}
+        path={`/doctor/${doctor.id}`}
+        ogImage={doctor.image || "/logo.png"}
+        ogType="profile"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Physician',
+          name: doctor.name,
+          jobTitle: doctor.qualification,
+          medicalSpecialty: doctor.specialty,
+          worksFor: {
+            '@type': 'Hospital',
+            name: 'Radhakishan Hospital',
+            url: 'https://radhakishanhospital.in',
+          },
+          url: `https://radhakishanhospital.in/doctor/${doctor.id}`,
+          image: doctor.image || 'https://radhakishanhospital.in/logo.png',
+        }}
+      />
       {/* Header */}
       <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">

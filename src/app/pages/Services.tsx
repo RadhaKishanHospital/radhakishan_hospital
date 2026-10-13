@@ -18,6 +18,7 @@ import { Icon } from "@iconify/react";
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { SEO } from '../components/SEO';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -96,6 +97,12 @@ export function Services() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Medical Services — Pediatrics, NICU, PICU, Surgery & More"
+        description="Explore medical services at Radhakishan Hospital in Kurukshetra, Haryana, including pediatrics, PICU, NICU, anaesthesiology, laboratory testing, dietetics, pharmacy, and ultrasound."
+        path="/services"
+        ogImage="/logo.png"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white pb-5 pt-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">

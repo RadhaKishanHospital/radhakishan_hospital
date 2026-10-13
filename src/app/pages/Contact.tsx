@@ -5,33 +5,16 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
-import { MapPin, Phone, Mail, Clock, Send, ChevronRight } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
+import { SEO } from '../components/SEO';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../components/ui/accordion";
-
-const departments = [
-  { name: "Emergency", phone: "+1 (555) 911-0001", email: "emergency@medhaven.com" },
-  { name: "Cardiology", phone: "+1 (555) 911-0002", email: "cardiology@medhaven.com" },
-  { name: "Pediatrics", phone: "+1 (555) 911-0003", email: "pediatrics@medhaven.com" },
-  { name: "Orthopedics", phone: "+1 (555) 911-0004", email: "orthopedics@medhaven.com" },
-  { name: "Neurology", phone: "+1 (555) 911-0005", email: "neurology@medhaven.com" },
-  { name: "Oncology", phone: "+1 (555) 911-0006", email: "oncology@medhaven.com" },
-];
 
 export function Contact() {
   const { t } = useTranslation();
@@ -142,6 +125,11 @@ export function Contact() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact Us & Location"
+        description="Get in touch with Radhakishan Hospital in Kurukshetra, Haryana. Find OPD timings, 24/7 emergency contact numbers, hospital address, and send direct inquiries."
+        path="/contact"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4">

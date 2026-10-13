@@ -11,6 +11,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import ReviewModal, { ReviewDraft } from '../components/ReviewModal';
 import { useReviews, useAddReview } from '../../../lib/queries';
 import { toast } from 'sonner';
+import { SEO } from '../components/SEO';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -122,6 +123,12 @@ export function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <SEO
+        title="Radhakishan Hospital"
+        description="Radhakishan Hospital, Kurukshetra — established in 1987. 24/7 emergency care, pediatrics, NICU, PICU, general surgery, pathology, and cashless insurance. Book an appointment today."
+        path="/"
+        ogImage="/logo.png"
+      />
       <style>{`
   @keyframes reviews-slide {
     from {
@@ -308,8 +315,15 @@ export function Home() {
           <br aria-hidden="true" />
           {t("home.servicesTitleSecond")}</p></div>
         <div><p className='text-center text-sm sm:text-base'>{t("home.servicesDescription")}</p></div>
-        <div className='flex justify-center'>
-          <Button size="lg" className="w-fit rounded-full bg-primary hover:bg-primary/90">{t("home.scheduleCall")}</Button>
+        <div className="flex justify-center">
+          <a href="tel:+917206029516">
+            <Button
+              size="lg"
+              className="w-fit rounded-full bg-primary hover:bg-primary/90"
+            >
+              {t("home.scheduleCall")}
+            </Button>
+          </a>
         </div>
       </section>
 

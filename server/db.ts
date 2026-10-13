@@ -55,7 +55,7 @@ const GeneralAppointmentSchema = new Schema<IGeneralAppointment>(
 if (mongoose.models.GeneralAppointment) {
   try {
     delete mongoose.models.GeneralAppointment
-  } catch (e) {}
+  } catch (e) { }
 }
 
 export const GeneralAppointmentModel =
