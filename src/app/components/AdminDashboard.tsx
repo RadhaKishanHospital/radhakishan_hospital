@@ -32,6 +32,11 @@ import {
 } from "../../../lib/queries"
 
 type Tab = "overview" | "general" | "messages"
+const ADMIN_TAB_KEY = "rkh_admin_active_tab"
+
+function isTab(value: string | null): value is Tab {
+  return value === "overview" || value === "general" || value === "messages"
+}
 
 const nav: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -619,7 +624,10 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const { data: generalAppointments = [] } = useGeneralAppointments()
   const { data: messages = [] } = useMessages()
 
-  const [tab, setTab] = useState<Tab>("overview")
+  const [tab, setTab] = useState<Tab>(() => {
+    const savedTab = sessionStorage.getItem(ADMIN_TAB_KEY)
+    return isTab(savedTab) ? savedTab : "overview"
+  })
   const [drawer, setDrawer] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false)
@@ -643,6 +651,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
   const go = (t: Tab) => {
     setTab(t)
+    sessionStorage.setItem(ADMIN_TAB_KEY, t)
     setDrawer(false)
   }
 
