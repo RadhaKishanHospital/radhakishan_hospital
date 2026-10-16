@@ -16,6 +16,7 @@ import {
   Clock,
   Bell,
   MapPin,
+  LoaderCircle,
 } from "lucide-react"
 import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
@@ -58,23 +59,44 @@ function StatusBadge({ status }: { status: Status }) {
   )
 }
 
-function StatusSelect({ value, onChange, className }: { value: Status; onChange: (s: Status) => void; className?: string }) {
+function StatusSelect({
+  value,
+  onChange,
+  className,
+  loading = false,
+}: {
+  value: Status
+  onChange: (s: Status) => void
+  className?: string
+  loading?: boolean
+}) {
   return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value as Status)}
-      className={cn(
-        "cursor-pointer rounded-full px-3 py-1.5 text-xs font-semibold capitalize outline-none ring-1 transition",
-        statusStyles[value],
-        className,
+    <span className="relative">
+      <select
+        value={value}
+        disabled={loading}
+        onChange={(e) => onChange(e.target.value as Status)}
+        className={cn(
+          "cursor-pointer rounded-full px-3 py-1.5 text-xs font-semibold capitalize outline-none ring-1 transition disabled:cursor-wait disabled:opacity-70",
+          loading && "pr-8",
+          statusStyles[value],
+          className,
+        )}
+      >
+        {statusOptions.map((s) => (
+          <option key={s} value={s}>
+            {s}
+          </option>
+        ))}
+      </select>
+      {loading && (
+        <LoaderCircle
+          size={13}
+          aria-label="Saving status"
+          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 animate-spin"
+        />
       )}
-    >
-      {statusOptions.map((s) => (
-        <option key={s} value={s}>
-          {s}
-        </option>
-      ))}
-    </select>
+    </span>
   )
 }
 
@@ -355,6 +377,18 @@ function GeneralAppointments() {
   const { push } = useToast()
   const [q, setQ] = useState("")
   const [del, setDel] = useState<string | null>(null)
+  const [updatingAppointmentId, setUpdatingAppointmentId] = useState<string | null>(null)
+
+  const updateAppointmentStatus = (id: string, status: Status) => {
+    setUpdatingAppointmentId(id)
+    updateStatusMutation.mutate(
+      { id, status },
+      {
+        onError: () => push("Could not update appointment status.", "error"),
+        onSettled: () => setUpdatingAppointmentId(null),
+      },
+    )
+  }
 
   const rows = useMemo(
     () =>
@@ -467,12 +501,8 @@ function GeneralAppointments() {
                     <div className="flex items-center gap-2 border-t border-slate-100 pt-3 sm:shrink-0 sm:border-0 sm:pt-0">
                       <StatusSelect
                         value={a.status}
-                        onChange={(s) =>
-                          updateStatusMutation.mutate({
-                            id: a.id,
-                            status: s,
-                          })
-                        }
+                        loading={updatingAppointmentId === a.id}
+                        onChange={(s) => updateAppointmentStatus(a.id, s)}
                         className="flex-1 text-center sm:flex-none sm:text-left"
                       />
 
@@ -578,14 +608,27 @@ function Messages() {
                   <div className="flex min-w-0 flex-wrap items-center gap-1">
                     <button
                       onClick={() =>
-                        toggleReadMutation.mutate({
-                          id: m.id,
-                          read: m.read,
-                        })
+                        toggleReadMutation.mutate(
+                          {
+                            id: m.id,
+                            read: m.read,
+                          },
+                          {
+                            onError: () => push("Could not update message status.", "error"),
+                          },
+                        )
                       }
+                      disabled={toggleReadMutation.isPending && toggleReadMutation.variables?.id === m.id}
+                      aria-busy={toggleReadMutation.isPending && toggleReadMutation.variables?.id === m.id}
                       className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
                     >
-                      {m.read ? <Mail size={14} /> : <MailOpen size={14} />}
+                      {toggleReadMutation.isPending && toggleReadMutation.variables?.id === m.id ? (
+                        <LoaderCircle size={14} className="animate-spin" />
+                      ) : m.read ? (
+                        <Mail size={14} />
+                      ) : (
+                        <MailOpen size={14} />
+                      )}
                       {m.read ? "Mark unread" : "Mark read"}
                     </button>
 

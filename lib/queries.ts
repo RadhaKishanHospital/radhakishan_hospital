@@ -82,7 +82,24 @@ export function useToggleMessageRead() {
       if (!res.ok) throw new Error("Failed to toggle read state")
       return res.json()
     },
-    onSuccess: () => {
+    onMutate: async ({ id, read }) => {
+      await queryClient.cancelQueries({ queryKey: ["messages"] })
+      const previousMessages = queryClient.getQueryData<Message[]>(["messages"])
+
+      queryClient.setQueryData<Message[]>(["messages"], (messages = []) =>
+        messages.map((message) =>
+          message.id === id ? { ...message, read: !read } : message,
+        ),
+      )
+
+      return { previousMessages }
+    },
+    onError: (_error, _variables, context) => {
+      if (context?.previousMessages) {
+        queryClient.setQueryData(["messages"], context.previousMessages)
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["messages"] })
     },
   })
