@@ -16,12 +16,10 @@ import {
   Clock,
   Bell,
   MapPin,
-  ShieldCheck,
 } from "lucide-react"
 import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
-import ManageAccess, { getStoredAdminUsers } from "./ManageAccess"
 import { ADMIN_CURRENT_USER_KEY } from "./AdminLogin"
 import {
   useGeneralAppointments,
@@ -32,13 +30,12 @@ import {
   useDeleteMessage,
 } from "../../../lib/queries"
 
-type Tab = "overview" | "general" | "messages" | "access"
+type Tab = "overview" | "general" | "messages"
 
 const nav: { id: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "general", label: "General Appointments", icon: CalendarDays },
   { id: "messages", label: "Messages", icon: MessageSquare },
-  { id: "access", label: "Manage Access", icon: ShieldCheck },
 ]
 
 const statusOptions: Status[] = ["pending", "confirmed", "completed", "cancelled"]
@@ -130,12 +127,9 @@ const cardCls =
 function Overview({ go }: { go: (t: Tab) => void }) {
   const { data: generalAppointments = [] } = useGeneralAppointments()
   const { data: messages = [] } = useMessages()
-  const adminUsers = getStoredAdminUsers()
-
   const stats = [
     { label: "General Appointments", value: generalAppointments.length, sub: `${generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
     { label: "Messages", value: messages.length, sub: `${messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
-    { label: "Manage Access", value: adminUsers.length, sub: `${adminUsers.filter((u) => u.status === "active").length} active admins`, icon: ShieldCheck, tab: "access" as Tab },
   ]
 
   const recent = [
@@ -147,7 +141,7 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {stats.map((s, i) => (
           <motion.button
             key={s.label}
@@ -737,7 +731,6 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
               {tab === "overview" && <Overview go={go} />}
               {tab === "general" && <GeneralAppointments />}
               {tab === "messages" && <Messages />}
-              {tab === "access" && <ManageAccess />}
             </motion.div>
           </AnimatePresence>
         </main>
