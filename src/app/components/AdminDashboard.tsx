@@ -20,6 +20,7 @@ import {
 import type { Status } from "../../../lib/store"
 import { cn, formatDate, statusStyles, timeAgo } from "../../../lib/utils"
 import { ConfirmDialog, useToast } from "./ui"
+import { Skeleton } from "./ui/skeleton"
 import { ADMIN_CURRENT_USER_KEY } from "./AdminLogin"
 import {
   useGeneralAppointments,
@@ -122,11 +123,115 @@ function EmptyState({ label }: { label: string }) {
 const cardCls =
   "min-w-0 max-w-full rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-slate-300"
 
+function OverviewSkeleton() {
+  return (
+    <div className="space-y-6" aria-label="Loading overview" role="status">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {Array.from({ length: 2 }).map((_, i) => (
+          <div key={i} className={cn(cardCls, "p-5 sm:p-6")}>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <Skeleton className="size-11 rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-36" />
+                  <Skeleton className="h-3 w-20" />
+                </div>
+              </div>
+              <Skeleton className="size-8 rounded-lg" />
+            </div>
+            <div className="mt-5 flex items-end justify-between">
+              <Skeleton className="h-10 w-12" />
+              <Skeleton className="h-3 w-9" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <Skeleton className="h-5 w-32" />
+          <Skeleton className="h-5 w-12 rounded-full" />
+        </div>
+        <div className="divide-y divide-slate-100">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3 py-2.5">
+              <Skeleton className="size-9 rounded-full" />
+              <Skeleton className="h-4 flex-1" />
+              <Skeleton className="h-3 w-12" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AppointmentSkeleton() {
+  return (
+    <div className="space-y-3" aria-label="Loading appointments" role="status">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className={cn(cardCls, "overflow-hidden")}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 flex-1 gap-3.5">
+              <Skeleton className="size-11 shrink-0 rounded-full" />
+              <div className="min-w-0 flex-1 space-y-2">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-5 w-32" />
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </div>
+                <Skeleton className="h-4 w-52 max-w-full" />
+                <Skeleton className="h-3 w-40 max-w-full" />
+                <div className="flex gap-4">
+                  <Skeleton className="h-3 w-20" />
+                  <Skeleton className="h-3 w-16" />
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2 border-t border-slate-100 pt-3 sm:border-0 sm:pt-0">
+              <Skeleton className="h-8 w-24 rounded-full" />
+              <Skeleton className="size-9 rounded-xl" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function MessagesSkeleton() {
+  return (
+    <div className="grid min-w-0 gap-3 md:grid-cols-2" aria-label="Loading messages" role="status">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className={cn(cardCls, "flex min-w-0 flex-col")}>
+          <div className="flex items-center gap-3">
+            <Skeleton className="size-11 shrink-0 rounded-full" />
+            <div className="min-w-0 flex-1 space-y-2">
+              <Skeleton className="h-5 w-28" />
+              <Skeleton className="h-3 w-24" />
+            </div>
+          </div>
+          <Skeleton className="mt-3 h-4 w-40 max-w-full" />
+          <div className="mt-2 space-y-2">
+            <Skeleton className="h-3 w-full" />
+            <Skeleton className="h-3 w-4/5" />
+            <Skeleton className="h-3 w-3/5" />
+          </div>
+          <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+            <Skeleton className="h-3 w-14" />
+            <Skeleton className="h-8 w-24 rounded-lg" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /* ---------------- Overview ---------------- */
 
 function Overview({ go }: { go: (t: Tab) => void }) {
-  const { data: generalAppointments = [] } = useGeneralAppointments()
-  const { data: messages = [] } = useMessages()
+  const { data: generalAppointments = [], isLoading: appointmentsLoading } = useGeneralAppointments()
+  const { data: messages = [], isLoading: messagesLoading } = useMessages()
+  if (appointmentsLoading || messagesLoading) return <OverviewSkeleton />
   const stats = [
     { label: "General Appointments", value: generalAppointments.length, sub: `${generalAppointments.filter((a) => a.status === "pending").length} pending`, icon: CalendarDays, tab: "general" as Tab },
     { label: "Messages", value: messages.length, sub: `${messages.filter((m) => !m.read).length} unread`, icon: MessageSquare, tab: "messages" as Tab },
@@ -239,7 +344,7 @@ function Overview({ go }: { go: (t: Tab) => void }) {
 /* ---------------- General appointments ---------------- */
 
 function GeneralAppointments() {
-  const { data: generalAppointments = [] } = useGeneralAppointments()
+  const { data: generalAppointments = [], isLoading } = useGeneralAppointments()
   const updateStatusMutation = useUpdateGeneralAppointmentStatus()
   const deleteMutation = useDeleteGeneralAppointment()
   const { push } = useToast()
@@ -261,7 +366,9 @@ function GeneralAppointments() {
   return (
     <>
       <Toolbar search={q} onSearch={setQ} />
-      {rows.length === 0 ? (
+      {isLoading ? (
+        <AppointmentSkeleton />
+      ) : rows.length === 0 ? (
         <EmptyState label="No appointments found." />
       ) : (
         <div className="space-y-3">
@@ -397,7 +504,7 @@ function GeneralAppointments() {
 /* ---------------- Messages ---------------- */
 
 function Messages() {
-  const { data: messages = [] } = useMessages()
+  const { data: messages = [], isLoading } = useMessages()
   const toggleReadMutation = useToggleMessageRead()
   const deleteMutation = useDeleteMessage()
   const { push } = useToast()
@@ -412,7 +519,9 @@ function Messages() {
   return (
     <>
       <Toolbar search={q} onSearch={setQ} />
-      {rows.length === 0 ? (
+      {isLoading ? (
+        <MessagesSkeleton />
+      ) : rows.length === 0 ? (
         <EmptyState label="No messages found." />
       ) : (
         <div className="grid min-w-0 gap-3 md:grid-cols-2">
