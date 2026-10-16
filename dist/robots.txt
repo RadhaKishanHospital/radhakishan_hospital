@@ -1,7 +1,0 @@
-
-User-agent: *
-Allow: /
-
-Disallow: /api/
-
-Sitemap: https://radhakishanhospital.in/sitemap.xml
