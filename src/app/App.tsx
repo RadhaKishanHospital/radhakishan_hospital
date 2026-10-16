@@ -3,6 +3,7 @@ import { router } from './routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
