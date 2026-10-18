@@ -98,8 +98,8 @@ export function Services() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Medical Services — Pediatrics, NICU, PICU, Surgery & More"
-        description="Explore medical services at Radhakishan Hospital in Kurukshetra, Haryana, including pediatrics, PICU, NICU, anaesthesiology, laboratory testing, dietetics, pharmacy, and ultrasound."
+        title="Children's Hospital in Kurukshetra"
+        description="Looking for a children's hospital in Kurukshetra? Radhakishan Hospital offers paediatric care and medical services for children in Haryana."
         path="/services"
         ogImage="/logo.png"
       />
@@ -123,7 +123,6 @@ export function Services() {
       </section>
 
       {/* Services Grid */}
-      {/* Services Grid */}
       <section id="services" className="px-6 lg:px-4 py-24">
         <div className="mx-auto max-w-7xl">
 
@@ -132,9 +131,9 @@ export function Services() {
               <div
                 key={title}
                 className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${title === t('services.items.laboratory.title')
-  ? 'lg:row-span-2'
-  : ''
-}`}
+                  ? 'lg:row-span-2'
+                  : ''
+                  }`}
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 transition-colors duration-200 group-hover:bg-primary">
                   <Icon className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary-foreground" />
@@ -180,12 +179,12 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
             <h2 className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
-  {t('services.whyChoose.title')}
-</h2>
+              {t('services.whyChoose.title')}
+            </h2>
 
-<p className="mt-4 text-lg text-muted-foreground">
-  {t('services.whyChoose.subtitle')}
-</p>
+            <p className="mt-4 text-lg text-muted-foreground">
+              {t('services.whyChoose.subtitle')}
+            </p>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3">
@@ -212,12 +211,12 @@ export function Services() {
             className="text-center max-w-3xl mx-auto text-white"
           >
             <h2 className="text-3xl md:text-4xl mb-6" style={{ fontWeight: 700 }}>
-  {t('services.cta.title')}
-</h2>
+              {t('services.cta.title')}
+            </h2>
 
-<p className="text-white/90 text-lg mb-8">
-  {t('services.cta.description')}
-</p>
+            <p className="text-white/90 text-lg mb-8">
+              {t('services.cta.description')}
+            </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/appointments">
                 <Button size="lg" className="bg-white text-[#058080] rounded-full px-6 font-medium shadow-[0_2px_8px_-2px_hsl(180_94%_26%/0.4)] transition-all duration-200 hover:bg-[#e6f2f2] hover:shadow-[0_4px_16px_-2px_hsl(180_94%_26%/0.5)]">

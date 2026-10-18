@@ -156,14 +156,14 @@
   },
   "services": {
     "hero": {
-      "title": "Our Medical",
-      "highlight": "Services",
-      "description": "Quality healthcare services for children, newborns, diagnostic needs, nutrition, pharmacy, and other essential medical requirements."
+      "title": "Children's Healthcare & Medical",
+      "highlight": "Services in Kurukshetra",
+      "description": "Explore children's healthcare, paediatric services, newborn care, and other medical facilities at Radhakishan Hospital in Kurukshetra, Haryana. Contact us to enquire about available services and appointments."
     },
     "items": {
       "pediatrics": {
-        "title": "Pediatrics",
-        "description": "Specialized medical care for infants, children, and adolescents, providing comprehensive treatment for pediatric health needs."
+        "title": "Paediatrics & Child Healthcare",
+        "description": "Medical care for infants, children, and adolescents. Contact Radhakishan Hospital in Kurukshetra to enquire about paediatric consultations and available child healthcare services."
       },
       "picu": {
         "title": "Pediatric Intensive Care Unit",
@@ -224,87 +224,78 @@
     }
   },
   "doctors": {
-  "hero": {
-    "title": "Meet Our",
-    "highlight": "Expert Doctors",
-    "description": "Our team of highly qualified and experienced medical professionals is dedicated to providing you with the best healthcare possible."
-  },
-
-  "specialties": {
-    "title": "Specialties",
-    "subtitle": "Expert Care Across Disciplines",
-    "generalMedicine": "General Medicine",
-    "surgery": "Surgery",
-    "pathology": "Pathology",
-    "pediatricsNeonatal": "Pediatrics & Neonatal Care"
-  },
-
-  "directory": {
-    "title": "Our Doctors",
-    "subtitle": "Meet Our Specialists",
-    "noDoctors": "No doctors found for this specialty."
-  },
-
-  "filters": {
-    "all": "All"
-  },
-
-  "experience": {
-    "experienced": "Experienced"
-  },
-
-  "availability": {
-    "appointmentsAvailable": "Appointments Available"
-  },
-
-  "whyChoose": {
-    "title": "Why Choose Our Doctors",
-    "description": "Our medical professionals are committed to excellence in patient care",
-    "features": {
-      "boardCertified": {
-        "title": "Board Certified",
-        "description": "All our doctors are board-certified in their specialties"
-      },
-      "experienced": {
-        "title": "Experienced",
-        "description": "Average of 15+ years of medical experience"
-      },
-      "compassionate": {
-        "title": "Compassionate",
-        "description": "Patient-centered approach with empathy and care"
-      },
-      "innovative": {
-        "title": "Innovative",
-        "description": "Using latest medical techniques and technologies"
+    "hero": {
+      "title": "Meet Our",
+      "highlight": "Expert Doctors",
+      "description": "Our team of highly qualified and experienced medical professionals is dedicated to providing you with the best healthcare possible."
+    },
+    "specialties": {
+      "title": "Specialties",
+      "subtitle": "Expert Care Across Disciplines",
+      "generalMedicine": "General Medicine",
+      "surgery": "Surgery",
+      "pathology": "Pathology",
+      "pediatricsNeonatal": "Pediatrics & Neonatal Care"
+    },
+    "directory": {
+      "title": "Our Doctors",
+      "subtitle": "Meet Our Specialists",
+      "noDoctors": "No doctors found for this specialty."
+    },
+    "filters": {
+      "all": "All"
+    },
+    "experience": {
+      "experienced": "Experienced"
+    },
+    "availability": {
+      "appointmentsAvailable": "Appointments Available"
+    },
+    "whyChoose": {
+      "title": "Why Choose Our Doctors",
+      "description": "Our medical professionals are committed to excellence in patient care",
+      "features": {
+        "boardCertified": {
+          "title": "Board Certified",
+          "description": "All our doctors are board-certified in their specialties"
+        },
+        "experienced": {
+          "title": "Experienced",
+          "description": "Average of 15+ years of medical experience"
+        },
+        "compassionate": {
+          "title": "Compassionate",
+          "description": "Patient-centered approach with empathy and care"
+        },
+        "innovative": {
+          "title": "Innovative",
+          "description": "Using latest medical techniques and technologies"
+        }
       }
+    },
+    "cta": {
+      "title": "Schedule Your Appointment Today",
+      "description": "Connect with our expert doctors and start your journey to better health",
+      "button": "Book Appointment"
+    },
+    "profile": {
+      "about": "About",
+      "qualification": "Qualification",
+      "registration": "Registration",
+      "registrationAuthority": "Registration Authority",
+      "registrationNo": "Registration No.",
+      "available": "Available",
+      "back": "Back",
+      "backHome": "Back to Home",
+      "notFound": "Doctor not found"
+    },
+    "bio": {
+      "pediatricsNeonatal": "Specialist in Pediatrics and Neonatal Care.",
+      "pathology": "Specialist in Pathology.",
+      "generalMedicine": "Specialist in General Medicine.",
+      "surgery": "Specialist in General Surgery."
     }
   },
-
-  "cta": {
-    "title": "Schedule Your Appointment Today",
-    "description": "Connect with our expert doctors and start your journey to better health",
-    "button": "Book Appointment"
-  },
-
-  "profile": {
-    "about": "About",
-    "qualification": "Qualification",
-    "registration": "Registration",
-    "registrationAuthority": "Registration Authority",
-    "registrationNo": "Registration No.",
-    "available": "Available",
-    "back": "Back",
-    "backHome": "Back to Home",
-    "notFound": "Doctor not found"
-  },
-
-  "bio": {
-    "pediatricsNeonatal": "Specialist in Pediatrics and Neonatal Care.",
-    "pathology": "Specialist in Pathology.",
-    "generalMedicine": "Specialist in General Medicine.",
-    "surgery": "Specialist in General Surgery."
-  }
-},
   "contact": {
     "hero": {
       "title": "Get in",
@@ -469,29 +460,29 @@
     "surgery": "Specialist in General Surgery."
   },
   "footer": {
-  "description": "Providing exceptional healthcare services with compassion and excellence since 1983.",
-  "services": {
-    "title": "Our Services",
-    "pediatrics": "Pediatrics",
-    "picu": "Pediatric Intensive Care Unit",
-    "nicu": "Neonatal Intensive Care Unit",
-    "anaesthesiology": "Anaesthesiology Unit (On call)",
-    "laboratory": "Clinical Laboratory Services",
-    "dietetics": "Dietetics & Nutrition",
-    "pharmacy": "Pharmacy",
-    "ultrasound": "Ultrasound & X-Ray"
-  },
-  "quickLinks": {
-    "title": "Quick Links",
-    "about": "About Us",
-    "services": "Our Services",
-    "doctors": "Our Doctors",
-    "appointment": "Book Appointment",
-    "contact": "Contact Us"
-  },
-  "contact": {
-    "title": "Contact Info"
-  },
-  "copyright": "All rights reserved."
-}
+    "description": "Providing exceptional healthcare services with compassion and excellence since 1983.",
+    "services": {
+      "title": "Our Services",
+      "pediatrics": "Pediatrics",
+      "picu": "Pediatric Intensive Care Unit",
+      "nicu": "Neonatal Intensive Care Unit",
+      "anaesthesiology": "Anaesthesiology Unit (On call)",
+      "laboratory": "Clinical Laboratory Services",
+      "dietetics": "Dietetics & Nutrition",
+      "pharmacy": "Pharmacy",
+      "ultrasound": "Ultrasound & X-Ray"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "about": "About Us",
+      "services": "Our Services",
+      "doctors": "Our Doctors",
+      "appointment": "Book Appointment",
+      "contact": "Contact Us"
+    },
+    "contact": {
+      "title": "Contact Info"
+    },
+    "copyright": "All rights reserved."
+  }
 }
