@@ -28,11 +28,18 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname } = location;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [pathname]);
+    const state = location.state as { scrollY?: number } | null;
+    const top = typeof state?.scrollY === 'number' ? state.scrollY : 0;
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top, left: 0, behavior: 'auto' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.state, pathname]);
 
   return null;
 }

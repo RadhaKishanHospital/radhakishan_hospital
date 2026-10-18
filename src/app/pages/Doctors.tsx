@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Award, GraduationCap, Mail, Phone } from 'lucide-react';
 import { useState, useMemo } from "react";
@@ -41,6 +41,7 @@ const fadeInUp = {
 export function Doctors() {
   const [activeSpecialty, setActiveSpecialty] = useState("all");
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
 
   const fadeUp = {
@@ -89,6 +90,7 @@ export function Doctors() {
       nextSlot: "appointmentsAvailable",
       experience: "experienced",
       initials: "LG",
+      image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
     },
     {
       id: 2,
@@ -99,6 +101,7 @@ export function Doctors() {
       nextSlot: "appointmentsAvailable",
       experience: "experienced",
       initials: "MD",
+      image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
     },
     {
       id: 3,
@@ -109,6 +112,7 @@ export function Doctors() {
       nextSlot: "appointmentsAvailable",
       experience: "experienced",
       initials: "AT",
+      image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
     },
     {
       id: 4,
@@ -119,6 +123,7 @@ export function Doctors() {
       nextSlot: "appointmentsAvailable",
       experience: "experienced",
       initials: "SS",
+      image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
     },
   ];
 
@@ -260,11 +265,23 @@ export function Doctors() {
                 whileHover={{ y: -6 }}
                 className="group"
               >
-                <Link to={`/doctor/${doc.id}`}>
+                <Link
+                  to={`/doctor/${doc.id}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(`/doctor/${doc.id}`, {
+                      state: { scrollY: window.scrollY },
+                    });
+                  }}
+                >
                   <div className="bg-card rounded-2xl p-5  shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300 cursor-pointer">
                     <div className="flex items-start gap-4 mb-4">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center shrink-0">
-                        <span className="text-lg font-bold text-primary">{doc.initials}</span>
+                        <ImageWithFallback
+                          src={doc.image}
+                          alt={doc.name}
+                          className="w-full h-full rounded-2xl object-cover"
+                        />
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-semibold text-foreground text-sm truncate group-hover:text-primary transition-colors">{doc.name}</h3>

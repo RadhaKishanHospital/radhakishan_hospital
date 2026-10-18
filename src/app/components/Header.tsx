@@ -12,12 +12,14 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [adminLoginOpen, setAdminLoginOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const logoClicks = useRef(0);
   const logoClickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const languageRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
+  const useTransparentHomeHeader = isHomePage && !isScrolled;
 
   const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     logoClicks.current += 1;
@@ -73,11 +75,26 @@ export function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <header
-      className={`top-0 z-50 w-full ${isHomePage
-        ? 'absolute left-0 right-0 bg-transparent text-white'
-        : 'bg-white/95 shadow-sm backdrop-blur-sm'
+      className={`top-0 z-50 w-full transition-[background-color,box-shadow,backdrop-filter,color] duration-300 ease-out ${isHomePage
+        ? useTransparentHomeHeader
+          ? 'absolute left-0 right-0 bg-transparent text-white'
+          : 'fixed left-0 right-0 bg-white/95 text-foreground shadow-sm backdrop-blur-md'
+        : 'sticky bg-white/95 text-foreground shadow-sm backdrop-blur-md'
         }`}
     >
       {/* Top Bar */}
@@ -91,7 +108,7 @@ export function Header() {
               className="flex items-center gap-2"
             >
               <div
-                className={`flex h-12 w-12 shrink-0 items-center justify-center ${isHomePage ? "rounded-lg bg-white p-1" : "p-1"
+                className={`flex h-12 w-12 shrink-0 items-center justify-center ${useTransparentHomeHeader ? "rounded-lg bg-white p-1" : "p-1"
                   }`}
               >
                 <img
@@ -101,10 +118,10 @@ export function Header() {
                 />
               </div>
               <div>
-                <div className={`text-xl tracking-tight ${isHomePage ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
+                <div className={`text-xl tracking-tight ${useTransparentHomeHeader ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
                   Radhakishan Hospital
                 </div>
-                <div className={`hidden text-xs sm:block ${isHomePage ? 'text-white/70' : 'text-muted-foreground'}`}>Medical Center</div>
+                <div className={`hidden text-xs sm:block ${useTransparentHomeHeader ? 'text-white/70' : 'text-muted-foreground'}`}>Medical Center</div>
               </div>
             </motion.div>
           </Link>
@@ -116,8 +133,8 @@ export function Header() {
                 key={link.path}
                 to={link.path}
                 className={`relative transition-colors hover:text-primary ${isActive(link.path)
-                  ? isHomePage ? 'text-white' : 'text-primary'
-                  : isHomePage ? 'text-white/85' : 'text-foreground'
+                  ? useTransparentHomeHeader ? 'text-white' : 'text-primary'
+                  : useTransparentHomeHeader ? 'text-white/85' : 'text-foreground'
                   }`}
               >
                 {link.label}
@@ -144,7 +161,7 @@ export function Header() {
                 className={`
       flex items-center gap-1.5 rounded-full border px-2 py-1
       text-sm font-medium transition-all duration-200
-      ${isHomePage
+      ${useTransparentHomeHeader
                     ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'
                     : 'border-gray-200 bg-white text-foreground hover:bg-gray-50'
                   }
@@ -239,7 +256,7 @@ export function Header() {
             {/* Book Appointment */}
             <Link to="/appointments" className="hidden md:block">
               <Button
-                className={`rounded-full px-6 font-medium transition-all duration-200 ${isHomePage
+                className={`rounded-full px-6 font-medium transition-all duration-200 ${useTransparentHomeHeader
                   ? 'bg-white/95 text-black hover:bg-white/80'
                   : 'bg-[#058080] text-white hover:bg-[#047070]'
                   }`}
@@ -257,7 +274,7 @@ export function Header() {
                   : 'Open navigation menu'
               }
               aria-expanded={mobileMenuOpen}
-              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${isHomePage
+              className={`md:hidden flex-shrink-0 rounded-lg p-2 transition-colors ${useTransparentHomeHeader
                 ? 'text-white hover:bg-white/10'
                 : 'text-foreground hover:bg-muted'
                 }`}

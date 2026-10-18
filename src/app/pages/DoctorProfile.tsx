@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -96,6 +96,7 @@ const doctors: Record<
 
 const DoctorProfile = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const { t } = useTranslation();
   const doctor = doctors[Number(id)];
 
@@ -148,7 +149,7 @@ const DoctorProfile = () => {
         }}
       />
       {/* Header */}
-      <header className="top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2 min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-none">
@@ -170,7 +171,7 @@ const DoctorProfile = () => {
                 </div>
               </motion.div>
             </Link>
-            <Link to="/doctors">
+            <Link to="/doctors" state={location.state}>
               <Button variant="ghost" className="rounded-full text-sm">
                 <ArrowLeft className="w-4 h-4 mr-2" /> {t("doctors.profile.back")}
               </Button>
