@@ -12,6 +12,8 @@ import ReviewModal, { ReviewDraft } from '../components/ReviewModal';
 import { useReviews, useAddReview } from '../../../lib/queries';
 import { toast } from 'sonner';
 import { SEO } from '../components/SEO';
+import { PAGE_META, corePageSchema } from '../seo/pages';
+import { LANDING_PAGES } from '../seo/landingPages';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -123,10 +125,10 @@ export function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <SEO
-        title="Radhakishan Hospital"
-        description="Radhakishan Hospital, Kurukshetra — established in 1987. 24/7 emergency care, pediatrics, NICU, PICU, general surgery, pathology, and cashless insurance. Book an appointment today."
-        path="/"
-        ogImage="/logo.png"
+        title={PAGE_META.home.title}
+        description={PAGE_META.home.description}
+        path={PAGE_META.home.path}
+        schema={corePageSchema(PAGE_META.home.path)}
       />
       <style>{`
   @keyframes reviews-slide {
@@ -307,6 +309,40 @@ export function Home() {
       </section>
 
 
+
+      {/* Children's specialities — internal links to keyword landing pages */}
+      <section className="bg-[#f8fafa] px-4 py-16 sm:px-6 md:py-20 lg:px-4">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+              {t("home.specialitiesEyebrow")}
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl">
+              {t("home.specialitiesTitle")}
+            </h2>
+            <p className="mt-4 text-muted-foreground">{t("home.specialitiesDescription")}</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {LANDING_PAGES.map((page) => (
+              <Link
+                key={page.slug}
+                to={`/${page.slug}`}
+                className="group flex items-start gap-4 rounded-[20px] bg-white p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)]"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Icon icon={page.icon} className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block font-semibold text-foreground">{page.linkLabel}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+                    {page.highlights[0].text}
+                  </span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className='flex flex-col gap-6 md:gap-8 py-14 md:py-20 bg-white px-4'>
         <div className='flex justify-center text-sm md:text-base'>{t("home.services")}</div>

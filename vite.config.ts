@@ -3,12 +3,14 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { expressApiPlugin } from './server/apiPlugin'
+import { seoPrerenderPlugin } from './server/seoPrerender'
 
 export default defineConfig({
   plugins: [
     expressApiPlugin(),
     react(),
     tailwindcss(),
+    seoPrerenderPlugin(),
   ],
   resolve: {
     alias: {

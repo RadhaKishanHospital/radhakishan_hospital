@@ -31,6 +31,7 @@ import { Icon } from '@iconify/react';
 import { Input } from "../components/ui/input";
 import { Badge } from "../components/ui/badge";
 import { SEO } from '../components/SEO';
+import { PAGE_META } from '../seo/pages';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -138,10 +139,9 @@ export function Doctors() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Our Doctors — Specialists in Pediatrics, Medicine, Surgery & Pathology"
-        description="Meet the qualified doctors at Radhakishan Hospital, Kurukshetra. Board-certified specialists in pediatrics & neonatal care, general medicine, general surgery, and pathology."
-        path="/doctors"
-        ogImage="/logo.png"
+        title={PAGE_META.doctors.title}
+        description={PAGE_META.doctors.description}
+        path={PAGE_META.doctors.path}
       />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">

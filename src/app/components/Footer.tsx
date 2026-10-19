@@ -2,6 +2,14 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Facebook, Youtube, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 import { Icon } from '@iconify/react';
+import { LANDING_PAGES } from '../seo/landingPages';
+
+const FOOTER_SERVICE_LINKS = [
+  { slug: 'childrens-hospital-kurukshetra', key: 'footer.services.pediatrics' },
+  { slug: 'nicu-kurukshetra', key: 'footer.services.nicu' },
+  { slug: 'picu-kurukshetra', key: 'footer.services.picu' },
+  { slug: 'pediatric-emergency-kurukshetra', key: 'footer.services.emergency' },
+];
 
 export function Footer() {
   const { t } = useTranslation();
@@ -49,30 +57,25 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-foreground">{t('footer.services.title')}</h3>
 
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.pediatrics')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.picu')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.nicu')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.anaesthesiology')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.laboratory')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.dietetics')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.pharmacy')}
-              </li>
-              <li className="hover:text-primary transition-colors cursor-pointer">
-                {t('footer.services.ultrasound')}
+            <ul className="space-y-2">
+              {FOOTER_SERVICE_LINKS.map(({ slug, key }) => (
+                <li key={slug}>
+                  <Link to={`/${slug}`} className="text-muted-foreground transition-colors hover:text-primary">
+                    {t(key)}
+                  </Link>
+                </li>
+              ))}
+              {LANDING_PAGES.filter((p) => !FOOTER_SERVICE_LINKS.some((l) => l.slug === p.slug) && p.slug !== 'childrens-hospital-kurukshetra').map((p) => (
+                <li key={p.slug}>
+                  <Link to={`/${p.slug}`} className="text-muted-foreground transition-colors hover:text-primary">
+                    {p.linkLabel}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/services" className="text-muted-foreground transition-colors hover:text-primary">
+                  {t('footer.quickLinks.services')}
+                </Link>
               </li>
             </ul>
           </div>

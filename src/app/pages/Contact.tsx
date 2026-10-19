@@ -9,6 +9,7 @@ import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { SEO } from '../components/SEO';
+import { PAGE_META, corePageSchema } from '../seo/pages';
 import {
   Accordion,
   AccordionContent,
@@ -126,9 +127,10 @@ export function Contact() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contact Us & Location"
-        description="Get in touch with Radhakishan Hospital in Kurukshetra, Haryana. Find OPD timings, 24/7 emergency contact numbers, hospital address, and send direct inquiries."
-        path="/contact"
+        title={PAGE_META.contact.title}
+        description={PAGE_META.contact.description}
+        path={PAGE_META.contact.path}
+        schema={corePageSchema(PAGE_META.contact.path)}
       />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">

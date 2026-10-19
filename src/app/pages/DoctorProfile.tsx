@@ -6,99 +6,16 @@ import { ArrowLeft } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
 import { SEO } from "../components/SEO";
+import { DOCTORS, doctorSchema, doctorSeo } from "../data/doctors";
 
 const DEFAULT_DOCTOR_IMAGE =
   "https://res.cloudinary.com/hizkabhg/image/upload/v1789883056/close-up-doctor-with-stethoscope.jpg";
-
-const doctors: Record<
-  number,
-  {
-    id: number;
-    name: string;
-    specialty: string;
-    qualification: string;
-    experience?: string;
-    initials: string;
-    bio: string;
-    education: string[];
-    registrationAuthority: string;
-    registrationNo: string;
-    available: boolean;
-    image?: string;
-  }
-> = {
-
-  1: {
-    id: 1,
-    name: "Dr. Lokender Goyal",
-    specialty: "pediatricsNeonatal",
-    qualification: "MBBS, MD (Pediatrics)",
-    initials: "LG",
-    bio: "pediatricsNeonatal",
-    education: [
-      "Himachal Pradesh University",
-      "Panjab University",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-21452",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882019/IMG_9137.JPG.jpg",
-  },
-
-  2: {
-    id: 2,
-    name: "Dr. Monika Dixit",
-    specialty: "pathology",
-    qualification: "MBBS, MD (Pathology)",
-    initials: "MD",
-    bio: "pathology",
-    education: [
-      "Institute of Medical Sciences, BHU, Varanasi",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-013272",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882574/IMG_9134.JPG.jpg",
-  },
-  3: {
-    id: 3,
-    name: "Dr. Akanksha Tyagi",
-    specialty: "generalMedicine",
-    qualification: "MBBS, MD (General Medicine)",
-    initials: "AT",
-    bio: "generalMedicine",
-    education: [
-      "Rajasthan University of Health Sciences",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-23419",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9136.JPG.jpg",
-  },
-
-  4: {
-    id: 4,
-    name: "Dr. Shashank Singhal",
-    specialty: "surgery",
-    qualification: "MBBS, MS (General Surgery)",
-    initials: "SS",
-    bio: "surgery",
-    education: [
-      "Pt. B.D. Sharma University of Health Sciences, Rohtak",
-      "NIMS University, Jaipur",
-    ],
-    registrationAuthority: "Haryana Medical Council",
-    registrationNo: "HN-10817",
-    available: true,
-    image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
-  },
-};
 
 const DoctorProfile = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const { t } = useTranslation();
-  const doctor = doctors[Number(id)];
+  const doctor = DOCTORS[Number(id)];
 
    const [doctorImage, setDoctorImage] = useState(
     doctor?.image || DEFAULT_DOCTOR_IMAGE
@@ -128,25 +45,10 @@ const DoctorProfile = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${doctor.name} — ${doctor.qualification}`}
-        description={`${doctor.name}, ${doctor.qualification} at Radhakishan Hospital, Kurukshetra. Registered with ${doctor.registrationAuthority} (Reg. No. ${doctor.registrationNo}). Book an appointment today.`}
-        path={`/doctor/${doctor.id}`}
+        {...doctorSeo(doctor)}
         ogImage={doctor.image || "/logo.png"}
         ogType="profile"
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'Physician',
-          name: doctor.name,
-          jobTitle: doctor.qualification,
-          medicalSpecialty: doctor.specialty,
-          worksFor: {
-            '@type': 'Hospital',
-            name: 'Radhakishan Hospital',
-            url: 'https://radhakishanhospital.in',
-          },
-          url: `https://radhakishanhospital.in/doctor/${doctor.id}`,
-          image: doctor.image || 'https://radhakishanhospital.in/logo.png',
-        }}
+        schema={doctorSchema(doctor)}
       />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">

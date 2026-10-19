@@ -1,13 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-
-const SITE_URL = 'https://radhakishanhospital.in';
-const SITE_NAME = 'Radhakishan Hospital';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/logo.png`;
+import { DEFAULT_OG_IMAGE, SITE_NAME, absoluteUrl, buildTitle } from '../seo/site';
 
 interface SEOProps {
-  /** Unique page title — will be suffixed with " | Radhakishan Hospital" unless it IS the homepage title */
+  /** Page title — suffixed with " | Radhakishan Hospital" on every page except the homepage */
   title: string;
-  /** Meta description for search engines (max ~155 chars recommended) */
+  /** Meta description for search engines (~155 chars recommended) */
   description: string;
   /** Canonical path, e.g. "/about". Defaults to "/" */
   path?: string;
@@ -17,60 +14,15 @@ interface SEOProps {
   ogType?: string;
   /** Set to true to add noindex,nofollow (e.g. admin pages) */
   noIndex?: boolean;
-  /** Optional JSON-LD structured data object */
-  schema?: Record<string, any>;
+  /** Optional JSON-LD structured data (one object or several) */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
-
-const DEFAULT_HOSPITAL_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'Hospital',
-  name: 'Radhakishan Hospital',
-  url: 'https://radhakishanhospital.in',
-  logo: 'https://radhakishanhospital.in/logo.png',
-  image: 'https://radhakishanhospital.in/logo.png',
-  description:
-    'Radhakishan Hospital in Kurukshetra, Haryana — established in 1987. Comprehensive multi-specialty healthcare, 24/7 emergency care, pediatrics, NICU, PICU, general surgery, pathology, and cashless insurance.',
-  telephone: '+91 72060 29516',
-  email: 'radhakishanhospital@gmail.com',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Jyoti Nagar, Thanesar',
-    addressLocality: 'Kurukshetra',
-    addressRegion: 'Haryana',
-    postalCode: '136118',
-    addressCountry: 'IN',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 29.9695,
-    longitude: 76.8783,
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday',
-      ],
-      opens: '00:00',
-      closes: '23:59',
-    },
-  ],
-  sameAs: [
-    'https://www.instagram.com/radhakishan.hospital',
-    'https://www.youtube.com/watch?v=ZI8iEtAULdw',
-  ],
-};
 
 /**
  * Reusable SEO head component.
- * Uses react-helmet-async to manage <head> tags per route, ensuring
- * metadata updates correctly during client-side navigation.
+ * Uses react-helmet-async to manage <head> tags per route. The same tags are
+ * prerendered into static HTML at build time (server/seoPrerender.ts) with
+ * data-rh="true", so Helmet replaces them instead of duplicating them.
  */
 export function SEO({
   title,
@@ -81,34 +33,22 @@ export function SEO({
   noIndex = false,
   schema,
 }: SEOProps) {
-  const canonicalUrl = `${SITE_URL}${path === '/' ? '' : path}`;
-  const fullTitle =
-  path === '/'
-    ? `${title} | Kurukshetra, Haryana`
-    : `${title} | ${SITE_NAME}`;
-  const resolvedOgImage = ogImage
-    ? ogImage.startsWith('http')
-      ? ogImage
-      : `${SITE_URL}${ogImage}`
-    : DEFAULT_OG_IMAGE;
-
-  const jsonLd = schema || (path === '/' ? DEFAULT_HOSPITAL_SCHEMA : null);
+  const canonicalUrl = absoluteUrl(path);
+  const fullTitle = buildTitle(title, path);
+  const resolvedOgImage = ogImage ? absoluteUrl(ogImage) : DEFAULT_OG_IMAGE;
+  const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
   return (
     <Helmet>
-      {/* Primary Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={canonicalUrl} />
+      {!noIndex && <link rel="canonical" href={canonicalUrl} />}
+      <meta
+        name="robots"
+        content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+      />
 
-      {/* Robots */}
-      {noIndex ? (
-        <meta name="robots" content="noindex, nofollow" />
-      ) : (
-        <meta name="robots" content="index, follow" />
-      )}
-
-      {/* Open Graph / Facebook */}
+      {/* Open Graph / Facebook / WhatsApp */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={fullTitle} />
@@ -119,17 +59,15 @@ export function SEO({
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={canonicalUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={resolvedOgImage} />
 
-      {/* JSON-LD Structured Data */}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
+      {schemas.map((s, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(s)}
         </script>
-      )}
+      ))}
     </Helmet>
   );
 }

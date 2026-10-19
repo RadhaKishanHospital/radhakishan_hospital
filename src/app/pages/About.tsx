@@ -6,6 +6,7 @@ import { LogoCarousel, LogoItem } from '../components/ui/logo-carousel';
 import { useEffect, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 import { SEO } from '../components/SEO';
+import { PAGE_META, corePageSchema } from '../seo/pages';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -53,10 +54,10 @@ export function About() {
   return (
     <>
       <SEO
-        title="About Us — Our Story, Mission & Values"
-        description="Learn about Radhakishan Hospital, Kurukshetra — serving patients since 1987 with compassionate, evidence-based healthcare. Discover our mission, vision, core values, and commitment to the community."
-        path="/about"
-        ogImage="/logo.png"
+        title={PAGE_META.about.title}
+        description={PAGE_META.about.description}
+        path={PAGE_META.about.path}
+        schema={corePageSchema(PAGE_META.about.path)}
       />
 
       <style>

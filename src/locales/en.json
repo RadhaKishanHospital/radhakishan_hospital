@@ -12,10 +12,10 @@
     "hindi": "हिन्दी"
   },
   "home": {
-    "welcome": "Welcome to Radhakishan Hospital",
-    "heroTitle": "Exceptional care,",
-    "heroTitleHighlight": "trusted for life.",
-    "heroDescription": "From preventive wellness to complex surgery, our specialists deliver compassionate, evidence-based medicine — powered by advanced technology, available 24 hours a day.",
+    "welcome": "Radhakishan Hospital, Kurukshetra · Since 1987",
+    "heroTitle": "Children’s hospital, NICU & PICU",
+    "heroTitleHighlight": "in Kurukshetra.",
+    "heroDescription": "Trusted by families since 1987 — a child specialist, newborn intensive care, pediatric ICU with ventilator support and a 24-hour emergency, alongside general medicine, surgery and an in-house lab.",
     "bookAppointment": "Book an appointment",
     "callUs": "Call Us",
     "established": "Established",
@@ -68,7 +68,10 @@
     "addReview": "Add Your Review",
     "readyStarted": "Ready to Get Started?",
     "readyDescription": "Book an appointment today and experience world-class healthcare",
-    "bookYourAppointment": "Book Your Appointment"
+    "bookYourAppointment": "Book Your Appointment",
+    "specialitiesEyebrow": "Children’s care in Kurukshetra",
+    "specialitiesTitle": "Specialised care for newborns and children",
+    "specialitiesDescription": "From the first breath to the teenage years — explore our children’s services at Radhakishan Hospital, Kurukshetra."
   },
   "about": {
     "hero": {
@@ -221,7 +224,8 @@
       "title": "Need Medical Assistance?",
       "description": "Our team is ready to provide you with the best healthcare services. Book an appointment or contact us for more information.",
       "button": "Book Appointment"
-    }
+    },
+    "learnMore": "Learn more"
   },
   "doctors": {
     "hero": {
@@ -460,17 +464,18 @@
     "surgery": "Specialist in General Surgery."
   },
   "footer": {
-    "description": "Providing exceptional healthcare services with compassion and excellence since 1983.",
+    "description": "Radhakishan Hospital, Kurukshetra — children’s and multi-specialty hospital with NICU, PICU and 24-hour emergency, serving families since 1987.",
     "services": {
       "title": "Our Services",
-      "pediatrics": "Pediatrics",
+      "pediatrics": "Children’s Hospital & Pediatrics",
       "picu": "Pediatric Intensive Care Unit",
       "nicu": "Neonatal Intensive Care Unit",
       "anaesthesiology": "Anaesthesiology Unit (On call)",
       "laboratory": "Clinical Laboratory Services",
       "dietetics": "Dietetics & Nutrition",
       "pharmacy": "Pharmacy",
-      "ultrasound": "Ultrasound & X-Ray"
+      "ultrasound": "Ultrasound & X-Ray",
+      "emergency": "24 Hour Child Emergency"
     },
     "quickLinks": {
       "title": "Quick Links",

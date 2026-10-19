@@ -19,6 +19,8 @@ import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { SEO } from '../components/SEO';
+import { PAGE_META } from '../seo/pages';
+import { LANDING_PAGES } from '../seo/landingPages';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -28,21 +30,30 @@ const fadeInUp = {
 
 export function Services() {
   const { t } = useTranslation();
-  const services = [
+  const services: {
+    icon: typeof Baby;
+    title: string;
+    description: string;
+    href?: string;
+    features?: string[];
+  }[] = [
     {
       icon: Baby,
       title: t('services.items.pediatrics.title'),
       description: t('services.items.pediatrics.description'),
+      href: '/childrens-hospital-kurukshetra',
     },
     {
       icon: Activity,
       title: t('services.items.picu.title'),
       description: t('services.items.picu.description'),
+      href: '/picu-kurukshetra',
     },
     {
       icon: Baby,
       title: t('services.items.nicu.title'),
       description: t('services.items.nicu.description'),
+      href: '/nicu-kurukshetra',
     },
     {
       icon: Stethoscope,
@@ -98,10 +109,9 @@ export function Services() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Children's Hospital in Kurukshetra"
-        description="Looking for a children's hospital in Kurukshetra? Radhakishan Hospital offers paediatric care and medical services for children in Haryana."
-        path="/services"
-        ogImage="/logo.png"
+        title={PAGE_META.services.title}
+        description={PAGE_META.services.description}
+        path={PAGE_META.services.path}
       />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white pb-5 pt-20">
@@ -127,7 +137,7 @@ export function Services() {
         <div className="mx-auto max-w-7xl">
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-fr">
-            {services.map(({ icon: Icon, title, description, features }) => (
+            {services.map(({ icon: Icon, title, description, features, href }) => (
               <div
                 key={title}
                 className={`group relative rounded-[24px] bg-card p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.04),0_6px_24px_-4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.06),0_16px_40px_-8px_rgba(0,0,0,0.1)] ${title === t('services.items.laboratory.title')
@@ -146,6 +156,17 @@ export function Services() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {description}
                 </p>
+
+                {href && (
+                  <Link
+                    to={href}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                  >
+                    {t('services.learnMore')}
+                    <span className="sr-only"> about {title}</span>
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                )}
 
                 {features && (
                   <div className="mt-6 border-t border-border/60 pt-6">
@@ -174,6 +195,25 @@ export function Services() {
 
         </div>
       </section>
+      {/* Children's services index — internal links to keyword pages */}
+      <section className="px-6 pb-24 lg:px-4">
+        <div className="mx-auto max-w-7xl rounded-[24px] bg-[#f8fafa] p-8 md:p-10">
+          <h2 className="text-2xl font-bold tracking-[-0.03em] text-foreground sm:text-3xl">
+            Children’s treatments &amp; facilities in Kurukshetra
+          </h2>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {LANDING_PAGES.map((page) => (
+              <li key={page.slug}>
+                <Link to={`/${page.slug}`} className="group flex items-center gap-3 text-foreground hover:text-primary">
+                  <Icon icon={page.icon} className="h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm font-medium group-hover:underline">{page.linkLabel}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="px-6 lg:px-4 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl">

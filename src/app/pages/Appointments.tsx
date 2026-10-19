@@ -11,6 +11,7 @@ import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { SEO } from '../components/SEO';
+import { PAGE_META } from '../seo/pages';
 
 export function Appointments() {
   const { t } = useTranslation();
@@ -83,10 +84,9 @@ export function Appointments() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Book an Appointment"
-        description="Schedule your visit at Radhakishan Hospital, Kurukshetra. Book an OPD appointment online or call +91 72060 29516. Flexible scheduling with quick confirmation."
-        path="/appointments"
-        ogImage="/logo.png"
+        title={PAGE_META.appointments.title}
+        description={PAGE_META.appointments.description}
+        path={PAGE_META.appointments.path}
       />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#f0fafa] to-white py-20">

@@ -7,6 +7,8 @@ import { Doctors } from './pages/Doctors';
 import DoctorProfile from './pages/DoctorProfile';
 import { Appointments } from './pages/Appointments';
 import { Contact } from './pages/Contact';
+import { LandingPage } from './pages/LandingPage';
+import { LANDING_PAGES } from './seo/landingPages';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Toaster } from './components/ui/sonner';
@@ -105,6 +107,11 @@ export const router = createBrowserRouter([
     path: '/contact',
     element: <WithScroll><Layout><Contact /></Layout></WithScroll>,
   },
+  // Keyword-focused service pages, e.g. /nicu-kurukshetra
+  ...LANDING_PAGES.map((page) => ({
+    path: `/${page.slug}`,
+    element: <WithScroll><Layout><LandingPage slug={page.slug} /></Layout></WithScroll>,
+  })),
   {
     path: '/admin',
     element: <AdminRoute />,
