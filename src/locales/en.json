@@ -463,6 +463,89 @@
     "generalMedicine": "Specialist in General Medicine.",
     "surgery": "Specialist in General Surgery."
   },
+  "landing": {
+    "home": "Home",
+    "services": "Services",
+    "call": "Call",
+    "bookAppointment": "Book an appointment",
+    "servingSince": "Serving since",
+    "emergency": "Emergency",
+    "onSite": "On site",
+    "aboutService": "About this service",
+    "atAGlance": "At a glance",
+    "facilitiesTitle": "Facilities & care you can count on",
+    "yourVisit": "Your visit",
+    "whatToExpect": "What to expect at Radhakishan Hospital",
+    "address": "Address",
+    "emergency247": "Emergency · 24/7",
+    "opdAppointments": "OPD appointments",
+    "visitUs": "Visit us",
+    "opdTimings": "OPD timings",
+    "getDirections": "Get directions",
+    "childDoctor": "Your child’s doctor",
+    "bookWith": "Book with",
+    "viewProfile": "View profile",
+    "callEmergency": "Call emergency",
+    "exploreMore": "Explore more",
+    "relatedServices": "Related children’s services in Kurukshetra",
+    "learnMore": "Learn more",
+    "faqs": "Frequently asked questions",
+    "ctaTitle": "Care for your child, day and night",
+    "ctaDescription": "Book an OPD visit with our paediatrician, or come to our 24-hour emergency at Jyoti Nagar, Thanesar, Kurukshetra.",
+    "bookVisit": "Book visit",
+    "visitSteps": {
+      "0": {
+        "title": "Call or walk in",
+        "text": "Call {{phone}} for OPD, or come straight to the 24-hour emergency."
+      },
+      "1": {
+        "title": "Assessment by our team",
+        "text": "Your child is examined by the paediatric team, with lab tests and imaging on site if needed."
+      },
+      "2": {
+        "title": "Treatment & follow-up",
+        "text": "Clear explanation, treatment in OPD, ward, NICU or PICU, and a follow-up plan for home."
+      }
+    },
+    "specialties": {
+      "childrens-hospital-kurukshetra": {
+        "title": "Children’s Hospital in Kurukshetra",
+        "text": "Consultations for newborns, infants, children and teenagers."
+      },
+      "pediatrician-in-kurukshetra": {
+        "title": "Child Specialist & Pediatrician",
+        "text": "Qualified paediatrician and neonatal care specialist."
+      },
+      "nicu-kurukshetra": {
+        "title": "NICU & Newborn Care",
+        "text": "Warmth, breathing support and feeding for babies born early."
+      },
+      "picu-kurukshetra": {
+        "title": "PICU — Pediatric ICU",
+        "text": "Ventilator and non-invasive breathing support."
+      },
+      "pediatric-emergency-kurukshetra": {
+        "title": "24 Hour Child Emergency",
+        "text": "Day and night, including Sundays and holidays."
+      },
+      "newborn-jaundice-treatment-kurukshetra": {
+        "title": "Newborn Jaundice Treatment",
+        "text": "Blood tests in our on-site laboratory."
+      },
+      "pediatric-seizure-treatment-kurukshetra": {
+        "title": "Seizure (Fits) Treatment in Children",
+        "text": "Medicines to stop a seizure, available 24/7."
+      },
+      "pediatric-asthma-treatment-kurukshetra": {
+        "title": "Asthma Treatment for Children",
+        "text": "Careful history, examination and tests where needed."
+      },
+      "child-infection-treatment-kurukshetra": {
+        "title": "Fever & Infection Treatment",
+        "text": "Haematology, biochemistry and microbiology tests."
+      }
+    }
+  },
   "footer": {
     "description": "Radhakishan Hospital, Kurukshetra — children’s and multi-specialty hospital with NICU, PICU and 24-hour emergency, serving families since 1987.",
     "services": {

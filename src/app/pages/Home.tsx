@@ -13,7 +13,7 @@ import { useReviews, useAddReview } from '../../../lib/queries';
 import { toast } from 'sonner';
 import { SEO } from '../components/SEO';
 import { PAGE_META, corePageSchema } from '../seo/pages';
-import { LANDING_PAGES } from '../seo/landingPages';
+import { LANDING_PAGES, getLandingPage } from '../seo/landingPages';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -111,7 +111,7 @@ export function Home() {
   const { data: reviews = [] } = useReviews();
   const addReviewMutation = useAddReview();
   const [isRatingsPaused, setIsRatingsPaused] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleReviewSubmit = async (review: ReviewDraft) => {
     try {
@@ -324,7 +324,9 @@ export function Home() {
             <p className="mt-4 text-muted-foreground">{t("home.specialitiesDescription")}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {LANDING_PAGES.map((page) => (
+            {LANDING_PAGES.map((page) => {
+              const localizedPage = getLandingPage(page.slug, i18n.language);
+              return (
               <Link
                 key={page.slug}
                 to={`/${page.slug}`}
@@ -334,13 +336,16 @@ export function Home() {
                   <Icon icon={page.icon} className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-semibold text-foreground">{page.linkLabel}</span>
+                  <span className="block font-semibold text-foreground">
+                    {t(`landing.specialties.${page.slug}.title`, { defaultValue: localizedPage.linkLabel })}
+                  </span>
                   <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
-                    {page.highlights[0].text}
+                    {t(`landing.specialties.${page.slug}.text`, { defaultValue: localizedPage.highlights[0].text })}
                   </span>
                 </span>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
