@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react";
 import { Button } from "../components/ui/button";
 import { SEO } from "../components/SEO";
 import { DOCTORS, doctorSchema, doctorSeo } from "../data/doctors";
+import { useNavigate } from "react-router";
 
 const DEFAULT_DOCTOR_IMAGE =
   "https://res.cloudinary.com/hizkabhg/image/upload/v1789883056/close-up-doctor-with-stethoscope.jpg";
@@ -14,6 +15,7 @@ const DEFAULT_DOCTOR_IMAGE =
 const DoctorProfile = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const doctor = DOCTORS[Number(id)];
 
@@ -73,11 +75,20 @@ const DoctorProfile = () => {
                 </div>
               </motion.div>
             </Link>
-            <Link to="/doctors" state={location.state}>
-              <Button variant="ghost" className="rounded-full text-sm">
-                <ArrowLeft className="w-4 h-4 mr-2" /> {t("doctors.profile.back")}
-              </Button>
-            </Link>
+            <Button
+  variant="ghost"
+  className="rounded-full text-sm"
+  onClick={() => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate("/doctors");
+    }
+  }}
+>
+  <ArrowLeft className="mr-2 h-4 w-4" />
+  {t("doctors.profile.back")}
+</Button>
           </div>
         </div>
       </header>

@@ -1,35 +1,18 @@
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent } from '../components/ui/card';
+import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Link, useNavigate } from 'react-router';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { Award, GraduationCap, Mail, Phone } from 'lucide-react';
 import { useState, useMemo } from "react";
 import {
-  Search,
-  Heart,
-  Brain,
-  Bone,
   Stethoscope,
   Baby,
-  Shield,
   Scissors,
   Microscope,
-  Clock,
-  Users,
-  CheckCircle,
   ArrowRight,
-  MapPin,
-  ChevronDown,
-  Star,
-  Calendar,
-  Menu,
-  X,
 } from "lucide-react";
 import { Icon } from '@iconify/react';
-import { Input } from "../components/ui/input";
-import { Badge } from "../components/ui/badge";
 import { SEO } from '../components/SEO';
 import { PAGE_META } from '../seo/pages';
 

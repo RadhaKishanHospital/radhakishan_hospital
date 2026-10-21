@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Icon } from '@iconify/react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
@@ -107,6 +107,7 @@ const DOCTORS = [
 
 export function Home() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { data: reviews = [] } = useReviews();
   const addReviewMutation = useAddReview();
   const [isRatingsPaused, setIsRatingsPaused] = useState(false);
@@ -512,42 +513,70 @@ export function Home() {
           >
             {DOCTORS.map((doctor) => (
               <motion.div key={doctor.id} variants={fadeInUp}>
-                <Card className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white p-0 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_55px_-28px_rgba(4,117,117,0.5)]">
-                  {/* Portrait with soft teal wash + gradient scrim */}
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#d8eded]">
-                    <ImageWithFallback
-                      src={doctor.image}
-                      alt={doctor.name}
-                      className="h-full w-full object-cover object-top"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
+                <Link
+                  to={`/doctor/${doctor.id}`}
+                  onClick={(event) => {
+                    if (
+                      event.button !== 0 ||
+                      event.metaKey ||
+                      event.altKey ||
+                      event.ctrlKey ||
+                      event.shiftKey
+                    ) {
+                      return;
+                    }
 
-                    {/* Name + specialty over the photo */}
-                    <div className="absolute inset-x-0 bottom-0 p-4">
-                      <span className="inline-block rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
-                        {doctor.specialty}
-                      </span>
-                      <h3 className="mt-2 text-lg leading-tight text-white" style={{ fontWeight: 700 }}>
-                        {doctor.name}
-                      </h3>
+                    event.preventDefault();
+                    navigate(`/doctor/${doctor.id}`, {
+                      state: { scrollY: window.scrollY },
+                    });
+                  }}
+                  className="block h-full rounded-[1.75rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#047575]"
+                  aria-label={`View profile of ${doctor.name}`}
+                >
+                  <Card className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white p-0 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_55px_-28px_rgba(4,117,117,0.5)]">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#d8eded]">
+                      <ImageWithFallback
+                        src={doctor.image}
+                        alt={doctor.name}
+                        className="h-full w-full object-cover object-top"
+                      />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
+
+                      <div className="absolute inset-x-0 bottom-0 p-4">
+                        <span className="inline-block rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                          {doctor.specialty}
+                        </span>
+
+                        <h3
+                          className="mt-2 text-lg leading-tight text-white"
+                          style={{ fontWeight: 700 }}
+                        >
+                          {doctor.name}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Footer */}
-                  <CardContent className="flex flex-1 flex-col p-5">
-                    <p className="flex items-start gap-2 text-sm leading-snug text-slate-600">
-                      <Icon icon="solar:diploma-verified-linear" className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#047575]" />
-                      {doctor.qualification}
-                    </p>
-                    <a
-                      href="/appointments"
-                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#035c5c]"
-                    >
-                      {t("home.bookDoctorAppointment")}
-                      <Icon icon="solar:arrow-right-linear" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-                  </CardContent>
-                </Card>
+                    <CardContent className="flex flex-1 flex-col p-5">
+                      <p className="flex items-start gap-2 text-sm leading-snug text-slate-600">
+                        <Icon
+                          icon="solar:diploma-verified-linear"
+                          className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#047575]"
+                        />
+                        {doctor.qualification}
+                      </p>
+
+                      <span className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-[#035c5c]">
+                        View Doctor Profile
+                        <Icon
+                          icon="solar:arrow-right-linear"
+                          className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                        />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </motion.div>

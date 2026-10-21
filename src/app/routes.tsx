@@ -16,6 +16,8 @@ import AdminDashboard from './components/AdminDashboard';
 import { ADMIN_SESSION_KEY } from './components/AdminLogin';
 import { SEO } from './components/SEO';
 
+const scrollPositions = new Map<string, number>();
+
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen">
@@ -35,12 +37,18 @@ function ScrollToTop() {
 
   useEffect(() => {
     const state = location.state as { scrollY?: number } | null;
-    const top = typeof state?.scrollY === 'number' ? state.scrollY : 0;
+    const top =
+      typeof state?.scrollY === 'number'
+        ? state.scrollY
+        : scrollPositions.get(pathname) ?? 0;
     const frame = window.requestAnimationFrame(() => {
       window.scrollTo({ top, left: 0, behavior: 'auto' });
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      scrollPositions.set(pathname, window.scrollY);
+    };
   }, [location.state, pathname]);
 
   return null;
