@@ -79,6 +79,24 @@ export const DOCTORS: Record<number, DoctorRecord> = {
     available: true,
     image: 'https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg',
   },
+  5: {
+  id: 5,
+  name: 'Dr. Manan Bansal',
+  specialty: 'pediatricsNeonatal',
+  specialtyLabel: 'Pediatrician (Child Specialist)',
+  schemaSpecialty: 'Pediatric',
+  qualification: 'MBBS, MD (Pediatrics)',
+  initials: 'MB',
+  bio: 'pediatricsNeonatal',
+  education: [
+    'SGT Medical College',
+    'Geetanjali Medical College, Udaipur',
+  ],
+  registrationAuthority: '',
+  registrationNo: '',
+  available: true,
+  image: 'https://res.cloudinary.com/hizkabhg/image/upload/v1792921608/WhatsApp_Image_2026-10-25_at_15.15.10.jpg',
+},
 };
 
 export function doctorSeo(doctor: DoctorRecord) {

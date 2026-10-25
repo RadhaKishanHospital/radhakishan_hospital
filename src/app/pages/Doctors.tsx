@@ -109,6 +109,17 @@ export function Doctors() {
       initials: "SS",
       image: "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
     },
+    {
+      id: 5,
+      name: "Dr. Manan Bansal",
+      specialty: "pediatricsNeonatal",
+      qualification: "MBBS, MD (Pediatrics)",
+      available: true,
+      nextSlot: "appointmentsAvailable",
+      experience: "experienced",
+      initials: "MB",
+      image: "https://res.cloudinary.com/hizkabhg/image/upload/v1792921608/WhatsApp_Image_2026-10-25_at_15.15.10.jpg",
+    },
   ];
 
   const filteredDoctors = useMemo(() => {
@@ -240,13 +251,13 @@ export function Doctors() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid items-stretch sm:grid-cols-2 lg:grid-cols-5 gap-5"
           >
             {filteredDoctors.map((doc) => (
               <motion.div
                 key={doc.id}
                 whileHover={{ y: -6 }}
-                className="group"
+                className="group h-full"
               >
                 <Link
                   to={`/doctor/${doc.id}`}
@@ -257,7 +268,7 @@ export function Doctors() {
                     });
                   }}
                 >
-                  <div className="bg-card rounded-2xl p-5  shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] transition-all duration-300 cursor-pointer">
+                  <div className="flex h-full min-h-[190px] flex-col rounded-2xl bg-card p-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)] transition-all duration-300 hover:shadow-[0_16px_32px_rgba(15,23,42,0.1)] cursor-pointer">
                     <div className="flex items-start gap-4 mb-4">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center shrink-0">
                         <ImageWithFallback

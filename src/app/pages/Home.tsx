@@ -102,6 +102,15 @@ const DOCTORS = [
       "https://res.cloudinary.com/hizkabhg/image/upload/v1789882575/IMG_9135.JPG.jpg",
     available: true,
   },
+  {
+    id: 5,
+    name: "Dr. Manan Bansal",
+    specialty: "Pediatrics",
+    qualification: "MBBS, MD (Pediatrics)",
+    image:
+      "https://res.cloudinary.com/hizkabhg/image/upload/v1792921608/WhatsApp_Image_2026-10-25_at_15.15.10.jpg",
+    available: true,
+  },
 ];
 
 
@@ -514,10 +523,10 @@ export function Home() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-80px" }}
-            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 md:mt-14 md:gap-6"
+            className="mt-10 flex flex-wrap justify-center gap-5 md:mt-14 md:gap-6"
           >
             {DOCTORS.map((doctor) => (
-              <motion.div key={doctor.id} variants={fadeInUp}>
+              <motion.div key={doctor.id} variants={fadeInUp} className="flex w-full sm:w-[calc(50%-0.625rem)] md:w-[calc(33.333%-1rem)] xl:w-[calc(20%-1.2rem)]">
                 <Link
                   to={`/doctor/${doctor.id}`}
                   onClick={(event) => {
@@ -536,7 +545,7 @@ export function Home() {
                       state: { scrollY: window.scrollY },
                     });
                   }}
-                  className="block h-full rounded-[1.75rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#047575]"
+                  className="block h-full w-full rounded-[1.75rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#047575]"
                   aria-label={`View profile of ${doctor.name}`}
                 >
                   <Card className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white p-0 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_55px_-28px_rgba(4,117,117,0.5)]">
@@ -571,8 +580,9 @@ export function Home() {
                         />
                         {doctor.qualification}
                       </p>
+                      <div className="min-h-5 flex-1" />
 
-                      <span className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-[#035c5c]">
+                      <span className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#047575] px-4 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-[#035c5c]">
                         View Doctor Profile
                         <Icon
                           icon="solar:arrow-right-linear"
