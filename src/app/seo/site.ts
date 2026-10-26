@@ -30,7 +30,7 @@ export const HOSPITAL = {
   email: 'radhakishanhospital@gmail.com',
   mapUrl: 'https://maps.app.goo.gl/i88UBqcifNZ4Cow8A',
   geo: { latitude: 29.9695, longitude: 76.8783 },
-  opdHours: ['Mon–Sat: 10:00 AM – 2:00 PM', 'Mon–Sat: 5:00 PM – 7:00 PM', 'Sunday: OPD closed'],
+  opdHours: ['Winter: 10:00 AM – 2:00 PM', 'Winter: 4:00 PM – 6:00 PM', 'Summer: 9:00 AM – 1:00 PM', 'Summer: 5:00 PM – 7:00 PM', 'OPD open every day'],
   sameAs: [
     'https://www.instagram.com/radhakishan.hospital',
     'https://www.youtube.com/watch?v=ZI8iEtAULdw',
@@ -48,7 +48,7 @@ export function buildTitle(title: string, path: string) {
 }
 
 const ALL_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const OPD_DAYS = ALL_DAYS.slice(0, 6);
+const OPD_DAYS = ALL_DAYS;
 
 export const HOSPITAL_ID = `${SITE_URL}/#hospital`;
 
@@ -111,8 +111,10 @@ export const hospitalSchema = {
   ],
   openingHoursSpecification: [
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ALL_DAYS, opens: '00:00', closes: '23:59', description: 'Emergency, NICU and PICU — open 24 hours' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '10:00', closes: '14:00', description: 'OPD (morning)' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '17:00', closes: '19:00', description: 'OPD (evening)' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '10:00', closes: '14:00', description: 'OPD (winter morning)' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '16:00', closes: '18:00', description: 'OPD (winter evening)' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '09:00', closes: '13:00', description: 'OPD (summer morning)' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: OPD_DAYS, opens: '17:00', closes: '19:00', description: 'OPD (summer evening)' },
   ],
   isAcceptingNewPatients: true,
   sameAs: HOSPITAL.sameAs,

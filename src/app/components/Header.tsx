@@ -121,7 +121,7 @@ export function Header() {
                 <div className={`text-xl tracking-tight ${useTransparentHomeHeader ? 'text-white' : ''}`} style={{ fontWeight: 600 }}>
                   Radhakishan Hospital
                 </div>
-                <div className={`hidden text-xs sm:block ${useTransparentHomeHeader ? 'text-white/70' : 'text-muted-foreground'}`}>Advanced Newborn & Pediatric Critical Care</div>
+                <div className={`hidden text-xs sm:block ${useTransparentHomeHeader ? 'text-white/70' : 'text-muted-foreground'}`}>Advanced Newborn & Pediatric Critical Care Centre</div>
               </div>
             </motion.div>
           </Link>

@@ -67,8 +67,8 @@ export function Contact() {
       icon: "solar:clock-circle-linear",
       title: t("contact.info.hours.title"),
       lines: [
-        t("contact.info.hours.opdMorning"),
-        t("contact.info.hours.opdEvening"),
+        t("contact.info.hours.winter"),
+        t("contact.info.hours.summer"),
         t("contact.info.hours.emergency"),
         t("contact.info.hours.sunday"),
       ],
@@ -154,14 +154,14 @@ export function Contact() {
 
 
 
-      <section className="px-6 py-16">
-        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-3">
+      <section className="px-4 py-12 sm:px-6 sm:py-16">
+        <div className="mx-auto grid max-w-7xl gap-4 sm:gap-6 md:grid-cols-3">
           {contactCards.map((card) => (
             <Card
               key={card.title}
               className="group border-border/60 bg-card shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md"
             >
-              <CardContent className="p-8">
+              <CardContent className="p-6 sm:p-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon icon={card.icon} className="h-5 w-5" />
                 </div>

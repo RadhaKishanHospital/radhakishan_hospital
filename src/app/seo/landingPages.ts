@@ -117,7 +117,7 @@ export const LANDING_PAGES: LandingPage[] = [
       },
       {
         q: 'What are the OPD timings for children?',
-        a: `OPD runs Monday to Saturday from 10:00 AM to 2:00 PM and 5:00 PM to 7:00 PM. OPD is closed on Sunday, but the emergency, NICU and PICU are open 24 hours. For appointments call ${OPD}.`,
+        a: `OPD is open every day. Winter timings are 10:00 AM to 2:00 PM and 4:00 PM to 6:00 PM; summer timings are 9:00 AM to 1:00 PM and 5:00 PM to 7:00 PM. For appointments call ${OPD}.`,
       },
       {
         q: 'Do you accept Ayushman Bharat and health insurance for child treatment?',
@@ -142,7 +142,7 @@ export const LANDING_PAGES: LandingPage[] = [
     icon: 'solar:stethoscope-linear',
     title: 'Best Child Specialist & Pediatrician in Kurukshetra',
     description:
-      'Consult Dr. Lokender Goyal, MBBS, MD (Pediatrics) — child specialist and children’s doctor at Radhakishan Hospital, Kurukshetra. OPD Mon–Sat, 24-hour child emergency.',
+      'Consult Dr. Lokender Goyal, MBBS, MD (Pediatrics) — child specialist and children’s doctor at Radhakishan Hospital, Kurukshetra. OPD is open every day, alongside a 24-hour child emergency.',
     eyebrow: 'Children Doctor in Kurukshetra',
     h1: 'Child Specialist & Pediatrician',
     h1Highlight: 'in Kurukshetra',
@@ -153,7 +153,7 @@ export const LANDING_PAGES: LandingPage[] = [
     highlights: [
       { icon: 'solar:diploma-verified-linear', title: 'MD (Pediatrics)', text: 'Qualified paediatrician and neonatal care specialist.' },
       { icon: 'solar:users-group-rounded-linear', title: 'Newborn to 18 years', text: 'Care for newborns, infants, children and adolescents.' },
-      { icon: 'solar:calendar-linear', title: 'OPD six days a week', text: 'Mon–Sat, 10 AM–2 PM and 5 PM–7 PM.' },
+      { icon: 'solar:calendar-linear', title: 'OPD every day', text: 'Winter: 10 AM–2 PM and 4 PM–6 PM. Summer: 9 AM–1 PM and 5 PM–7 PM.' },
       { icon: 'solar:bed-linear', title: 'Admission when needed', text: 'Ward, NICU and PICU in the same hospital.' },
     ],
     sections: [
@@ -186,7 +186,7 @@ export const LANDING_PAGES: LandingPage[] = [
       },
       {
         q: 'What are the pediatrician’s OPD timings?',
-        a: 'Monday to Saturday, 10:00 AM – 2:00 PM and 5:00 PM – 7:00 PM. OPD is closed on Sunday; the emergency is open 24/7.',
+        a: 'OPD is open every day. Winter timings are 10:00 AM – 2:00 PM and 4:00 PM – 6:00 PM. Summer timings are 9:00 AM – 1:00 PM and 5:00 PM – 7:00 PM. The emergency is open 24/7.',
       },
       {
         q: 'How do I book an appointment with the children’s doctor?',

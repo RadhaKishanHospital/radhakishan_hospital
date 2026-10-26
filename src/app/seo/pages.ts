@@ -65,10 +65,10 @@ export const PAGE_META = {
     path: '/appointments',
     title: 'Book a Doctor Appointment in Kurukshetra',
     description:
-      'Book an OPD appointment at Radhakishan Hospital, Kurukshetra with our pediatrician, physician or surgeon. Call +91 72060 29516. OPD Mon–Sat 10–2 & 5–7.',
+      'Book an OPD appointment at Radhakishan Hospital, Kurukshetra with our pediatrician, physician or surgeon. Call +91 72060 29516. OPD is open every day with seasonal timings.',
     h1: 'Book an Appointment at Radhakishan Hospital',
     summary:
-      'Book an OPD appointment online or call +91 72060 29516. OPD: Monday–Saturday, 10:00 AM–2:00 PM and 5:00 PM–7:00 PM.',
+      'Book an OPD appointment online or call +91 72060 29516. OPD is open every day. Winter: 10:00 AM–2:00 PM and 4:00 PM–6:00 PM. Summer: 9:00 AM–1:00 PM and 5:00 PM–7:00 PM.',
   },
   contact: {
     path: '/contact',
@@ -77,7 +77,7 @@ export const PAGE_META = {
       'Radhakishan Hospital, Jyoti Nagar, Thanesar, Kurukshetra 136118. Emergency (24/7): +91 1744 270516. OPD: +91 72060 29516. Directions, timings and FAQs.',
     h1: 'Contact Radhakishan Hospital, Kurukshetra',
     summary:
-      'Address: Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118. Emergency (24/7): +91 1744 270516. OPD: +91 72060 29516. Email: radhakishanhospital@gmail.com.',
+      'Address: Jyoti Nagar, Thanesar, Kurukshetra, Haryana 136118. Emergency (24/7): +91 1744 270516. OPD: +91 72060 29516. OPD is open every day with seasonal timings. Email: radhakishanhospital@gmail.com.',
   },
 } satisfies Record<string, PageMeta>;
 

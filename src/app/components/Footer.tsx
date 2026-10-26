@@ -2,13 +2,17 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Facebook, Youtube, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 import { Icon } from '@iconify/react';
-import { LANDING_PAGES } from '../seo/landingPages';
 
 const FOOTER_SERVICE_LINKS = [
   { slug: 'childrens-hospital-kurukshetra', key: 'footer.services.pediatrics' },
   { slug: 'nicu-kurukshetra', key: 'footer.services.nicu' },
   { slug: 'picu-kurukshetra', key: 'footer.services.picu' },
   { slug: 'pediatric-emergency-kurukshetra', key: 'footer.services.emergency' },
+  { slug: 'pediatrician-in-kurukshetra', key: 'footer.services.pediatrician' },
+  { slug: 'newborn-jaundice-treatment-kurukshetra', key: 'footer.services.jaundice' },
+  { slug: 'pediatric-seizure-treatment-kurukshetra', key: 'footer.services.seizure' },
+  { slug: 'pediatric-asthma-treatment-kurukshetra', key: 'footer.services.asthma' },
+  { slug: 'child-infection-treatment-kurukshetra', key: 'footer.services.infection' },
 ];
 
 export function Footer() {
@@ -65,18 +69,6 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              {LANDING_PAGES.filter((p) => !FOOTER_SERVICE_LINKS.some((l) => l.slug === p.slug) && p.slug !== 'childrens-hospital-kurukshetra').map((p) => (
-                <li key={p.slug}>
-                  <Link to={`/${p.slug}`} className="text-muted-foreground transition-colors hover:text-primary">
-                    {p.linkLabel}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link to="/services" className="text-muted-foreground transition-colors hover:text-primary">
-                  {t('footer.quickLinks.services')}
-                </Link>
-              </li>
             </ul>
           </div>
 

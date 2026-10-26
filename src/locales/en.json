@@ -318,10 +318,10 @@
       },
       "hours": {
         "title": "Working Hours",
-        "opdMorning": "OPD: 10:00 AM – 2:00 PM",
-        "opdEvening": "OPD: 5:00 PM – 7:00 PM",
+        "winter": "Winter OPD: 10:00 AM – 2:00 PM & 4:00 PM – 6:00 PM",
+        "summer": "Summer OPD: 9:00 AM – 1:00 PM & 5:00 PM – 7:00 PM",
         "emergency": "Emergency: 24/7",
-        "sunday": "Sunday: OPD Closed"
+        "sunday": "Sunday: OPD Open"
       }
     },
     "form": {
@@ -360,7 +360,7 @@
       },
       "timings": {
         "question": "What are your OPD timings?",
-        "answer": "OPD timings are from 10:00 AM to 2:00 PM and from 5:00 PM to 7:00 PM. OPD remains closed on Sunday. OPD appointments start at 9:00 AM in the morning."
+        "answer": "In winter, OPD is open from 10:00 AM to 2:00 PM and from 4:00 PM to 6:00 PM. In summer, OPD is open from 9:00 AM to 1:00 PM and from 5:00 PM to 7:00 PM. OPD is also open on Sunday."
       },
       "emergency": {
         "question": "Is emergency care available 24/7?",
@@ -368,7 +368,7 @@
       },
       "insurance": {
         "question": "Do you provide cashless insurance facilities?",
-        "answer": "Yes. Cashless facility is available for the following insurance/healthcare schemes and providers: Genins India Insurance TPA Limited, Star Health Insurance, Reliance Health Insurance, Niva Bupa Health Insurance, Tata AIG, Care Health Insurance, HDFC ERGO Health Insurance Plans, Aditya Birla Capital, Ayushman Bharat, Cigna Health Life Insurance, Heritage Health, Medi Assist Insurance TPA Pvt. Ltd., Paramount Health Insurance, IFFCO Tokio General Insurance, Chola MS General Insurance, Universal Sompo, FHPL Insurance (Beyond Insurance), and ECHS."
+        "answer": "Yes. Cashless facility is available for the following insurance/healthcare schemes and providers: Genins India Insurance TPA Limited, Star Health Insurance, Reliance Health Insurance, Niva Bupa Health Insurance, Tata AIG, Care Health Insurance, HDFC ERGO Health Insurance Plans, Aditya Birla Capital, Ayushman Bharat, Cigna Health Life Insurance, Heritage Health, Medi Assist Insurance TPA Pvt. Ltd., Paramount Health Insurance, IFFCO Tokio General Insurance, Chola MS General Insurance, Universal Sompo, and FHPL Insurance (Beyond Insurance)."
       },
       "contact": {
         "question": "How can I contact the hospital?",
@@ -547,7 +547,7 @@
     }
   },
   "footer": {
-    "description": "Radhakishan Hospital, Kurukshetra — children’s and multi-specialty hospital with NICU, PICU and 24-hour emergency, serving families since 1987.",
+    "description": "Radhakishan Hospital, Kurukshetra — children's healthcare, NICU, PICU and 24-hour emergency care, serving families since 1987.",
     "services": {
       "title": "Our Services",
       "pediatrics": "Children’s Hospital & Pediatrics",
@@ -558,7 +558,12 @@
       "dietetics": "Dietetics & Nutrition",
       "pharmacy": "Pharmacy",
       "ultrasound": "Ultrasound & X-Ray",
-      "emergency": "24 Hour Child Emergency"
+      "emergency": "24 Hour Child Emergency",
+      "pediatrician": "Child Specialist & Pediatrician",
+      "jaundice": "Newborn Jaundice Treatment",
+      "seizure": "Seizure (Fits) Treatment in Children",
+      "asthma": "Asthma Treatment for Children",
+      "infection": "Fever & Infection Treatment"
     },
     "quickLinks": {
       "title": "Quick Links",
