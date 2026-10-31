@@ -95,7 +95,7 @@ export default function AdminLogin({
               autoFocus
               type="email"
               className={inputCls + " pl-10"}
-              placeholder="radhakishanhospital@gmail.com"
+              placeholder="admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
