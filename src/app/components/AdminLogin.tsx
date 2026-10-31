@@ -3,8 +3,8 @@ import { motion } from "motion/react"
 import { Lock, Mail, Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react"
 import { Modal, inputCls } from "./ui"
 
-const ADMIN_EMAIL = "admin@co.in"
-const ADMIN_PASSWORD = "123456"
+const ADMIN_EMAIL = "radhakishanhospital@gmail.com"
+const ADMIN_PASSWORD = "Radhakishan@1961"
 export const ADMIN_SESSION_KEY = "rkh_admin_authenticated"
 export const ADMIN_CURRENT_USER_KEY = "rkh_admin_current_user"
 
@@ -95,7 +95,7 @@ export default function AdminLogin({
               autoFocus
               type="email"
               className={inputCls + " pl-10"}
-              placeholder="admin@co.in"
+              placeholder="radhakishanhospital@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

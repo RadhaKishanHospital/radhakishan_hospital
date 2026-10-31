@@ -745,7 +745,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       </nav>
 
       {(() => {
-        let sessionUser = { name: "Administrator", email: "admin@co.in" }
+        let sessionUser = { name: "Administrator", email: "radhakishanhospital@gmail.com" }
         try {
           const raw = sessionStorage.getItem(ADMIN_CURRENT_USER_KEY)
           if (raw) sessionUser = JSON.parse(raw)
